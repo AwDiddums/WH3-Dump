@@ -14130,7 +14130,7 @@
 		<dlc29_chs_garden_of_nurgle_cap_counter
 			this="2D8E5D56-B161-4E37-A5F6D33F50DAEAA6"
 			id="dlc29_chs_garden_of_nurgle_cap_counter"
-			offset="976.00,0.00"
+			offset="1206.00,0.00"
 			allowverticalresize="false"
 			priority="1"
 			tooltipslocalised="true"
@@ -14168,7 +14168,7 @@
 		<dlc29_chs_souls_spent_bar
 			this="2E5F41A5-EA44-4220-B7156FA703D06AEB"
 			id="dlc29_chs_souls_spent_bar"
-			offset="971.00,5.00"
+			offset="1201.00,5.00"
 			allowverticalresize="false"
 			dock_offset="0.00,5.00"
 			priority="1"
@@ -22250,7 +22250,7 @@
 		<global_effect_list
 			this="9E1367E8-91FA-4D72-AF424E58682C5387"
 			id="global_effect_list"
-			offset="977.00,0.00"
+			offset="1207.00,0.00"
 			allowverticalresize="false"
 			priority="45"
 			tooltipslocalised="true"
@@ -23726,7 +23726,7 @@
 		<hud_campaign_resource_bar_wh3
 			this="4BACB5A8-C252-4379-B234DDD78CCFC3A9"
 			id="hud_campaign_resource_bar_wh3"
-			offset="229.00,-4.00"
+			offset="114.00,-4.00"
 			docking="Top Center"
 			dock_offset="0.00,-4.00"
 			component_anchor_point="0.50,0.00"
@@ -23773,7 +23773,7 @@
 				<default
 					this="8544DF8B-1702-4E8A-8B25B36519E04619"
 					name="default"
-					width="1141"
+					width="1371"
 					height="59"
 					interactive="true"
 					pixelcollision="true"
@@ -23783,7 +23783,7 @@
 							this="05B23E5C-C248-4F07-9FDFFAC55D23D7B0"
 							uniqueguid="05B23E5C-C248-4F07-9FDFFAC55D23D7B0"
 							componentimage="568A7524-BC77-41A1-80F73DE237FA724E"
-							width="1141"
+							width="1371"
 							height="63"
 							tile="true"
 							canresizeheight="false"
@@ -30971,8 +30971,7 @@
 		<sla_eternal_dance_repetoire_holder
 			this="6955CCFA-7753-49EC-99507C9D34E9A806"
 			id="sla_eternal_dance_repetoire_holder"
-			offset="772.00,3.00"
-			visible="false"
+			offset="971.00,3.00"
 			dock_offset="0.00,3.00"
 			priority="1"
 			tooltipslocalised="true"

@@ -20,18 +20,30 @@ verminlords_config = {
 			ancillary = "wh3_dlc29_anc_weapon_punch_dagger"
 		},
 	},
+	verminlord_names_generic = {
+		"1018519934","1026298080","1071307861","1095847406","1103070109","1109611723","1123397825","1150764027","1157501960","1158411637","1160010593","1189646054",
+		"1212251781","1212967088","1215525172","1239745378","1265520642","1294397434","1311256102","131303481","1313595004","1324843593","1346902718","1394302546",
+		"1406984735","1433316396","1491984934","1526657849","1546558513","1591919065","1608257840","161477568","1640663956","1648344422","16957127","1701169652",
+		"1785251299","1800070996","1832690249","1841693316","1848886424","1867239746","1874888957","1885973998","1926006439","1929328484","2007172841","2084202102",
+		"2092380009","2097866804","2102390960","2111373651","221881334","254362547","258602816","318693423","319182890","324963494","344717582","354288985","356200290",
+		"359701625","367141702","412106660","416246216","469323091","481906007","487779146","49235918","509431035","516537557","517834012","524977712","545366481",
+		"551342789","558302753","576025485","584701761","604384834","617416744","631474868","635423161","653089290","660928939","68309575","698405439","704421147",
+		"709788370","718510380","726583183","769484160","834108873","85655747","876867186","905119146","916939935","931711816","937097211","950313629","495268925",
+		"501304911","575323163","592894079"
+	},
 	verminlord_names = {
-		"1331680621",
-		"1361676261",
-		"1726557368",
-		"1820342110",
-		"2081252232",
-		"239326550",
-		"467538040",
-		"495268925",
-		"501304911",
-		"575323163",
-		"592894079"
+		["wh3_dlc29_skv_verminlord_corruptor"] = {
+			"1361676261","239326550"
+		},
+		["wh3_dlc29_skv_verminlord_deceiver"] = {
+			"1331680621","2081252232"
+		},
+		["wh3_dlc29_skv_verminlord_warpseer"] = {
+			"1726557368"
+		},
+		["wh3_dlc29_skv_verminlord_warbringer"] = {
+			"1820342110","467538040"
+		},
 	},
 	empty_family_name = "names_name_2147360514",
 	agent_type = "general",
@@ -149,10 +161,21 @@ function add_verminlord_selection_listeners()
 	)
 end
 
-
-
 function verminlord_spawn(faction_key, subtype_key)
-	cm:spawn_character_to_pool(faction_key, "names_name_" .. verminlords_config.verminlord_names[cm:random_number(#verminlords_config.verminlord_names)], verminlords_config.empty_family_name, "", "", 22, true, verminlords_config.agent_type, subtype_key, false, "")
+	local verminlord_name = select_verminlord_name(subtype_key)
+
+	cm:spawn_character_to_pool(faction_key, verminlord_name, verminlords_config.empty_family_name, "", "", 22, true, verminlords_config.agent_type, subtype_key, false, "")
+end
+
+function select_verminlord_name(subtype_key)
+	local names_combined = {unpack(verminlords_config.verminlord_names_generic)}
+
+	for _, id in pairs(verminlords_config.verminlord_names[subtype_key]) do
+		table.insert(names_combined, id)
+	end
+
+	local verminlord_name = "names_name_"..names_combined[cm:random_number(#names_combined)]
+	return verminlord_name
 end
 
 function add_verminlord_occupation_listeners()

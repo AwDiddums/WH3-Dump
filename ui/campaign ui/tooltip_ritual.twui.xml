@@ -2243,12 +2243,12 @@
 				<callback_with_context
 					callback_id="ContextVisibilitySetter"
 					context_object_id="CcoCampaignRitual"
-					context_function_id="(CanUseUiFeature(&quot;TIGER_MERCENARIES&quot;) || CanUseUiFeature(&quot;LAND_OF_THE_DEAD&quot;))  &amp;&amp; TargetCriteriaText.IsEmpty == false"/>
+					context_function_id="(CanUseUiFeature(&quot;TIGER_MERCENARIES&quot;) || (CanUseUiFeature(&quot;LAND_OF_THE_DEAD&quot;) &amp;&amp; IsComplete == false)) &amp;&amp; TargetCriteriaText.IsEmpty == false"/>
 			</callbackwithcontextlist>
 			<states>
-				<newstate
+				<default
 					this="F59B6B36-9801-44F4-BA9FC92500967150"
-					name="NewState"
+					name="default"
 					width="386"
 					height="24"
 					interactive="true"
@@ -2265,7 +2265,7 @@
 						font_m_leading="3"
 						fontcat_name="body_12"
 						font_colour_override_preset_key="yellow"/>
-				</newstate>
+				</default>
 			</states>
 		</dy_target_criteria_text>
 		<dy_target_invalid_text

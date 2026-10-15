@@ -100,7 +100,6 @@ function setup_wh_campaign(generic_battle_script_path_override)
 			local community_character = cm:spawn_character_to_pool("wh3_dlc29_skv_clan_scruten", "names_name_1711397983", "names_name_395246711", "", "", 30, true, "general", "wh2_main_skv_grey_seer_ruin", true, "", true);
 			if community_character and not community_character:is_null_interface() then
 				cm:character_details_add_skill_point(community_character, "wh3_main_skill_innate_skv_clawmark_scribe");
-				add_community_character_trait_listener();
 			end
 			
 			local thanquol_engine_building_levels = {
@@ -122,10 +121,15 @@ function setup_wh_campaign(generic_battle_script_path_override)
 			local nagashposter = cm:spawn_character_to_pool("wh3_dlc29_nag_host_of_nagash", "names_name_2130147775", "names_name_1606431726", "", "", 30, true, "general", "wh2_dlc09_tmb_tomb_king", true, "", true);
 			if nagashposter and not nagashposter:is_null_interface() then			
 				cm:character_details_add_skill_point(nagashposter, "wh3_main_skill_innate_nag_herald");
-				add_nagashposter_trait_listener();
 			end
 		end
 	end
+
+	add_community_character_trait_listener();
+	add_nagashposter_trait_listener();
+
+	setup_nagash_scaling_post_battle_loot();
+	nagash_scaling_post_battle_loot_listener();
 	
 	-- open geomantic web help page when geomantic web screen opened
 	--show_geomantic_web_help_page_on_screen_open();
@@ -215,6 +219,7 @@ function setup_wh_campaign(generic_battle_script_path_override)
 	
 	---if a quest associated with a unique item is cancelled, give the item anyway.
 	setup_cancelled_quest_listener()
+	setup_quest_ancillary_faction_change_listener()
 	
 	--Marker Manager
 	if not cm:is_new_game() then
@@ -976,6 +981,38 @@ function add_nagashposter_trait_listener()
 					break;
 				end
 			end
+		end,
+		true
+	);
+end
+
+function setup_nagash_scaling_post_battle_loot()
+	local nagash_key = "wh3_dlc29_nag_host_of_nagash";
+	local difficulty = cm:get_difficulty();
+	local effect_bundles = {
+		[1] = "wh3_dlc29_nag_difficulty_income_scaling_easy", -- easy
+		[2] = "wh3_dlc29_nag_difficulty_income_scaling_normal", -- hard
+		[3] = "wh3_dlc29_nag_difficulty_income_scaling_hard", -- normal
+		[4] = "wh3_dlc29_nag_difficulty_income_scaling_very_hard", -- very hard
+		[5] = "wh3_dlc29_nag_difficulty_income_scaling_very_hard" -- legendary (we use the very hard scaling here)
+	};
+
+	local difficulty_effect = effect_bundles[difficulty];
+
+	for _, bundle in dpairs(effect_bundles) do
+		cm:remove_effect_bundle(bundle, nagash_key);
+	end
+
+	cm:apply_effect_bundle(difficulty_effect, nagash_key, 0);
+end
+
+function nagash_scaling_post_battle_loot_listener()
+	core:add_listener(
+		"Nagash_Difficulty_Scaling_Changed",
+		"NominalDifficultyLevelChangedEvent", 
+		true,
+		function(context)
+			setup_nagash_scaling_post_battle_loot();
 		end,
 		true
 	);
@@ -2072,6 +2109,36 @@ function add_ancillary_to_agent_of_subtype_in_faction(subtype_key, ancillary_key
 			return true;
 		end
 	end
+end
+
+--- On reassignment, grant any quest ancillaries the character should already have for their current rank.
+function setup_quest_ancillary_faction_change_listener()
+	core:add_listener(
+		"quest_ancillary_character_faction_change",
+		"CharacterFactionChangeEvent",
+		true,
+		function(context)
+			local character = context:character()
+			local quest_list = cco("CcoAgentSubtypeRecord", character:character_subtype_key()):Call("CharacterAncillaryQuestList")
+
+			if not quest_list or #quest_list == 0 then
+				return
+			end
+
+			local character_rank = character:rank()
+
+			for i = 1, #quest_list do
+				local quest_detail = quest_list[i]
+				if character_rank >= quest_detail:Call("Rank") then
+					local ancillary_key = quest_detail:Call("AncillaryContext.Key")
+					if not character:has_ancillary(ancillary_key) then
+						cm:force_add_ancillary(character, ancillary_key, false, false)
+					end
+				end
+			end
+		end,
+		true
+	)
 end
 
 -- trigger quests (data is set up in the respective campaign folder)

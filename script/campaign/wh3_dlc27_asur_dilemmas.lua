@@ -115,7 +115,7 @@ function asur_dilemmas:add_listeners()
 
 					for i = 0, region_list:num_items() - 1 do
 						local region = region_list:item_at(i);
-						cm:create_storm_for_region(region:name(), 1, 8, "hef_mist_storm");
+						cm:create_storm_for_region(region:name(), 1, 8, "hef_mist_storm", faction:name());
 					end
 				end
 			end

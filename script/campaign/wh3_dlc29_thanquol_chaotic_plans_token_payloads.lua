@@ -1,6 +1,7 @@
 thanquol_chaotic_plans_token_payloads_config = {
 	faction_key = "wh3_dlc29_skv_clan_scruten",
 	undercity_slot_limit = 4,
+	summon_army_units_shared_state_prefix = "chaotic_plans_summon_units:",
 }
 
 
@@ -39,6 +40,12 @@ thanquol_chaotic_plans_summon_verminlord_armies_config = {
 			wh3_dlc29_magic_summon_verminlord_warbringer_4 = 7,
 			wh3_dlc29_magic_summon_verminlord_warbringer_5 = 10,
 		},
+	},
+	summon_verminlord_tokens_main_units = {
+		["wh3_dlc29_magic_summon_verminlord_corruptor_1"] = "wh3_dlc29_skv_cha_verminlord_corruptor",
+		["wh3_dlc29_magic_summon_verminlord_deceiver_1"] = "wh3_dlc29_skv_cha_verminlord_deceiver",
+		["wh3_dlc29_magic_summon_verminlord_warpseer_1"] = "wh3_dlc29_skv_cha_verminlord_warpseer",
+		["wh3_dlc29_magic_summon_verminlord_warbringer_1"] = "wh3_dlc29_skv_cha_verminlord_warbringer",
 	},
 	verminlord_rank_up_tokens = {
 		-- For each filler token assign the ranks added by it
@@ -327,9 +334,23 @@ thanquol_chaotic_plans_token_payloads.config = thanquol_chaotic_plans_token_payl
 ----FUNCTIONS-----
 ------------------
 function thanquol_chaotic_plans_token_payloads:initialise()
+	self:initialise_shared_states()
+
 	local faction_interface = cm:get_faction(thanquol_chaotic_plans_missions_config.faction_key)
 	if faction_interface and faction_interface:is_null_interface() == false and faction_interface:is_human() then
 		self:setup_scripted_payload_listeners()
+	end
+end
+
+function thanquol_chaotic_plans_token_payloads:initialise_shared_states()
+	local faction = cm:get_faction(self.config.faction_key)
+	if not is_faction(faction) then
+		return
+	end
+
+	local prefix = self.config.summon_army_units_shared_state_prefix
+	for token_key, verminlord_unit_key in dpairs(thanquol_chaotic_plans_summon_verminlord_armies_config.summon_verminlord_tokens_main_units) do
+		cm:set_script_state(faction, prefix .. token_key, verminlord_unit_key)
 	end
 end
 
@@ -429,6 +450,8 @@ function thanquol_chaotic_plans_token_payloads:spawn_verminlord_army(chaotic_pla
 		return
 	end
 
+	local verminlord_name = select_verminlord_name(verminlord_agent_sub_type)
+
 	local verminlord_cqi = 0
 	-- Units will be added by combo token payloads
 	cm:create_force_with_general(
@@ -439,7 +462,7 @@ function thanquol_chaotic_plans_token_payloads:spawn_verminlord_army(chaotic_pla
 		y,
 		thanquol_chaotic_plans_summon_verminlord_armies_config.agent_type,
 		verminlord_agent_sub_type,
-		"names_name_" .. thanquol_chaotic_plans_summon_verminlord_armies_config.verminlord_names[cm:random_number(#thanquol_chaotic_plans_summon_verminlord_armies_config.verminlord_names)],
+		verminlord_name,
 		"",
 		thanquol_chaotic_plans_summon_verminlord_armies_config.empty_family_name,
 		"",
@@ -468,6 +491,8 @@ function thanquol_chaotic_plans_token_payloads:spawn_negative_verminlord_army(ch
 			return
 		end
 
+		local verminlord_name = select_verminlord_name(verminlord_agent_sub_type)
+
 		cm:create_force_with_general(
 			thanquol_chaotic_plans_summon_negative_verminlord_armies_config.faction_key,
 			self:get_units_string(units),
@@ -476,7 +501,7 @@ function thanquol_chaotic_plans_token_payloads:spawn_negative_verminlord_army(ch
 			y,
 			thanquol_chaotic_plans_summon_negative_verminlord_armies_config.agent_type,
 			verminlord_agent_sub_type,--thanquol_chaotic_plans_summon_negative_verminlord_armies_config.subtype_to_choice_mapping[cm:random_number(#thanquol_chaotic_plans_summon_negative_verminlord_armies_config.subtype_to_choice_mapping)],
-			"names_name_" .. thanquol_chaotic_plans_summon_negative_verminlord_armies_config.verminlord_names[cm:random_number(#thanquol_chaotic_plans_summon_negative_verminlord_armies_config.verminlord_names)],
+			verminlord_name,
 			"",
 			thanquol_chaotic_plans_summon_negative_verminlord_armies_config.empty_family_name,
 			"",

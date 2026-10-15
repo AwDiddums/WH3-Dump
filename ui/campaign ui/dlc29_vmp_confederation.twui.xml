@@ -4667,7 +4667,7 @@
 				<callback_with_context
 					callback_id="ContextList"
 					context_object_id="CcoStaticObject"
-					context_function_id="PlayersFaction.UnlockableRitualList(&quot;VAMPIRE_RITUAL_LORDS&quot;).Sort(RitualContext.SortOrder, true).Filter(VampireCountsConfederationRitualsToMissionContext.TargetFactionContext != PlayersFaction)">
+					context_function_id="PlayersFaction.UnlockableRitualList(&quot;VAMPIRE_RITUAL_LORDS&quot;).Sort(RitualContext.SortOrder, true).Filter(VampireCountsConfederationRitualsToMissionContext.TargetFactionContext != PlayersFaction &amp;&amp; RitualContext.IsContentUnlocked)">
 					<child_m_user_properties>
 						<property
 							name="event0"

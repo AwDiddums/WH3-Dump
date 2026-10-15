@@ -9838,9 +9838,24 @@ in_vmp_vampire_lairs_foreign = intervention:new(
 	"in_vmp_vampire_lairs_foreign",			 					-- string name
 	0, 																	-- cost
 	function() 															-- trigger callback
-		out("#### "..scripted_vampire_lairs_foreign.id.." ####")
-		ui_scripted_tour:construct_tour(scripted_vampire_lairs_foreign, in_vmp_vampire_lairs_foreign)
-		common.set_advice_history_string_seen("in_vmp_vampire_lairs_foreign")
+
+		local region = ui_scripted_tour:get_region_with_foreign_vampire_lairs_in_selected_province()
+		
+		if not region or region:is_null_interface() then 
+			cm:steal_escape_key(false)
+			in_vmp_vampire_lairs_foreign:cancel()
+			return 
+		end
+
+		local uic = find_uicomponent(core:get_ui_root(), "settlement_panel", "settlement_list", "CcoCampaignSettlement"..region:name()) 
+		if uic and uic:VisibleFromRoot() then
+			out("#### "..scripted_vampire_lairs_foreign.id.." ####")
+			ui_scripted_tour:construct_tour(scripted_vampire_lairs_foreign, in_vmp_vampire_lairs_foreign)
+			common.set_advice_history_string_seen("in_vmp_vampire_lairs_foreign")
+		elseif not uic or not uic:VisibleFromRoot() then
+			cm:steal_escape_key(false)
+			in_vmp_vampire_lairs_foreign:cancel()
+		end
 	end,					
 	BOOL_INTERVENTIONS_DEBUG	 										-- show debug output
 )
@@ -9876,8 +9891,10 @@ scripted_vampire_lairs_foreign = {
 		highlight = {
 			function() 
 				local region = ui_scripted_tour:get_region_with_foreign_vampire_lairs_in_selected_province()
-				local region_key = region:name()
-				return find_uicomponent(core:get_ui_root(), "settlement_panel", "settlement_list", "CcoCampaignSettlement"..region_key) 
+				if region and not region:is_null_interface() then
+					local region_key = region:name()
+					return find_uicomponent(core:get_ui_root(), "settlement_panel", "settlement_list", "CcoCampaignSettlement"..region_key) 
+				end
 			end,
 		},
 		text_box = {
@@ -9894,8 +9911,10 @@ scripted_vampire_lairs_foreign = {
 		highlight = {
 			function() 
 				local region = ui_scripted_tour:get_region_with_foreign_vampire_lairs_in_selected_province()
-				local region_key = region:name()
-				return find_uicomponent(core:get_ui_root(), "settlement_panel", "settlement_list", "CcoCampaignSettlement"..region_key, "wh3_dlc29_vmp_vampire_lair", "major_slot") 
+				if region and not region:is_null_interface() then
+					local region_key = region:name()
+					return find_uicomponent(core:get_ui_root(), "settlement_panel", "settlement_list", "CcoCampaignSettlement"..region_key, "wh3_dlc29_vmp_vampire_lair", "major_slot") 
+				end
 			end,
 		},
 		text_box = {
@@ -9912,8 +9931,10 @@ scripted_vampire_lairs_foreign = {
 		highlight = {
 			function() 
 				local region = ui_scripted_tour:get_region_with_foreign_vampire_lairs_in_selected_province()
-				local region_key = region:name()
-				return find_uicomponent(core:get_ui_root(), "settlement_panel", "settlement_list", "CcoCampaignSettlement"..region_key, "wh3_dlc29_vmp_vampire_lair")
+				if region and not region:is_null_interface() then
+					local region_key = region:name()
+					return find_uicomponent(core:get_ui_root(), "settlement_panel", "settlement_list", "CcoCampaignSettlement"..region_key, "wh3_dlc29_vmp_vampire_lair")
+				end
 			end,
 		},
 		text_box = {
@@ -10015,7 +10036,7 @@ scripted_vampire_lairs_occupied = {
 				local region = get_selected_region_with_occupied_vampire_lair()
 				if region and not region:is_null_interface() then
 					local region_name = region:name()
-					local lair_view = find_uicomponent(core:get_ui_root(), "CcoCampaignSettlement" .. region_name, "lair_view")
+					local lair_view = find_uicomponent(core:get_ui_root(), "CcoCampaignSettlement" .. region_name, "lair_view", "dlc29_vmp_vampire_lair_popup")
 					local occupied_lair_button = find_uicomponent(core:get_ui_root(), "CcoCampaignSettlement" .. region_name, "button_list", "button_lair_view")
 					if not lair_view or not lair_view:VisibleFromRoot() then
 						occupied_lair_button:SimulateLClick()
@@ -10456,6 +10477,7 @@ function nag_land_of_the_dead_disconnected_tour()
 	cm:callback(function()
 		core:show_fullscreen_highlight_around_components(10, false, false, unpack(uic_land_of_the_dead))
 	end, 0.2)
+	ui_scripted_tour:toggle_shortcuts(false)
 	
 	local tp = text_pointer:new_from_component(
 		"tp_scripted_tour",
@@ -10474,6 +10496,7 @@ function nag_land_of_the_dead_disconnected_tour()
 			core:hide_fullscreen_highlight()
 			tp:hide()
 			in_nag_land_of_the_dead_disconnected_tour:complete()
+			ui_scripted_tour:toggle_shortcuts(true)
 		end
 	)
 	tp:show()
@@ -11764,7 +11787,7 @@ scripted_vmp_provinces_tour_neferata = {
 	{
 		id = "in_vmp_provinces_tour_3",
 		highlight = {
-			function() return find_uicomponent(core:get_ui_root(), "delete_placeholder_concealment") end
+			function() return find_uicomponent(core:get_ui_root(), "frame_concealment") end
 		},
 		text_box = {
 			text = "wh3_dlc29_text_pointer_vmp_province_conceal",
@@ -12272,7 +12295,13 @@ end
 
 function ui_scripted_tour:get_region_with_foreign_vampire_lairs_in_selected_province()
 	local selected_region_key = cuim:get_selected_settlement_region()
-	local province = cm:get_region(selected_region_key):province()
+	local region = cm:get_region(selected_region_key)
+
+	if not region or region:is_null_interface() then 
+		return 
+	end
+
+	local province = region:province()
 	local region_list = province:regions()
 	local region_key = ""
 	for i = 0, region_list:num_items() - 1 do

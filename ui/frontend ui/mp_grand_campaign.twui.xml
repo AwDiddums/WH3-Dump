@@ -404,7 +404,6 @@
 			offset="-247.00,316.00"
 			allowhorizontalresize="false"
 			allowverticalresize="false"
-			visible="false"
 			dock_offset="-247.00,0.00"
 			uniqueguid="DBB10BBB-5161-4728-993505499F37C0D6"
 			currentstate="3915853C-BB8D-4389-93A2C656ED590C90"
@@ -427,6 +426,16 @@
 							value="MPLobbyOnCampaignParamsChanged"/>
 						<property
 							name="event1"
+							value="MPLobbyOnHostMigrated"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoMPCampaignLobby"
+					context_function_id="IsLocalPlayerHost">
+					<child_m_user_properties>
+						<property
+							name="event0"
 							value="MPLobbyOnHostMigrated"/>
 					</child_m_user_properties>
 				</callback_with_context>
@@ -5311,7 +5320,7 @@
 		<dy_label
 			this="C48287F3-8A95-4A1D-B41ADF381BAC2985"
 			id="dy_label"
-			offset="34.00,8.00"
+			offset="34.00,2.00"
 			docking="Center Right External"
 			component_anchor_point="-0.00,0.50"
 			priority="10"
@@ -5338,15 +5347,14 @@
 				<newstate
 					this="209DCC7A-3775-44D5-BC0C331CD22EF224"
 					name="NewState"
-					width="184"
-					height="16"
+					width="518"
+					height="28"
 					interactive="true"
 					uniqueguid="209DCC7A-3775-44D5-BC0C331CD22EF224">
 					<component_text
 						text="{{tr:frontend_toggle_crisis}}"
 						textvalign="Center"
-						texthalign="Right"
-						texthbehaviour="Resize"
+						texthbehaviour="Never split"
 						textlabel="StateText_7be254d3"
 						font_m_size="12"
 						font_m_colour="#FFF8D7FF"
@@ -13996,7 +14004,7 @@
 					this="90D83D09-A86D-402F-96ECFBD2AC2F06DC"
 					name="NewState"
 					width="200"
-					height="306"
+					height="356"
 					uniqueguid="90D83D09-A86D-402F-96ECFBD2AC2F06DC">
 					<imagemetrics>
 						<image
@@ -14004,7 +14012,7 @@
 							uniqueguid="43ECB15E-1AB2-4220-AF908882B250D785"
 							componentimage="DBA92C5F-93C2-4DA8-893745D16A76265E"
 							width="200"
-							height="306"
+							height="356"
 							colour="#FFFFFF00"
 							tile="true"
 							margin="40.00,40.00,50.00,40.00"/>

@@ -83,6 +83,7 @@
 												<guards_alert this="D0C1F1D6-A3AD-4294-9E70298D873CC6C9"/>
 											</guards_tracker>
 										</resources_holder>
+										<dy_mp_unlock_timer this="5FDAE190-AA12-4DEB-B79EC8F960D235D0"/>
 									</template_schemer>
 								</schemers_list>
 								<schemer_details this="D40498EB-5C66-4CAA-A271FDA1D92105D9">
@@ -778,6 +779,7 @@
 								<magic_plan_button this="1A0EB706-26B1-428F-A76AB9F92C5803DF">
 									<plan_type_tx this="88D451CA-2217-494E-9F2D080000E0AB69"/>
 									<label_num_factions_available this="738B600A-0B2E-4737-9F7BED24EAFE8225"/>
+									<dy_mp_unlock_timer this="BD7BCCF8-E22E-4FF6-8BE366401EEBD4E1"/>
 								</magic_plan_button>
 							</plan_type_list>
 						</plan_type_holder>
@@ -835,6 +837,7 @@
 												<button_txt this="AE8314CE-7FBA-4EA3-8DF4C3EE6086A804"/>
 												<dev_icon this="451916E3-D0BA-4AAF-B4C45C117DDD7513"/>
 											</dev_button_unlock_magic>
+											<dy_mp_unlock_timer this="BF86D189-B69C-419E-94C6474BCB0AD0F0"/>
 										</template_ritual_spell>
 									</ritual_spells_list>
 								</list_clip>
@@ -908,6 +911,7 @@
 												<icon_locked this="E32802F6-3011-4D5A-A5944C6B8BF8BFC7"/>
 												<locked_reason this="C862103E-21EC-4A1D-96B2BDC473B635AE"/>
 											</locked_components>
+											<template_unit_card this="7BA4EB27-DCE0-44EE-929B2695941A3E27"/>
 										</template_subgroup_ritual_spell>
 									</subgroup_ritual_spells_list>
 								</list_clip>
@@ -985,7 +989,7 @@
 				<callback_with_context
 					callback_id="ContextCommandLeftClick"
 					context_object_id="CcoCampaignChaoticPlansManager man, CcoCampaignChaoticPlan plan"
-					context_function_id="ShowPrompt(Loc(&quot;wh3_dlc29_chaotic_plans_abandon_plan_confirm_title&quot;), Loc(&quot;wh3_dlc29_chaotic_plans_abandon_plan_confirm_description&quot;), man.AbandonChaoticPlan(plan))">
+					context_function_id="ShowPrompt(Loc(&quot;wh3_dlc29_chaotic_plans_abandon_plan_confirm_title&quot;), GetIfElse((plan.ChaoticPlanRecordContext.PlanType == &quot;economic&quot; &amp;&amp; plan.PlanPayloadsManagerContext.AccumulatedPooledResource(&quot;wh3_dlc29_chaotic_plans_alarm&quot;) ==  plan.GetPlanAlarmThreshold), Loc(&quot;wh3_dlc29_chaotic_plans_abandon_plan_confirm_description_economy_alarm_max&quot;), Loc(&quot;wh3_dlc29_chaotic_plans_abandon_plan_confirm_description&quot;)), man.AbandonChaoticPlan(plan))">
 					<child_m_user_properties>
 						<property
 							name="event0"
@@ -2476,7 +2480,7 @@
 		<bar_fill_elite
 			this="75609DE7-4C41-4AB1-B9F9E81E7BDF501D"
 			id="bar_fill_elite"
-			offset="8.00,0.00"
+			offset="8.00,8.00"
 			allowhorizontalresize="false"
 			docking="Bottom Center"
 			component_anchor_point="0.50,1.00"
@@ -2532,7 +2536,7 @@
 					this="A5880B61-E012-4147-9109A4F57345EF0D"
 					name="default"
 					width="26"
-					height="197"
+					height="189"
 					uniqueguid="A5880B61-E012-4147-9109A4F57345EF0D">
 					<imagemetrics>
 						<image
@@ -2540,7 +2544,7 @@
 							uniqueguid="A14581A4-FB33-4751-B7E1F0FCB8EC5523"
 							componentimage="B92BB61D-7F1D-4691-821771D0538F97F3"
 							width="26"
-							height="197"/>
+							height="189"/>
 					</imagemetrics>
 				</default>
 			</states>
@@ -16116,6 +16120,10 @@
 							value="PlayersFaction.ChaoticPlansManagerContext.IsMagicPlanTypeUnlockedFromNarrative(PlayersFaction, rec) == false &amp;&amp; rec.Key == &quot;wh3_dlc29_magic_summon_verminlord_dummy_1&quot;"/>
 					</child_m_user_properties>
 				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoStaticObject"
+					context_function_id="CampaignRoot.IsMultiplayer == false"/>
 			</callbackwithcontextlist>
 			<componentimages>
 				<component_image
@@ -16225,6 +16233,256 @@
 				</shop>
 			</states>
 		</dy_locked_reason>
+		<dy_mp_unlock_timer
+			this="5FDAE190-AA12-4DEB-B79EC8F960D235D0"
+			id="dy_mp_unlock_timer"
+			offset="113.00,301.00"
+			allowverticalresize="false"
+			docking="Bottom Right"
+			dock_offset="6.00,-30.00"
+			component_anchor_point="1.00,1.00"
+			priority="60"
+			uniqueguid="5FDAE190-AA12-4DEB-B79EC8F960D235D0"
+			currentstate="2334C24D-8145-4F83-AE3305C5563F603D"
+			defaultstate="2334C24D-8145-4F83-AE3305C5563F603D">
+			<callbackwithcontextlist>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoChaoticPlanSchemersSpecialInfoRecord"
+					context_function_id="CampaignRoot.IsMultiplayer &amp;&amp; PlayersFaction().EntitySharedStateValueExists(&quot;mp_unlock_turn_to_receive_first_schemer&quot;) &amp;&amp;  PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_remaining_schemers&quot;) &gt; CampaignRoot.TurnNumber &amp;&amp; PlayersFaction.ChaoticPlansManagerContext.IsSchemerUnlocked(CharacterContext.FamilyMemberCQI) == false"/>
+				<callback_with_context
+					callback_id="ContextTextLabel"
+					context_object_id="CcoStaticObject"
+					context_function_id="(unlock_turn_first_schemer = PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_first_schemer&quot;)) =&gt; { GetIfElse(unlock_turn_first_schemer &gt; CampaignRoot.TurnNumber, Floor( unlock_turn_first_schemer - CampaignRoot.TurnNumber), Floor( ToNumber(PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_remaining_schemers&quot;)) - CampaignRoot.TurnNumber))}"/>
+				<callback_with_context
+					callback_id="ContextTooltipSetter"
+					context_object_id="CcoStaticObject"
+					context_function_id="(unlock_turn = GetIfElse(PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_first_schemer&quot;)  &gt; CampaignRoot.TurnNumber, PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_first_schemer&quot;), PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_remaining_schemers&quot;))) =&gt; {Format(Loc(&quot;ritual_cooldown&quot;), Floor(unlock_turn - CampaignRoot.TurnNumber))}"/>
+			</callbackwithcontextlist>
+			<componentimages>
+				<component_image
+					this="4F5D41C5-538B-43E0-B99E2F4FFCA99874"
+					uniqueguid="4F5D41C5-538B-43E0-B99E2F4FFCA99874"
+					imagepath="ui/skins/default/icon_banner_bg.png"/>
+				<component_image
+					this="A0E1DECC-C406-4CE0-A3AFBDD5498D4629"
+					uniqueguid="A0E1DECC-C406-4CE0-A3AFBDD5498D4629"
+					imagepath="ui/skins/default/icon_turns_counter_text.png"/>
+			</componentimages>
+			<states>
+				<default
+					this="2334C24D-8145-4F83-AE3305C5563F603D"
+					name="default"
+					width="63"
+					height="29"
+					interactive="true"
+					disabled="true"
+					uniqueguid="2334C24D-8145-4F83-AE3305C5563F603D">
+					<imagemetrics>
+						<image
+							this="B30975FB-1264-4A50-BA04DC63CF0063AB"
+							uniqueguid="B30975FB-1264-4A50-BA04DC63CF0063AB"
+							componentimage="4F5D41C5-538B-43E0-B99E2F4FFCA99874"
+							width="63"
+							height="29"
+							tile="true"
+							dockpoint="Center"
+							margin="0.00,15.00,0.00,0.00"/>
+						<image
+							this="547DD23E-3841-4DBB-B61AFA82D2FAD705"
+							uniqueguid="547DD23E-3841-4DBB-B61AFA82D2FAD705"
+							componentimage="A0E1DECC-C406-4CE0-A3AFBDD5498D4629"
+							offset="0.00,2.00"
+							width="24"
+							height="24"
+							dockpoint="Center Left"
+							canresizeheight="false"
+							canresizewidth="false"/>
+					</imagemetrics>
+					<component_text
+						text="999"
+						textxoffset="26.00,10.00"
+						textyoffset="8.00,0.00"
+						texthbehaviour="Resize"
+						textlabel="StateText_4c2786fa"
+						font_m_size="12"
+						font_m_colour="#FFF8D7FF"
+						font_m_leading="3"
+						fontcat_name="body_12"/>
+				</default>
+			</states>
+		</dy_mp_unlock_timer>
+		<dy_mp_unlock_timer
+			this="BD7BCCF8-E22E-4FF6-8BE366401EEBD4E1"
+			id="dy_mp_unlock_timer"
+			offset="21.00,-10.00"
+			allowverticalresize="false"
+			docking="Top Right"
+			dock_offset="21.00,-10.00"
+			component_anchor_point="1.00,0.00"
+			priority="60"
+			uniqueguid="BD7BCCF8-E22E-4FF6-8BE366401EEBD4E1"
+			currentstate="55AA5614-1ABB-4DFC-8C44106C19719446"
+			defaultstate="55AA5614-1ABB-4DFC-8C44106C19719446">
+			<callbackwithcontextlist>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoCampaignChaoticPlansManager plans_manager"
+					context_function_id="CampaignRoot.IsMultiplayer &amp;&amp; ChaoticPlans.IsMagicPlanUnlocked(plans_manager) == false">
+					<child_m_user_properties>
+						<property
+							name="event0"
+							value="ChaoticPlanCreationCanceledEvent"/>
+						<property
+							name="event1"
+							value="ChaoticPlanCreationStartedEvent"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextTextLabel"
+					context_object_id="CcoStaticObject"
+					context_function_id="(unlock_turn = GetIfElse(PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_undercity_magic_plan&quot;) &gt;  CampaignRoot.TurnNumber, PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_undercity_magic_plan&quot;), PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_pull_moon&quot;))) =&gt; { Floor(unlock_turn - CampaignRoot.TurnNumber) }"/>
+				<callback_with_context
+					callback_id="ContextTooltipSetter"
+					context_object_id="CcoCampaignChaoticPlansManager plans_manager"
+					context_function_id="(unlock_turn = GetIfElse(PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_undercity_magic_plan&quot;) &gt;  CampaignRoot.TurnNumber, PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_undercity_magic_plan&quot;), PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_pull_moon&quot;))) =&gt; {Format(Loc(&quot;ritual_cooldown&quot;), Floor(unlock_turn - CampaignRoot.TurnNumber))}"/>
+			</callbackwithcontextlist>
+			<componentimages>
+				<component_image
+					this="E7895393-71D2-4F29-83C3BDA555B7D4FE"
+					uniqueguid="E7895393-71D2-4F29-83C3BDA555B7D4FE"
+					imagepath="ui/skins/default/icon_banner_bg.png"/>
+				<component_image
+					this="BA53C632-01C7-4A43-80A090F03631700F"
+					uniqueguid="BA53C632-01C7-4A43-80A090F03631700F"
+					imagepath="ui/skins/default/icon_turns_counter_text.png"/>
+			</componentimages>
+			<states>
+				<default
+					this="55AA5614-1ABB-4DFC-8C44106C19719446"
+					name="default"
+					width="63"
+					height="29"
+					tooltip="{{tr:uied_component_texts_localised_string_ComponentText_b1b9f3e6}}"
+					tooltiplabel="StateTooltip_fda91d5f"
+					interactive="true"
+					disabled="true"
+					uniqueguid="55AA5614-1ABB-4DFC-8C44106C19719446">
+					<imagemetrics>
+						<image
+							this="00FDBB1F-B0A0-45DC-B8E6B772F1006CD7"
+							uniqueguid="00FDBB1F-B0A0-45DC-B8E6B772F1006CD7"
+							componentimage="E7895393-71D2-4F29-83C3BDA555B7D4FE"
+							width="63"
+							height="29"
+							tile="true"
+							dockpoint="Center"
+							margin="0.00,15.00,0.00,0.00"/>
+						<image
+							this="B7507568-CBA8-481C-AE56F77227BD0889"
+							uniqueguid="B7507568-CBA8-481C-AE56F77227BD0889"
+							componentimage="BA53C632-01C7-4A43-80A090F03631700F"
+							offset="0.00,2.00"
+							width="24"
+							height="24"
+							dockpoint="Center Left"
+							canresizeheight="false"
+							canresizewidth="false"/>
+					</imagemetrics>
+					<component_text
+						text="999"
+						textxoffset="26.00,10.00"
+						textyoffset="8.00,0.00"
+						texthbehaviour="Resize"
+						textlabel="StateText_fda91d5f"
+						font_m_size="12"
+						font_m_colour="#FFF8D7FF"
+						font_m_leading="3"
+						fontcat_name="body_12"/>
+				</default>
+			</states>
+		</dy_mp_unlock_timer>
+		<dy_mp_unlock_timer
+			this="BF86D189-B69C-419E-94C6474BCB0AD0F0"
+			id="dy_mp_unlock_timer"
+			offset="211.00,-18.00"
+			allowverticalresize="false"
+			docking="Top Right"
+			dock_offset="24.00,-18.00"
+			component_anchor_point="1.00,0.00"
+			priority="60"
+			uniqueguid="BF86D189-B69C-419E-94C6474BCB0AD0F0"
+			currentstate="A5A6F05A-7236-48D4-B4AD04DE8706AA4F"
+			defaultstate="A5A6F05A-7236-48D4-B4AD04DE8706AA4F">
+			<callbackwithcontextlist>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoChaoticPlanTokenRecord rec"
+					context_function_id="CampaignRoot.IsMultiplayer &amp;&amp; PlayersFaction.ChaoticPlansManagerContext.IsMagicPlanTypeUnlockedFromNarrative(PlayersFaction, rec) == false &amp;&amp; ((rec.Key == &quot;wh3_dlc29_magic_create_undercity_1&quot; &amp;&amp; PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_undercity_magic_plan&quot;) &gt; CampaignRoot.TurnNumber) || (rec.Key == &quot;wh3_dlc29_magic_pull_moon_1&quot; &amp;&amp; PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_pull_moon&quot;) &gt; CampaignRoot.TurnNumber))"/>
+				<callback_with_context
+					callback_id="ContextTextLabel"
+					context_object_id="CcoChaoticPlanTokenRecord rec"
+					context_function_id="(unlock_turn = GetIfElse(rec.Key == &quot;wh3_dlc29_magic_create_undercity_1&quot;, PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_undercity_magic_plan&quot;), PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_pull_moon&quot;))) =&gt; { Floor(unlock_turn - CampaignRoot.TurnNumber) }"/>
+				<callback_with_context
+					callback_id="ContextTooltipSetter"
+					context_object_id="CcoChaoticPlanTokenRecord rec"
+					context_function_id="(unlock_turn = GetIfElse(rec.Key == &quot;wh3_dlc29_magic_create_undercity_1&quot;, PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_undercity_magic_plan&quot;), PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_pull_moon&quot;))) =&gt; {Format(Loc(&quot;ritual_cooldown&quot;), Floor(unlock_turn - CampaignRoot.TurnNumber))}"/>
+			</callbackwithcontextlist>
+			<componentimages>
+				<component_image
+					this="3995851F-8D91-4A5D-9115CA4D677D5879"
+					uniqueguid="3995851F-8D91-4A5D-9115CA4D677D5879"
+					imagepath="ui/skins/default/icon_banner_bg.png"/>
+				<component_image
+					this="691FEC7A-55B8-4FD3-A8A099C312290606"
+					uniqueguid="691FEC7A-55B8-4FD3-A8A099C312290606"
+					imagepath="ui/skins/default/icon_turns_counter_text.png"/>
+			</componentimages>
+			<states>
+				<default
+					this="A5A6F05A-7236-48D4-B4AD04DE8706AA4F"
+					name="default"
+					width="63"
+					height="29"
+					tooltip="{{tr:uied_component_texts_localised_string_ComponentText_b1b9f3e6}}"
+					tooltiplabel="StateTooltip_1b623511"
+					interactive="true"
+					disabled="true"
+					uniqueguid="A5A6F05A-7236-48D4-B4AD04DE8706AA4F">
+					<imagemetrics>
+						<image
+							this="28C4BE47-4CBB-483B-974DB9FF26571665"
+							uniqueguid="28C4BE47-4CBB-483B-974DB9FF26571665"
+							componentimage="3995851F-8D91-4A5D-9115CA4D677D5879"
+							width="63"
+							height="29"
+							tile="true"
+							dockpoint="Center"
+							margin="0.00,15.00,0.00,0.00"/>
+						<image
+							this="80E96AD6-ACE6-4964-AC00B112E49B5DD5"
+							uniqueguid="80E96AD6-ACE6-4964-AC00B112E49B5DD5"
+							componentimage="691FEC7A-55B8-4FD3-A8A099C312290606"
+							offset="0.00,2.00"
+							width="24"
+							height="24"
+							dockpoint="Center Left"
+							canresizeheight="false"
+							canresizewidth="false"/>
+					</imagemetrics>
+					<component_text
+						text="999"
+						textxoffset="26.00,10.00"
+						textyoffset="8.00,0.00"
+						texthbehaviour="Resize"
+						textlabel="StateText_1b623511"
+						font_m_size="12"
+						font_m_colour="#FFF8D7FF"
+						font_m_leading="3"
+						fontcat_name="body_12"/>
+				</default>
+			</states>
+		</dy_mp_unlock_timer>
 		<dy_multiple_counter
 			this="13A79C2E-F500-479E-985AE264963FCB6C"
 			id="dy_multiple_counter"
@@ -19183,8 +19441,6 @@
 			allowhorizontalresize="false"
 			allowverticalresize="false"
 			priority="50"
-			componentleveltooltip="{{tr:uied_component_texts_localised_string_dlc29_skv_chaotic_plans_economy_plan_button}}"
-			tooltiplabel="ComponentTooltip_5aa5fb34"
 			soundcategory="UI_CAM_HUD_DLC29_SKV_Masterplan_Type_Steal"
 			uniqueguid="E7A7BE1E-5D26-413E-B7A4ED0FEEB108CB"
 			currentstate="3FD5DA9D-A260-4717-94E1425AB3BB2BAF"
@@ -19223,6 +19479,10 @@
 					callback_id="ContextCommandLeftClick"
 					context_object_id="CcoCampaignChaoticPlansManager plans_manager"
 					context_function_id="ChaoticPlans.SelectEconomicPlan(plans_manager)"/>
+				<callback_with_context
+					callback_id="ContextTooltipSetter"
+					context_object_id="CcoStaticObject"
+					context_function_id="(tooltip_string = GetIfElse( self.CurrentState == &quot;inactive&quot;, StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_economy_plan_button&quot;) + StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_economic_plan_unlock_requirement_tooltip_tx&quot;),StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_economy_plan_button&quot;)) )=&gt; {GetIfElse(CampaignRoot.IsMultiplayer == false, tooltip_string, StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_economy_plan_button&quot;))}"/>
 			</callbackwithcontextlist>
 			<userproperties>
 				<property
@@ -19645,8 +19905,6 @@
 					name="inactive"
 					width="63"
 					height="63"
-					tooltip="{{tr:uied_component_texts_localised_string_dlc29_skv_chaotic_plans_economy_plan_button}}{{tr:uied_component_texts_localised_string_dlc29_skv_chaotic_plans_economic_plan_unlock_requirement_tooltip_tx}}"
-					tooltiplabel="StateTooltip_7f1650fb"
 					soundcategory="UI_GBL_TMP_Selection_Locked_Unavailable_Small"
 					interactive="true"
 					disabled="true"
@@ -24679,6 +24937,10 @@
 							value="PlayersFaction.ChaoticPlansManagerContext.IsMagicPlanTypeUnlockedFromNarrative(PlayersFaction, rec) == false &amp;&amp; rec.Key == &quot;wh3_dlc29_magic_summon_verminlord_dummy_1&quot;"/>
 					</child_m_user_properties>
 				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextTooltipSetter"
+					context_object_id="CcoChaoticPlanTokenRecord rec"
+					context_function_id="(unlock_turn = GetIfElse(rec.Key == &quot;wh3_dlc29_magic_create_undercity_1&quot;, PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_undercity_magic_plan&quot;), PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_pull_moon&quot;))) =&gt; {GetIfElse(CampaignRoot.IsMultiplayer() &amp;&amp; self.CurrentState == &quot;narrative&quot;, Format(Loc(&quot;ritual_cooldown&quot;), Floor(unlock_turn - CampaignRoot.TurnNumber)) ,  GetIfElse(self.CurrentState == &quot;narrative&quot;, StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_locked_narrative_tooltip_tx&quot;), GetIfElse(self.CurrentState == &quot;character&quot;, StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_locked_character_tooltip_tx&quot;), GetIf(self.CurrentState == &quot;shop&quot;, StringGet(&quot;ui_text_replacements_localised_text_wh3_dlc29_thanquol_chaotic_plans_locked_plan_shop_tooltip&quot;)))))}"/>
 			</callbackwithcontextlist>
 			<componentimages>
 				<component_image
@@ -24692,8 +24954,6 @@
 					name="character"
 					width="60"
 					height="60"
-					tooltip="{{tr:uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_locked_character_tooltip_tx}}"
-					tooltiplabel="StateTooltip_5eb1ffb9"
 					interactive="true"
 					disabled="true"
 					pixelcollision="true"
@@ -24717,8 +24977,6 @@
 					name="narrative"
 					width="60"
 					height="60"
-					tooltip="{{tr:uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_locked_narrative_tooltip_tx}}"
-					tooltiplabel="StateTooltip_29f4f578"
 					interactive="true"
 					disabled="true"
 					pixelcollision="true"
@@ -24751,8 +25009,6 @@
 					name="shop"
 					width="60"
 					height="60"
-					tooltip="{{tr:ui_text_replacements_localised_text_wh3_dlc29_thanquol_chaotic_plans_locked_plan_shop_tooltip}}"
-					tooltiplabel="StateTooltip_9f94d667"
 					interactive="true"
 					disabled="true"
 					pixelcollision="true"
@@ -26089,6 +26345,19 @@
 							value="ChaoticPlanCreationStartedEvent"/>
 					</child_m_user_properties>
 				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoCampaignChaoticPlansManager plans_manager"
+					context_function_id="CampaignRoot.IsMultiplayer == false || ChaoticPlans.IsMagicPlanUnlocked(plans_manager) == true">
+					<child_m_user_properties>
+						<property
+							name="event0"
+							value="ChaoticPlanCreationCanceledEvent"/>
+						<property
+							name="event1"
+							value="ChaoticPlanCreationStartedEvent"/>
+					</child_m_user_properties>
+				</callback_with_context>
 			</callbackwithcontextlist>
 			<userproperties>
 				<property
@@ -27145,7 +27414,7 @@
 		<list_clip
 			this="2CAB870C-3F47-4546-8E3625B7C3BE0B6A"
 			id="list_clip"
-			offset="-132.00,0.00"
+			offset="-132.00,-19.00"
 			allowverticalresize="false"
 			clipchildren="true"
 			docking="Center"
@@ -27160,7 +27429,7 @@
 					this="5ABCE026-D435-4B73-84F44725B6587449"
 					name="default"
 					width="1300"
-					height="564"
+					height="602"
 					uniqueguid="5ABCE026-D435-4B73-84F44725B6587449"/>
 			</states>
 		</list_clip>
@@ -27739,8 +28008,6 @@
 			allowhorizontalresize="false"
 			allowverticalresize="false"
 			priority="50"
-			componentleveltooltip="{{tr:uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_button}}"
-			tooltiplabel="ComponentTooltip_cdd961cd"
 			soundcategory="UI_CAM_HUD_DLC29_SKV_Masterplan_Type_Smart"
 			uniqueguid="1A0EB706-26B1-428F-A76AB9F92C5803DF"
 			currentstate="7CBC862A-37B7-4509-B9BFBACAAC800D59"
@@ -27779,6 +28046,10 @@
 							value="ChaoticPlans.IsMagicPlanSelected(plans_manager)"/>
 					</child_m_user_properties>
 				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextTooltipSetter"
+					context_object_id="CcoStaticObject"
+					context_function_id="(tooltip_string = GetIfElse( self.CurrentState == &quot;inactive&quot;, StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_button&quot;) + StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_unlock_requirement_tooltip_tx&quot;),StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_button&quot;)) )=&gt; {GetIfElse(CampaignRoot.IsMultiplayer == false, tooltip_string, StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_button&quot;))}"/>
 			</callbackwithcontextlist>
 			<userproperties>
 				<property
@@ -28203,8 +28474,6 @@
 					name="inactive"
 					width="63"
 					height="63"
-					tooltip="{{tr:uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_button}}{{tr:uied_component_texts_localised_string_dlc29_skv_chaotic_plans_magic_plan_unlock_requirement_tooltip_tx}}"
-					tooltiplabel="StateTooltip_7ee0e0e1"
 					soundcategory="UI_GBL_TMP_Selection_Locked_Unavailable_Small"
 					interactive="true"
 					disabled="true"
@@ -39013,7 +39282,6 @@
 			offset="150.00,60.00"
 			allowhorizontalresize="false"
 			allowverticalresize="false"
-			visible="false"
 			docking="Center"
 			component_anchor_point="0.50,0.50"
 			priority="50"
@@ -39065,7 +39333,7 @@
 		<subgroup_ritual_spells_list
 			this="7CD7367B-8FED-4FE8-BC63E74F3F245634"
 			id="subgroup_ritual_spells_list"
-			offset="525.00,52.00"
+			offset="525.00,71.00"
 			docking="Center"
 			component_anchor_point="0.50,0.50"
 			priority="50"
@@ -44331,6 +44599,10 @@
 							value="ChaoticPlanSelectedPreselectedTokenEvent"/>
 					</child_m_user_properties>
 				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextPropagator"
+					context_object_id="CcoChaoticPlanTokenRecord"
+					context_function_id="DatabaseRecordContext(&quot;CcoMainUnitRecord&quot;, PlayersFaction.EntitySharedStateReadString(Format(&quot;chaotic_plans_summon_units:%s&quot;, Key)))"/>
 			</callbackwithcontextlist>
 			<userproperties>
 				<property
@@ -45911,6 +46183,78 @@
 				</disabled>
 			</states>
 		</template_unit_card>
+		<template_unit_card
+			this="7BA4EB27-DCE0-44EE-929B2695941A3E27"
+			id="template_unit_card"
+			offset="108.00,452.00"
+			allowhorizontalresize="false"
+			allowverticalresize="false"
+			priority="255"
+			tooltipslocalised="true"
+			uniqueguid="7BA4EB27-DCE0-44EE-929B2695941A3E27"
+			aspect_ratio_locked_behaviour="Width First"
+			currentstate="B2D9A1F3-442B-4F50-AFF96451385301BC"
+			defaultstate="B2D9A1F3-442B-4F50-AFF96451385301BC">
+			<callbackwithcontextlist>
+				<callback_with_context
+					callback_id="ContextImageSetter"
+					context_object_id="CcoMainUnitRecord"
+					context_function_id="IconPath">
+					<child_m_user_properties>
+						<property
+							name="image_index"
+							value="1"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context
+					callback_id="UnitInfoPanelMouseOver"
+					context_object_id="CcoMainUnitRecord"/>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoMainUnitRecord"
+					context_function_id="IsValidContext"/>
+			</callbackwithcontextlist>
+			<componentimages>
+				<component_image
+					this="C9DDFCBF-E9DC-402F-AE2DAC1227E8AE31"
+					uniqueguid="C9DDFCBF-E9DC-402F-AE2DAC1227E8AE31"
+					imagepath="ui/skins/default/unit_card_build_frame.png"/>
+				<component_image
+					this="83B8F11A-E51E-4BDC-A4DBECB43DD496C2"
+					uniqueguid="83B8F11A-E51E-4BDC-A4DBECB43DD496C2"
+					imagepath="ui/skins/default/unit_card_ph.png"/>
+			</componentimages>
+			<states>
+				<default
+					this="B2D9A1F3-442B-4F50-AFF96451385301BC"
+					name="default"
+					height="69"
+					interactive="true"
+					uniqueguid="B2D9A1F3-442B-4F50-AFF96451385301BC">
+					<imagemetrics>
+						<image
+							this="FA964DC2-9F0F-4E41-B4FC6EE63596259E"
+							uniqueguid="FA964DC2-9F0F-4E41-B4FC6EE63596259E"
+							componentimage="83B8F11A-E51E-4BDC-A4DBECB43DD496C2"
+							height="69"/>
+						<image
+							this="154F7F29-411E-4B86-BA45E60DAB5A75A9"
+							uniqueguid="154F7F29-411E-4B86-BA45E60DAB5A75A9"
+							componentimage="C9DDFCBF-E9DC-402F-AE2DAC1227E8AE31"
+							height="69"
+							margin="5.00,5.00,5.00,5.00"/>
+					</imagemetrics>
+					<component_text
+						textvalign="Center"
+						textxoffset="26.00,0.00"
+						font_m_size="12"
+						font_m_colour="#FFF8D7FF"
+						font_m_leading="3"
+						fontcat_name="body_12"
+						font_colour_override_preset_key="green"/>
+				</default>
+			</states>
+		</template_unit_card>
 		<text_input
 			this="592ACFDC-4D22-4DF4-A663FD496E4FBAD7"
 			id="text_input"
@@ -46300,6 +46644,12 @@
 			uniqueguid="E8F6B229-0576-4146-B3AD391E3964B403"
 			currentstate="3E218897-D1B4-4DA8-9A86A8216AF35BDC"
 			defaultstate="3E218897-D1B4-4DA8-9A86A8216AF35BDC">
+			<callbackwithcontextlist>
+				<callback_with_context
+					callback_id="ContextTooltipSetter"
+					context_object_id="CcoStaticObject"
+					context_function_id="(unlock_turn = GetIfElse(PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_first_schemer&quot;)  &gt; CampaignRoot.TurnNumber, PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_first_schemer&quot;), PlayersFaction().EntitySharedStateReadFloat(&quot;mp_unlock_turn_to_receive_remaining_schemers&quot;))) =&gt; {GetIfElse(CampaignRoot.IsMultiplayer, Format(Loc(&quot;ritual_cooldown&quot;), Floor(unlock_turn - CampaignRoot.TurnNumber)), StringGet(&quot;uied_component_texts_localised_string_dlc29_skv_chaotic_plans_schemer_locked_indicator_tooltip_tx&quot;))}"/>
+			</callbackwithcontextlist>
 			<states>
 				<default
 					this="3E218897-D1B4-4DA8-9A86A8216AF35BDC"

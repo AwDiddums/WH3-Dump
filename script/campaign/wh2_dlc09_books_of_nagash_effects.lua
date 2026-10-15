@@ -69,7 +69,7 @@ function bon_effects:trigger_book_3_effects(context)
 			if (mf:has_effect_bundle(effect_bundle)) then
 				local region_key = character:region():name()
 
-				cm:create_storm_for_region(region_key, 1, self.sandstorm_duration, "land_storm")
+				cm:create_storm_for_region(region_key, 1, self.sandstorm_duration, "land_storm", faction:name())
 
 				return true
 			end

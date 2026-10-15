@@ -66,7 +66,7 @@ vampire_bloodlines = {
 			mechanics = {research_points = 100}
 		}
 	},
-	limit_power_objective_amount = 5,
+	limit_power_objective_percent = 300,
 	confederation_missions = {
 		["wh3_dlc29_vmp_mission_confederate_lord_vlad_isabella"] = {
 			target_faction = "wh_main_vmp_schwartzhafen",
@@ -476,9 +476,9 @@ function vampire_bloodlines:setup_confederation_missions_for_faction(faction_key
 end
 
 function vampire_bloodlines:setup_limit_power_objective(mm, mission_data)
-	mm:add_new_objective("REDUCE_FACTION_TO_N_REGIONS")
+	mm:add_new_objective("OWN_N_REGIONS_PERCENT_OF_FACTION")
 	mm:add_condition("faction " .. mission_data.target_faction)
-	mm:add_condition("total " .. tostring(self.limit_power_objective_amount))
+	mm:add_condition("total " .. tostring(self.limit_power_objective_percent))
 end
 
 function vampire_bloodlines:add_non_scripted_objectives(mm, objectives)
@@ -1363,32 +1363,6 @@ function vampire_bloodlines:add_listeners()
 						self:grant_research_points(faction, bloodlines_mechanic.mechanics.research_points)
 					end
 					break
-				end
-			end
-		end,
-		true
-	)
-	core:add_listener(
-		"ScriptEventVampireCovenCreatedBloodlines",
-		"ScriptEventVampireCovenCreated",
-		true,
-		function(context)
-			local neferata = context:character():faction()
-			local region_cqi = context:region():cqi()
-			local owner = context:region():owning_faction()
-
-			if owner:has_home_region() == true and owner:subculture() == "wh_main_sc_vmp_vampire_counts" then
-				local owners_capital_cqi = owner:home_region():cqi()
-
-				if owners_capital_cqi == region_cqi then
-					-- This is the owners capital, now check if they are the Vampires
-					local owner_key = owner:name()
-
-					for mission_key, mission_data in dpairs(self.confederation_missions) do
-						if mission_data.target_faction == owner_key then
-							cm:set_active_mission_status_for_faction(neferata, mission_key, "SUCCEEDED")
-						end
-					end
 				end
 			end
 		end,

@@ -15,6 +15,11 @@ GreatTempleOfUlric
 		Floor(PlayersFaction.InitiativeManager.InitiativeSetList("DLC29_GREAT_TEMPLE_OF_ULRIC").Count(IsContextValid(ExGreatTempleOfUlric_GetNextInitiative) && !ExGreatTempleOfUlric_GetNextInitiative.IsScriptLocked))
 	}
 	
+	UnlockedAffordableInitiativesCount
+	{
+		Floor(PlayersFaction.InitiativeManager.InitiativeSetList("DLC29_GREAT_TEMPLE_OF_ULRIC").Count(ExGreatTempleOfUlric_CanActivateNextInitiative))
+	}
+	
 	IsThereUninspectedUnlockedSanctuaryLevel
 	{
 		!PlayersFaction.InitiativeManager.InitiativeSetList("DLC29_GREAT_TEMPLE_OF_ULRIC").All(ExGreatTempleOfUlric_NextInitiativeHasBeenInspectedWhenUnlocked)

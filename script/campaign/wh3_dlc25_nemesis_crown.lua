@@ -548,7 +548,7 @@ function nemesis_crown:marker_and_battle_listeners(human_factions)
 				local character = cm:get_character_by_fm_cqi(crown.owner_fm_cqi)
 				if character then
 					cm:remove_effect_bundle_from_character(self:generate_effect_bundle_key(character), character)
-					cm:remove_character_vfx(crown.owner_fm_cqi, self.vfx.character)
+					cm:remove_character_vfx(character:command_queue_index(), self.vfx.character)
 				end
 				nemesis_crown:set_crown_lost(self.lost_event)
 				--number of battles required to increase crown level = current level +3

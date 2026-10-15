@@ -16,7 +16,7 @@ middenland_narrative.config = {
 
 	beastmen_invasion_faction_key = "wh_dlc03_bst_beastmen_qb1",
 	beastmen_invasion_general_subtype = "wh_dlc03_bst_beastlord",
-	beastmen_invasion_faction_trait_effect_bundle = "wh3_dlc29_faction_trait_chaos_invasion",
+	beastmen_invasion_faction_trait_effect_bundle = "wh3_dlc29_hidden_beastmen_invasion_bundle",
 	beastmen_invasion_force_trait_effect_bundle = "wh2_dlc16_bundle_military_upkeep_free_force_immune_to_regionless_attrition",
 
 	invasion_force_spawn_distance_from_settlement_min = 8,

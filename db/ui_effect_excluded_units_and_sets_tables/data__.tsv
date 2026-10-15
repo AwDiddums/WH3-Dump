@@ -31,6 +31,7 @@ key	unit	unit_set
 1159840685		tze_iridescent_horrors
 1164792391		thorek_mounted
 1170457080		tmb_all
+1173878763		vmp_lords_necrarch
 1183974297	wh3_dlc29_vmp_cha_necromancer_undeath_barded_nightmare	
 1186360982	wh3_dlc25_chs_cha_chaos_sorcerer_nurgle_mnur_warshrine	
 1189176252		all_units
@@ -119,7 +120,6 @@ key	unit	unit_set
 1549858962	wh_dlc04_vmp_cha_necromancer_3	
 1557613747		dlc16_all_units_rank7
 155778805	wh3_dlc25_nur_cha_exalted_hero_chieftain_chaos_chariot	
-1562677400	wh_pro02_vmp_cha_isabella_von_carstein_2	
 1574765455	wh_dlc04_vmp_cha_strigoi_ghoul_king_0	
 1581274852	wh_main_grn_cha_goblin_big_boss_1	
 1588814518	wh3_main_nur_cha_cultist_1	
@@ -141,7 +141,6 @@ key	unit	unit_set
 1696036092		wh3_dlc20_tze_daemons
 1698522210		
 1717355641	wh_dlc05_wef_cha_glade_lord_3	
-1719080006	wh_pro02_vmp_cha_isabella_von_carstein_4	
 1720174076	wh3_dlc29_skv_inf_skavenslaves_vermintide	
 1720961670		bst_all
 1721184902	wh_main_dwf_veh_gyrocopter_0_malakai	
@@ -161,7 +160,6 @@ key	unit	unit_set
 1792901246	wh_main_vmp_cha_mannfred_von_carstein_3	
 1794535238	wh3_dlc25_chs_cha_chaos_lord_mnur_chaos_chariot	
 1800763321	wh_dlc04_vmp_cha_master_necromancer_3	
-1801836862	wh_pro02_vmp_cha_isabella_von_carstein_0	
 1807518106		
 1809687620		dlc16_all_units_rank1
 1813174831	wh3_main_nur_mon_spawn_of_nurgle_0_warriors	
@@ -195,6 +193,7 @@ key	unit	unit_set
 1924754434		undead_units
 1930739326	wh_main_grn_cha_goblin_great_shaman_1	
 1933769398		
+1934007082		vmp_lords_blood_dragon
 1937358099	wh2_dlc13_emp_inf_huntsmen_0_imperial_supply	
 1937418946	wh_main_grn_cha_goblin_big_boss_2	
 194819367	wh_dlc05_wef_cha_glade_lord_1	
@@ -225,6 +224,7 @@ key	unit	unit_set
 206549569	wh3_dlc25_emp_cha_wizard_metal_pegasus	
 2071325929		
 2082030798	wh_main_emp_cha_wizard_light_1	
+2084821178		vmp_lords_von_carstein
 2088361393	wh3_dlc20_chs_cha_exalted_hero_mnur_chaos_steed	
 2090098462	wh2_dlc16_skv_mon_wolf_rats_0_flesh_lab	
 209169222		wh3_main_cth_cha_iron_dragon_0
@@ -329,9 +329,11 @@ key	unit	unit_set
 699448330		heroes
 702756450	wh3_dlc29_vmp_cha_neferata_dread_abyssal	
 713483666		tmb_chariots_rank7
+715822649		vmp_lords_lahmian
 71746326		dlc16_all_units_rank3
 720362644	wh3_dlc25_nur_cha_bray_shaman_wild_chieftain_razorgor_chariot	
 723429390	wh3_dlc20_chs_cha_chaos_sorcerer_lord_nurgle_mnur_warshrine	
+725376642		vmp_lords_strigoi
 726387174	wh3_dlc25_chs_cha_chaos_sorcerer_death_mnur_chaos_steed	
 730013109	wh3_dlc25_chs_cha_chaos_lord_mnur_chaos_steed	
 73938061	wh_dlc06_grn_cha_night_goblin_warboss_1	
@@ -367,7 +369,6 @@ key	unit	unit_set
 928693905		wh2_dlc16_throt_flesh_lab_pool
 939204245	wh_pro02_vmp_cha_isabella_von_carstein_2	
 939858210		daemonic_units
-940846736	wh_pro02_vmp_cha_isabella_von_carstein_0	
 942768952	wh2_dlc11_vmp_cha_bloodline_necrarch_lord_2	
 945580380	wh2_dlc16_skv_mon_brood_horror_0_flesh_lab	
 945598724		dlc16_all_units_rank7

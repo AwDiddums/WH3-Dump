@@ -969,7 +969,7 @@ uied_component_texts_localised_string_ComponentTooltip_8cc4a160	Click to remove 
 uied_component_texts_localised_string_ComponentTooltip_8d96f4a	Decrease turns	false
 uied_component_texts_localised_string_ComponentTooltip_8dadd304	{{tr:campaign_localised_strings_string_wh3_dlc25_college_locked_tooltip}}	false
 uied_component_texts_localised_string_ComponentTooltip_8dfa50a2	Delete saved character	false
-uied_component_texts_localised_string_ComponentTooltip_8e21aecc	Once a Necropolis is created, its province and all available adjacent provinces become part of its Land of the Dead.\\n\\nNecromantic Energy is a resource that is shared by all regions and armies within a Land of the Dead, and can be spent to expand settlements, or grow armies.	false
+uied_component_texts_localised_string_ComponentTooltip_8e21aecc	Once a Necropolis is created, its province and all available adjacent provinces become part of its Land of the Dead.\\n\\nNecromantic Energy is a resource that is shared by all regions and armies within a Land of the Dead, and can be spent to expand settlements, or grow armies.||{{tr:click_to_open_hp}}	false
 uied_component_texts_localised_string_ComponentTooltip_8e98fbf8	Traversal cost	false
 uied_component_texts_localised_string_ComponentTooltip_8ed3f9b0	Click to remove pin	false
 uied_component_texts_localised_string_ComponentTooltip_8ed4327e	This runs a short demo level to help identify what graphics settings you should run the game on.	false
@@ -2963,7 +2963,7 @@ uied_component_texts_localised_string_StateText_c293d506	Audio memory	false
 uied_component_texts_localised_string_StateText_c2cfaaf1	Rematch	false
 uied_component_texts_localised_string_StateText_c2dfe33c	Turns to complete:	false
 uied_component_texts_localised_string_StateText_c2fa44f1	Load keys	false
-uied_component_texts_localised_string_StateText_c300d586	[[sl:campaign_necrotic_power]]Land of the Dead[[/sl]]	false
+uied_component_texts_localised_string_StateText_c300d586	[[url:script_link_campaign_land_of_the_dead]]Land of the Dead[[/url]]	false
 uied_component_texts_localised_string_StateText_c32cfae7	BETA	false
 uied_component_texts_localised_string_StateText_c3421cb0	Shapeshift	false
 uied_component_texts_localised_string_StateText_c361e52d	2.22	false
@@ -10322,6 +10322,8 @@ uied_component_texts_localised_string_wh3_dlc29_nag_pyramid_progression_lock_1	{
 uied_component_texts_localised_string_wh3_dlc29_nag_pyramid_progression_lock_2	{{tr:initiatives_localised_name_wh3_dlc29_black_pyramid_lock_2_a}} unlocks once 50 [[img:icon_mystic_sigils]][[/img]]Sigils are empowered	false
 uied_component_texts_localised_string_wh3_dlc29_nag_pyramid_progression_lock_3	{{tr:initiatives_localised_name_wh3_dlc29_black_pyramid_lock_3_a}} unlocks once 100 [[img:icon_mystic_sigils]][[/img]]Sigils are empowered	false
 uied_component_texts_localised_string_wh3_dlc29_nag_pyramid_progression_node	Empower Sigils to unlock additional sections.	false
+uied_component_texts_localised_string_wh3_dlc29_nag_subjugate_complete_label	This Mortarch has already been subjugated	false
+uied_component_texts_localised_string_wh3_dlc29_nag_subjugate_complete_other_player_label	This Mortarch is unavailable for subjugation	false
 uied_component_texts_localised_string_wh3_dlc29_skirmish_map_setup_start_without_lord_option_label	Start without Lord(s)	false
 uied_component_texts_localised_string_wh3_dlc29_skirmish_map_setup_start_without_lord_option_tooltip	When checked, a battle can be started without a selected Lord in an army. The first unit in the army will be considered as army commander.	false
 uied_component_texts_localised_string_wh3_dlc29_skv_chaotic_plans_icon_locked_requirement_tooltip	[[col:red]]You cannot purchase this upgrade – you need to acquire more of the other upgrades in this category.[[/col]]	false

@@ -264,6 +264,8 @@ function gelt_dilemmas:setup_final_dilemma()
 						end
 
 						cm:position_camera_at_primary_military_force(self.faction_key)
+						
+						self:fixup_victory_conditions()
 					end,
 					false
 				)
@@ -307,6 +309,50 @@ function gelt_dilemmas:remove_trepass_immunity()
 			false
 		)
 	end
+end
+
+function gelt_dilemmas:fixup_victory_conditions()
+	local mission_key = "wh_main_short_victory"
+	local type = "short"
+
+	if cm:get_scripted_mission_objective_completion_state(self.faction_key, mission_key, "wh3_dlc29_emp_gelt_build_landmark_short") then
+		-- the objective is already completed, no need to change anything.
+		return
+	end
+	
+	-- saving the current mission progress
+	local repeatable_actions_cc = cm:get_scripted_mission_objective_current_count(self.faction_key, "wh_main_short_victory", "wh3_dlc29_emp_gelt_complete_n_college_of_magic_actions_short")
+	local repeatable_actions_tc = cm:get_scripted_mission_objective_total_count(self.faction_key, mission_key, "wh3_dlc29_emp_gelt_complete_n_college_of_magic_actions_short")
+	local single_use_actions = cm:get_scripted_mission_objective_completion_state(self.faction_key, "wh_main_short_victory", "wh3_dlc29_emp_gelt_complete_com_single_actions_short")
+	local ranked_up_agent_total_cc = cm:get_scripted_mission_objective_current_count(self.faction_key, "wh_main_short_victory", "wh3_dlc29_emp_gelt_rank_up_n_battle_wizards_short")
+	local ranked_up_agent_total_tc = cm:get_scripted_mission_objective_total_count(self.faction_key, "wh_main_short_victory", "wh3_dlc29_emp_gelt_rank_up_n_battle_wizards_short")
+	
+	local objectives = {
+		generate_SCRIPTED_MISSION_objective("wh3_dlc29_emp_gelt_complete_n_college_of_magic_actions_short", "mission_text_text_wh3_dlc29_emp_gelt_complete_n_college_of_magic_actions", repeatable_actions_tc, repeatable_actions_cc, true),
+		generate_SCRIPTED_MISSION_objective("wh3_dlc29_emp_gelt_complete_com_single_actions_short", "mission_text_text_wh3_dlc29_emp_gelt_complete_com_single_actions_short"),
+		generate_SCRIPTED_MISSION_objective("wh3_dlc29_emp_gelt_rank_up_n_battle_wizards_short", "mission_text_text_wh3_dlc29_emp_gelt_rank_up_n_battle_wizards_short", ranked_up_agent_total_tc, ranked_up_agent_total_cc, true),
+		generate_FIGHT_SET_PIECE_BATTLE_objective("wh_main_qb_emp_balthasar_gelt_staff_of_volans_stage_3_battle_of_bloodpine_woods"),
+		generate_SCRIPTED_MISSION_objective("wh3_dlc29_emp_gelt_build_landmark_short_empire_var", "mission_text_text_wh3_dlc29_emp_gelt_build_landmark_short_empire_var"),
+	}
+
+	cm:disable_event_feed_events(true, "", "", "faction_event_mission_aborted")
+	cm:complete_scripted_mission_objective(self.faction_key, mission_key, "", false)
+	cm:callback(
+		function()
+			cm:disable_event_feed_events(false, "", "", "faction_event_mission_aborted")
+		end,
+		0.5
+	)
+
+	local mm = mission_manager:new(self.faction_key, mission_key)
+	_victory_objectives_ie:add_objectives(mm, objectives)
+	_victory_objectives_ie:trigger_victory_mission(self.faction_key, mm, type, self.faction_key)
+	_victory_objectives_ie.listeners[self.faction_key](self.faction_key)
+
+	if single_use_actions then
+		cm:complete_scripted_mission_objective(self.faction_key, "wh_main_short_victory", "wh3_dlc29_emp_gelt_complete_com_single_actions_short", true)
+	end
+	
 end
 
 

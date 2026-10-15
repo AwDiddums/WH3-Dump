@@ -8,7 +8,7 @@ vampire_corpses_distribution = {
 	corpses_scripted_bonus_value = "corpse_battle_gain",
 	corpses_adjacent_scripted_bonus_value = "corpse_battle_gain_adjacent",
 	corpses_to_gold_ratio = 1.6,
-	global_corpses_drop_modifier = 0.2,
+	global_corpses_drop_modifier = 0.15,
 
 	no_vampires_distribution_factor = 0.1,	-- how many corpses to distribute when there arent vampires on any side
 	one_side_winning_distribution_factor = 1, -- when only one side has vampires, how much to give to the winning vampire side, the inverse goes to destroyed corpses

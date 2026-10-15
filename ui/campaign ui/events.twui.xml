@@ -18011,7 +18011,13 @@
 				<callback_with_context
 					callback_id="ContextCommandGiverOnVisibilityChanged"
 					context_object_id="CcoCampaignEventIncident ei"
-					context_function_id="TriggerUIScriptEvent(Format(&quot;incident_large_panel_show:%S&quot;, ei.Incident.Key))"/>
+					context_function_id="TriggerUIScriptEvent(Format(&quot;incident_large_panel_show:%S&quot;, ei.Incident.Key))">
+					<child_m_user_properties>
+						<property
+							name="local_visibility_only"
+							value=""/>
+					</child_m_user_properties>
+				</callback_with_context>
 				<callback_with_context
 					callback_id="ContextCommandGiverOnVisibilityChanged"
 					context_object_id="CcoCampaignEventIncident ei"

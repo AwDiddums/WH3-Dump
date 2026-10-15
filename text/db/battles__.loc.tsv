@@ -100,6 +100,7 @@ battles_description_major_n_cth_wei_jin	.	false
 battles_description_major_nagashizzar_megatile_01	.	false
 battles_description_major_o_cth	.	false
 battles_description_major_o_tmb	.	false
+battles_description_major_o_tmb_black_pyramid	.	false
 battles_description_major_p_brt	.	false
 battles_description_major_q_cth	.	false
 battles_description_major_s_chd	.	false
@@ -1419,6 +1420,7 @@ battles_localised_name_major_n_cth_wei_jin	Wei-Jin – Cathay	false
 battles_localised_name_major_nagashizzar_megatile_01	Nagashizzar – Undead Legions	false
 battles_localised_name_major_o_cth	Shang-Yang – Cathay	false
 battles_localised_name_major_o_tmb	Khemri – Tomb Kings	false
+battles_localised_name_major_o_tmb_black_pyramid	{{tr:battles_localised_name_major_o_tmb}}	false
 battles_localised_name_major_p_brt	Parravon – Bretonnia	false
 battles_localised_name_major_q_cth	Dragon Gate – Cathay	false
 battles_localised_name_major_s_chd	Black Fortress – Chaos Dwarfs	false

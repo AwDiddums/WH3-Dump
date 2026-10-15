@@ -10301,7 +10301,7 @@ effects_description_wh3_dlc29_effect_ability_miscast_dark_raiders_upgraded	Misca
 effects_description_wh3_dlc29_effect_ability_miscast_hand_of_dust_upgraded	Miscast base chance: %+n% for "{{tr:unit_abilities_onscreen_name_wh3_dlc29_spell_undeath_sulekhim_hand_of_dust}} Upgraded"	false
 effects_description_wh3_dlc29_effect_ability_miscast_soulstealer_upgraded	Miscast base chance: %+n% for "{{tr:unit_abilities_onscreen_name_wh3_dlc29_spell_undeath_khizaar_the_soulstealer}} Upgraded"	false
 effects_description_wh3_dlc29_effect_ability_num_uses_bound_skitterleap	Bound Spell number of uses: %+n for "{{tr:unit_abilities_onscreen_name_wh3_dlc29_spell_bound_skitterleap}}"	false
-effects_description_wh3_dlc29_effect_ability_num_uses_bound_warp_lighting	Army ability number of uses: %+n for "{{tr:unit_abilities_onscreen_name_wh3_dlc29_spell_bound_warp_lightning}}"	false
+effects_description_wh3_dlc29_effect_ability_num_uses_bound_warp_lighting	Ability number of uses: %+n for "{{tr:unit_abilities_onscreen_name_wh3_dlc29_spell_bound_warp_lightning}}"	false
 effects_description_wh3_dlc29_effect_ability_number_of_uses_coven_throne	Ability number of uses: %+n for Coven Throne unit abilities	false
 effects_description_wh3_dlc29_effect_ability_range_befalling_curse	Effect range: %+n% for "Befalling Curse"	false
 effects_description_wh3_dlc29_effect_ability_range_mod_empowered_by_death	Effect range: %+n% for "{{tr:unit_abilities_onscreen_name_wh3_dlc29_hero_passive_invigorator_of_the_dead}}"	false
@@ -10468,6 +10468,7 @@ effects_description_wh3_dlc29_effect_attribute_enable_glorious_charge_black_knig
 effects_description_wh3_dlc29_effect_attribute_enable_glorious_charge_chariot_and_mount_units_rank7	Attribute: Glorious Charge for Skeleton Chariot units {{tr:rank7}}	false
 effects_description_wh3_dlc29_effect_attribute_enable_glorious_charge_emp_knights_demigryphs	Attribute: Glorious Charge for Empire Knights and Demigryph units	false
 effects_description_wh3_dlc29_effect_attribute_enable_glorious_charge_nag_drakenhof_templars_rank7	Attribute: Glorious Charge for Drakenhof Templar units {{tr:rank7}}	false
+effects_description_wh3_dlc29_effect_attribute_enable_immune_to_flanking_zombie_melee_infantry	Attribute: Immune to Flanking for Melee Zombie Infantry units	false
 effects_description_wh3_dlc29_effect_attribute_enable_immune_to_psychology_melee_infantry	Attribute: Immune to Psychology for Melee Infantry units	false
 effects_description_wh3_dlc29_effect_attribute_enable_immune_to_psychology_skv_stormvermin	Attribute: Immune to Psychology for Stormvermin units	false
 effects_description_wh3_dlc29_effect_attribute_enable_perfect_vigour_construct_monster_units_rank_7	Attribute: Perfect Vigour for Construct Monster units {{tr:rank7}}	false
@@ -11212,6 +11213,7 @@ effects_description_wh3_dlc29_effect_force_stat_weapon_strength_nag_thrones	Weap
 effects_description_wh3_dlc29_effect_force_stat_weapon_strength_nehekharan_warriors	Weapon strength: %+n% for Nehekharan Warriors units	false
 effects_description_wh3_dlc29_effect_force_stat_weapon_strength_nur_daemonic_all	Weapon strength: %+n% for all Daemonic units	false
 effects_description_wh3_dlc29_effect_force_stat_weapon_strength_nur_flying	Weapon strength: %+n% for flying units	false
+effects_description_wh3_dlc29_effect_force_stat_weapon_strength_rank7_no_char	{{tr:effects_description_wh3_dlc26_effect_force_stat_weapon_strength_rank7}}	false
 effects_description_wh3_dlc29_effect_force_stat_weapon_strength_skv_boneripper	Weapon strength: %+n% when mounted on Boneripper	false
 effects_description_wh3_dlc29_effect_force_stat_weapon_strength_skv_eshin	Weapon strength: %+n% for Eshin units	false
 effects_description_wh3_dlc29_effect_force_stat_weapon_strength_skv_gutter_runners_deathrunners_eshid_triads_warpgrinders	Weapon strength: %+n% for Gutter Runner, Death Runner, Eshin Triad and Warp-Grinder units	false
@@ -11345,6 +11347,7 @@ effects_description_wh3_dlc29_effect_handmaiden_trait_upgrade_dummy	All Handmaid
 effects_description_wh3_dlc29_effect_healing_cap_ethereal	Battle healing cap: %+n% for Ethereal units	false
 effects_description_wh3_dlc29_effect_healing_cap_modifier_vampire_count_lords	{{tr:effects_description_wh3_dlc20_effect_healing_cap_modifier}} for all Vampire Count [[img:icon_general]][[/img]]Lords 	false
 effects_description_wh3_dlc29_effect_healing_cap_nag_guards	Battle healing cap: %+n% for Tomb Guard, Grave Guard and Depth Guard units	false
+effects_description_wh3_dlc29_effect_healing_cap_vmp_blood_knights_drakenhof_templars	Battle healing cap: %+n% for Blood Knights and Drakenhof Templars units	false
 effects_description_wh3_dlc29_effect_healing_cap_zombie_infantry	Battle healing cap: %+n% for Zombie Infantry and Bloated Corpse units	false
 effects_description_wh3_dlc29_effect_hef_anti_large_dragon_princes	Bonus vs Large: %+n for Dragon Princes units	false
 effects_description_wh3_dlc29_effect_hef_armor_piercing_dragon_princes	Armour-piercing weapon damage: %+n for Dragon Princes units	false
@@ -11474,9 +11477,19 @@ effects_description_wh3_dlc29_effect_nag_necromancy_cost_mod_war_machines	Necrom
 effects_description_wh3_dlc29_effect_nag_perfect_vigour_vs_dwarf	Attribute: Perfect Vigour when fighting against Dwarfs	false
 effects_description_wh3_dlc29_effect_nag_public_order_edict_hidden		false
 effects_description_wh3_dlc29_effect_nag_raise_dead_recruitment_cost_mod_hidden		false
+effects_description_wh3_dlc29_effect_nag_recruit_cost_construct_monsters_monstrous	Local Recruitment cost: %+n% for Construct Monstrous and Monster units	false
+effects_description_wh3_dlc29_effect_nag_recruit_cost_undead_artillery	Local Recruitment cost: %+n% for Artillery units	false
+effects_description_wh3_dlc29_effect_nag_recruit_cost_undead_beasts_monstrous_monsters	Local Recruitment cost: %+n% for Undead Beasts, Monstrous and Monster units	false
+effects_description_wh3_dlc29_effect_nag_recruit_cost_undead_cav_chariot	Local Recruitment cost: %+n% for Cavalry and Chariot units	false
+effects_description_wh3_dlc29_effect_nag_recruit_cost_undead_ethereal	Local Recruitment cost: %+n% for Ethereal units	false
+effects_description_wh3_dlc29_effect_nag_recruit_cost_undead_melee_inf	Local Recruitment cost: %+n% for Melee Infantry units	false
+effects_description_wh3_dlc29_effect_nag_recruit_cost_undead_ranged_inf_flyers	Local Recruitment cost: %+n% for Missile Infantry and Deck Dropper units	false
 effects_description_wh3_dlc29_effect_nag_recruit_rank_cst_heroes_lords	Recruit rank: %+n for Vampire Coast Lords and Heroes	false
+effects_description_wh3_dlc29_effect_nag_recruit_rank_cst_heroes_lords_hidden	{{tr:effects_description_wh_main_faction_xp_increase_generals_hidden}}	false
 effects_description_wh3_dlc29_effect_nag_recruit_rank_tmb_heroes_lords	Recruit rank: %+n for Tomb King Lords and Heroes	false
+effects_description_wh3_dlc29_effect_nag_recruit_rank_tmb_heroes_lords_hidden	{{tr:effects_description_wh_main_faction_xp_increase_generals_hidden}}	false
 effects_description_wh3_dlc29_effect_nag_recruit_rank_vmp_heroes_lords	Recruit rank: %+n for Vampire Count Lords and Heroes	false
+effects_description_wh3_dlc29_effect_nag_recruit_rank_vmp_heroes_lords_hidden	{{tr:effects_description_wh_main_faction_xp_increase_generals_hidden}}	false
 effects_description_wh3_dlc29_effect_nag_ritual_discount_ai_only		false
 effects_description_wh3_dlc29_effect_nag_ryze_the_grave_call_crypt_horrors	Army ability: "{{tr:unit_abilities_onscreen_name_wh3_dlc29_army_abilities_ryze_the_grave_call_crypt_horrors}}" for armies led by a Vampire Count Lord	false
 effects_description_wh3_dlc29_effect_nag_ryze_the_grave_call_khemrian_warsphinx	Army ability: "{{tr:unit_abilities_onscreen_name_wh3_dlc29_army_abilities_ryze_the_grave_call_khemrian_warsphinx}}" for armies led by a Tomb King Lord	false
@@ -11488,6 +11501,31 @@ effects_description_wh3_dlc29_effect_nag_ryze_the_grave_call_rotting_prometheans
 effects_description_wh3_dlc29_effect_nag_ryze_the_grave_call_rotting_prometheans_upgraded	Army ability: "{{tr:unit_abilities_onscreen_name_wh3_dlc29_army_abilities_ryze_the_grave_call_rotting_prometheans_gunnery_mob}}" now summons units that won't degrade over time	false
 effects_description_wh3_dlc29_effect_nag_ryze_the_grave_call_terrorgheist	Army ability: "{{tr:unit_abilities_onscreen_name_wh3_dlc29_army_abilities_ryze_the_grave_call_terrorgheist}}" for armies led by a Vampire Count Lord	false
 effects_description_wh3_dlc29_effect_nag_ryze_the_grave_call_ushabti	Army ability: "{{tr:unit_abilities_onscreen_name_wh3_dlc29_army_abilities_ryze_the_grave_call_ushabti}}" for armies led by a Tomb King Lord	false
+effects_description_wh3_dlc29_effect_nag_upkeep_construct_monsters_monstrous_tier2	Upkeep: %+n% for all Construct Monstrous and Monster units up to [[img:icon_unit_tier_2]][[/img]]Tier [[b]]2[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_construct_monsters_monstrous_tier3	Upkeep: %+n% for all Construct Monstrous and Monster units up to [[img:icon_unit_tier_3]][[/img]]Tier [[b]]3[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_construct_monsters_monstrous_tier4	Upkeep: %+n% for all Construct Monstrous and Monster units up to [[img:icon_unit_tier_4]][[/img]]Tier [[b]]4[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_construct_monsters_monstrous_tier5	Upkeep: %+n% for all Construct Monstrous and Monster units up to [[img:icon_unit_tier_5]][[/img]]Tier [[b]]5[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_artillery_tier2	Upkeep: %+n% for all Artillery units up to [[img:icon_unit_tier_2]][[/img]]Tier [[b]]2[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_artillery_tier3	Upkeep: %+n% for all Artillery units up to [[img:icon_unit_tier_3]][[/img]]Tier [[b]]3[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_artillery_tier4	Upkeep: %+n% for all Artillery units up to [[img:icon_unit_tier_4]][[/img]]Tier [[b]]4[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_beasts_monstrous_monsters_tier1	Upkeep: %+n% for all [[img:icon_unit_tier_1]][[/img]]Tier [[b]]1[[/b]] Undead Beasts, Monstrous and Monster units	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_beasts_monstrous_monsters_tier2	Upkeep: %+n% for all Undead Beasts, Monstrous and Monster units up to [[img:icon_unit_tier_2]][[/img]]Tier [[b]]2[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_beasts_monstrous_monsters_tier3	Upkeep: %+n% for all Undead Beasts, Monstrous and Monster units up to [[img:icon_unit_tier_3]][[/img]]Tier [[b]]3[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_beasts_monstrous_monsters_tier4	Upkeep: %+n% for all Undead Beasts, Monstrous and Monster units up to [[img:icon_unit_tier_4]][[/img]]Tier [[b]]4[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_beasts_monstrous_monsters_tier5	Upkeep: %+n% for all Undead Beasts, Monstrous and Monster units up to [[img:icon_unit_tier_5]][[/img]]Tier [[b]]5[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_cav_chariot_tier1	Upkeep: %+n% for all [[img:icon_unit_tier_1]][[/img]]Tier [[b]]1[[/b]] Cavalry and Chariot units	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_cav_chariot_tier2	Upkeep: %+n% for all  Cavalry and Chariot units up to [[img:icon_unit_tier_2]][[/img]]Tier [[b]]2[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_cav_chariot_tier3	Upkeep: %+n% for all  Cavalry and Chariot units up to [[img:icon_unit_tier_3]][[/img]]Tier [[b]]3[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_cav_chariot_tier4	Upkeep: %+n% for all  Cavalry and Chariot units up to [[img:icon_unit_tier_4]][[/img]]Tier [[b]]4[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_ethereal_tier1	Upkeep: %+n% for all [[img:icon_unit_tier_1]][[/img]]Tier [[b]]1[[/b]] Ethereal units	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_ethereal_tier2	Upkeep: %+n% for all Ethereal units up to [[img:icon_unit_tier_2]][[/img]]Tier [[b]]2[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_ethereal_tier3	Upkeep: %+n% for all Ethereal units up to [[img:icon_unit_tier_3]][[/img]]Tier [[b]]3[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_melee_inf_tier1	Upkeep: %+n% for all [[img:icon_unit_tier_1]][[/img]]Tier [[b]]1[[/b]] Melee Infantry units	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_melee_inf_tier2	Upkeep: %+n% for all Melee Infantry units up to [[img:icon_unit_tier_2]][[/img]]Tier [[b]]2[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_melee_inf_tier3	Upkeep: %+n% for all Melee Infantry units up to [[img:icon_unit_tier_3]][[/img]]Tier [[b]]3[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_ranged_inf_flyers_tier1	Upkeep: %+n% for all [[img:icon_unit_tier_1]][[/img]]Tier [[b]]1[[/b]] Missile Infantry and Deck Dropper units	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_ranged_inf_flyers_tier2	Upkeep: %+n% for all Missile Infantry and Deck Dropper units up to [[img:icon_unit_tier_2]][[/img]]Tier [[b]]2[[/b]]	false
+effects_description_wh3_dlc29_effect_nag_upkeep_undead_ranged_inf_flyers_tier3	Upkeep: %+n% for all Missile Infantry and Deck Dropper units up to [[img:icon_unit_tier_3]][[/img]]Tier [[b]]3[[/b]]	false
 effects_description_wh3_dlc29_effect_nagash_cst_ror_unlock_dummy	Unlocks access to all [[col:yellow]][[b]]Vampire Coast Regiments of Renown[[/b]][[/col]] once one of your [[img:icon_general]][[/img]]Lords reaches the required rank	false
 effects_description_wh3_dlc29_effect_nagash_rush_construction_unlock_dummy	Enables the factionwide ability to [[col:yellow]]Rush Construction[[/col]] by spending [[img:icon_necromantic_energy]][[/img]]{{tr:pooled_resources_display_name_wh3_dlc29_nag_necromantic_energy}}	false
 effects_description_wh3_dlc29_effect_nagash_shambling_army_duration_dummy	Shambling Horde attrition immunity duration: %+n turns	false
@@ -11556,6 +11594,7 @@ effects_description_wh3_dlc29_effect_post_battle_unit_saving_chance_hp_blood_kni
 effects_description_wh3_dlc29_effect_post_battle_unit_saving_chance_hp_construct_monsters	The Dead Rise Again: %+n% chance and hit points for destroyed Construct Monster units to be restored after battle	false
 effects_description_wh3_dlc29_effect_post_battle_unit_saving_chance_hp_crypt_ghouls_horrors	The Dead Rise Again: %+n% chance and hit points for destroyed Crypt Ghouls and Crypt Horrors units restored after battle	false
 effects_description_wh3_dlc29_effect_post_battle_unit_saving_chance_hp_vampires	The Dead Rise Again: %+n% chance and hit points for destroyed Vampire units to be restored after battle	false
+effects_description_wh3_dlc29_effect_post_battle_unit_saving_chance_lords_hidden	[HIDDEN]	false
 effects_description_wh3_dlc29_effect_post_battle_unit_saving_chance_mournguls	The Dead Rise Again: %+n% chance for destroyed Mourngul units to be restored after battle	false
 effects_description_wh3_dlc29_effect_post_battle_unit_saving_chance_nurglings	Daemons Reforged: %+n% chance for destroyed Nurglings to be restored after battle	false
 effects_description_wh3_dlc29_effect_post_battle_unit_saving_chance_vmp	The Dead Rise Again: %+n% chance for destroyed Vampire Count units to be restored after battle	false
@@ -11729,6 +11768,7 @@ effects_description_wh3_dlc29_effect_stance_cost_raiding	Raiding stance usage co
 effects_description_wh3_dlc29_effect_starting_fatigue_fresh_stance_raiding	Removes Raiding stance fatigue penalty	false
 effects_description_wh3_dlc29_effect_stat_incoming_healing_mod_debuff	{{tr:effects_description_wh3_dlc26_effect_stat_incoming_healing_mod}}	false
 effects_description_wh3_dlc29_effect_stat_incoming_healing_mod_skv_moulder	Incoming Healing Modifier: %+n% for Moulder units	false
+effects_description_wh3_dlc29_effect_stat_mass_nag_melee_zombies	Unit mass: %+n% for Melee Zombie Infantry units	false
 effects_description_wh3_dlc29_effect_stat_missile_resistance_nurgle_mark	Missile resistance: %n% for Monsters	false
 effects_description_wh3_dlc29_effect_sudden_kill_scheme_payload_duration_mod	Sudden Kill: Double effects duration	false
 effects_description_wh3_dlc29_effect_summoning_charges	Charges on all summoning abilities: %+n	false
@@ -11762,6 +11802,7 @@ effects_description_wh3_dlc29_effect_unit_cap_wh2_dlc11_cst_mon_mournguls_0	Unit
 effects_description_wh3_dlc29_effect_unit_capacity_nag_mon_khemric_titan	Unit capacity: %+n\\nKhemric Titan	false
 effects_description_wh3_dlc29_effect_unit_capacity_nag_mon_morghast_archai	Unit capacity: %+n\\nMorghast Archai	false
 effects_description_wh3_dlc29_effect_unit_capacity_nag_mon_morghast_harbingers	Unit capacity: %+n\\nMorghast Harbingers	false
+effects_description_wh3_dlc29_effect_unit_cst_lord_upkeep_all	Upkeep: %+n% for Vampire Coast units when led by a Vampire Coast Lord or Nagash	false
 effects_description_wh3_dlc29_effect_unit_enable_attribute_expert_charge_defence_nag_skeleton_spearmen	Attribute: Expert Charge Defence for Spear and Halberd Skeleton Infantry units	false
 effects_description_wh3_dlc29_effect_unit_enable_spell_mastery	{{tr:effects_description_wh3_main_effect_attribute_spell_mastery_chd_kdaai}}	false
 effects_description_wh3_dlc29_effect_unit_enable_spell_mastery_self	{{tr:effects_description_wh3_main_effect_attribute_spell_mastery_chd_kdaai}}	false
@@ -11769,11 +11810,13 @@ effects_description_wh3_dlc29_effect_unit_recruitment_cost_nag_undead_horsemen	L
 effects_description_wh3_dlc29_effect_unit_recruitment_cost_vmp_all	Recruitment cost: %+n% for Vampire Count units	false
 effects_description_wh3_dlc29_effect_unit_recruitment_cost_zombies_crypt_ghouls_animated_hulks_bloated_corpse	Local Recruitment cost: %+n% for Zombie Infantry, Crypt Ghouls, Animated Hulks and Bloated Corpse units	false
 effects_description_wh3_dlc29_effect_unit_recruitment_points_removed	You will no longer have any recruitment capacity\\n(all settlements and forces)	false
+effects_description_wh3_dlc29_effect_unit_tmb_lord_upkeep_all	Upkeep: %+n% for Tomb Kings units when led by a Tomb Kings Lord or Nagash	false
 effects_description_wh3_dlc29_effect_unit_upgrade_unlock_putrid_blightkings_context_dummy	Unlocks Warband upgrades: Putrid Blightkings	false
 effects_description_wh3_dlc29_effect_unit_upgrade_unlock_wrathmongers_context_dummy	Unlocks Warband upgrades: Wrathmongers	false
 effects_description_wh3_dlc29_effect_unit_upkeep_cst_all	Upkeep: %+n% for Vampire Coast units	false
 effects_description_wh3_dlc29_effect_unit_upkeep_tmb_all	Upkeep: %+n% for Tomb King units	false
 effects_description_wh3_dlc29_effect_unit_upkeep_vmp_all	Upkeep: %+n% for Vampire Count units	false
+effects_description_wh3_dlc29_effect_unit_vmp_lord_upkeep_all	Upkeep: %+n% for Vampire Counts units when led by a Vampire Counts Lord or Nagash	false
 effects_description_wh3_dlc29_effect_unit_xp_levels_cst_all	Recruit rank: %+n for Vampire Coast units	false
 effects_description_wh3_dlc29_effect_unit_xp_levels_deck_droppers	Recruit rank: %+n for Deck Dropper units	false
 effects_description_wh3_dlc29_effect_unit_xp_levels_ethereal	Recruit rank: %+n for Ethereal units	false
@@ -16999,6 +17042,7 @@ effects_description_wh_main_effect_force_all_campaign_upkeep	Upkeep: %+n%	false
 effects_description_wh_main_effect_force_all_campaign_upkeep_dummy	Upkeep: %+n%	false
 effects_description_wh_main_effect_force_all_campaign_upkeep_hidden		false
 effects_description_wh_main_effect_force_all_campaign_upkeep_low_prio	Upkeep: %+n%	false
+effects_description_wh_main_effect_force_all_campaign_upkeep_nagash	{{tr:effects_description_wh_main_effect_force_all_campaign_upkeep}}	false
 effects_description_wh_main_effect_force_all_recruitment_points	{{tr:horde_recruitment_capacity}} %+n	false
 effects_description_wh_main_effect_force_army_battle_infantry_charge_bonus	Charge bonus: %+n% for Melee Infantry units	false
 effects_description_wh_main_effect_force_army_battle_movement_speed_waaagh_dummy	Speed	false

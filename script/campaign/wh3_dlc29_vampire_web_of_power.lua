@@ -185,8 +185,20 @@ web_of_power_actions = {
 		},
         ["wh3_dlc29_neferata_actions_t1_steal_item"] = {
             callback = function (context, performing_character)
-                local target_force = context:ritual_target_force();
-                local target_character = target_force:general_character();
+                local ritual_target = context:ritual():ritual_target();
+                local target_character = ritual_target:get_target_character();
+
+                if target_character == nil or target_character:is_null_interface() then
+                    local target_force = context:ritual_target_force();
+                    if target_force ~= nil and not target_force:is_null_interface() then
+                        target_character = target_force:general_character();
+                    end
+                end
+
+                if target_character == nil or target_character:is_null_interface() then
+                    return false;
+                end
+
                 local ancillaries = web_of_power_actions:find_valid_ancillaries(target_character:command_queue_index());
 				local performing_faction = performing_character:faction();
                             

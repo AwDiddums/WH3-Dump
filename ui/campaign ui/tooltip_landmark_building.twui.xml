@@ -406,11 +406,11 @@
 				<callback_with_context
 					callback_id="ContextCommandGiverOnContextSet"
 					context_object_id="CcoBuildingChainRecord chain, CcoCampaignSettlement settlement"
-					context_function_id="self.Resize(self.Dimensions.x, 106 * (chain.LevelsList.Filter(Key.EndsWith(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement - settlement.ExLandmarkBuildingList.Sort(LevelsList.Filter(Key.EndsWith(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement, true).FirstContext.LevelsList.Filter(Key.EndsWith(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement), false)"/>
+					context_function_id="self.Resize(self.Dimensions.x, 106 * (chain.LevelsList.Filter(Key.Contains(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement - settlement.ExLandmarkBuildingList.Sort(LevelsList.Filter(Key.Contains(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement, true).FirstContext.LevelsList.Filter(Key.Contains(&quot;_ruin&quot;)  == false).FirstContext.PrimarySlotBuildingLevelRequirement), false)"/>
 				<callback_with_context
 					callback_id="ContextVisibilitySetter"
 					context_object_id="CcoBuildingChainRecord chain, CcoCampaignSettlement settlement"
-					context_function_id="chain.LevelsList.Filter(Key.EndsWith(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement &gt; settlement.ExLandmarkBuildingList.Sort(LevelsList.Filter(Key.EndsWith(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement, true).FirstContext.LevelsList.Filter(Key.EndsWith(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement"/>
+					context_function_id="chain.LevelsList.Filter(Key.Contains(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement &gt; settlement.ExLandmarkBuildingList.Sort(LevelsList.Filter(Key.Contains(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement, true).FirstContext.LevelsList.Filter(Key.Contains(&quot;_ruin&quot;) == false).FirstContext.PrimarySlotBuildingLevelRequirement"/>
 			</callbackwithcontextlist>
 			<states>
 				<default

@@ -19,6 +19,8 @@ campaign_difficulty_handicap	human	effect	optional_campaign_key	effect_scope	eff
 -1	false	wh3_dlc24_pooled_resource_skv_reactor_core_gained		faction_to_faction_own_unseen	0.0000
 -1	false	wh3_dlc27_effect_nor_spoils_resource		faction_to_faction_own_unseen	50.0000
 -1	false	wh3_dlc29_effect_all_reduce_mercenary_cap_ai_only		faction_to_faction_own_unseen	-999989.0000
+-1	false	wh3_dlc29_effect_post_battle_unit_saving_chance_all		faction_to_force_own_unseen	-75.0000
+-1	false	wh3_dlc29_effect_post_battle_unit_saving_chance_lords_hidden		faction_to_force_own_unseen	-100.0000
 -1	false	wh3_main_effect_allied_recruitment_points		faction_to_faction_own_unseen	2.0000
 -1	false	wh3_main_effect_allied_recruitment_unit_cap		faction_to_faction_own_unseen	2.0000
 -1	false	wh3_main_effect_kho_skull_throne_cost_mod		faction_to_faction_own_unseen	-50.0000
@@ -115,6 +117,8 @@ campaign_difficulty_handicap	human	effect	optional_campaign_key	effect_scope	eff
 0	false	wh3_dlc24_pooled_resource_skv_reactor_core_gained		faction_to_faction_own_unseen	1.0000
 0	false	wh3_dlc27_effect_nor_spoils_resource		faction_to_faction_own_unseen	50.0000
 0	false	wh3_dlc29_effect_all_reduce_mercenary_cap_ai_only		faction_to_faction_own_unseen	-999989.0000
+0	false	wh3_dlc29_effect_post_battle_unit_saving_chance_all		faction_to_force_own_unseen	-50.0000
+0	false	wh3_dlc29_effect_post_battle_unit_saving_chance_lords_hidden		faction_to_force_own_unseen	-100.0000
 0	false	wh3_main_effect_allied_recruitment_points		faction_to_faction_own_unseen	2.0000
 0	false	wh3_main_effect_allied_recruitment_unit_cap		faction_to_faction_own_unseen	2.0000
 0	false	wh3_main_effect_kho_skull_throne_cost_mod		faction_to_faction_own_unseen	-50.0000
@@ -180,6 +184,8 @@ campaign_difficulty_handicap	human	effect	optional_campaign_key	effect_scope	eff
 1	false	wh3_dlc24_pooled_resource_skv_reactor_core_gained		faction_to_faction_own_unseen	1.0000
 1	false	wh3_dlc27_effect_nor_spoils_resource		faction_to_faction_own_unseen	100.0000
 1	false	wh3_dlc29_effect_all_reduce_mercenary_cap_ai_only		faction_to_faction_own_unseen	-999989.0000
+1	false	wh3_dlc29_effect_post_battle_unit_saving_chance_all		faction_to_force_own_unseen	-25.0000
+1	false	wh3_dlc29_effect_post_battle_unit_saving_chance_lords_hidden		faction_to_force_own_unseen	-25.0000
 1	false	wh3_main_effect_allied_recruitment_points		faction_to_faction_own_unseen	2.0000
 1	false	wh3_main_effect_allied_recruitment_unit_cap		faction_to_faction_own_unseen	2.0000
 1	false	wh3_main_effect_kho_skull_throne_cost_mod		faction_to_faction_own_unseen	-50.0000

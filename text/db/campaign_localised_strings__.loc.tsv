@@ -1283,6 +1283,7 @@ campaign_localised_strings_string_recruitment_cost_tooltip_wh3_dlc29_emp_fervour
 campaign_localised_strings_string_recruitment_cost_tooltip_wh3_dlc29_nag_necromantic_energy	Cost||This is the amount of [[img:icon_necromantic_energy]][[/img]]{{tr:pooled_resources_display_name_wh3_dlc29_nag_necromantic_energy}} you require to recruit this unit.	false
 campaign_localised_strings_string_recruitment_cost_tooltip_wh3_dlc29_vmp_corpses	Corpse Cost||This is the amount of Corpses you require in the province to recruit this unit.	false
 campaign_localised_strings_string_recruitment_cost_tooltip_wh3_dlc29_vmp_power	Blood Cost||This is the amount of Blood you require to recruit this unit.	false
+campaign_localised_strings_string_recruitment_cost_tooltip_wh3_main_lzd_sacred_spawning	Cost||This is the amount of [[img:icon_spawning_sequence]][[/img]] Spawning Sequence you require to recruit this unit.	false
 campaign_localised_strings_string_recruitment_flesh_lab	Recruit units||Any units in the queue will instantly be recruited to your army.	false
 campaign_localised_strings_string_recruitment_hire_from_horde	Recruit from Horde	false
 campaign_localised_strings_string_recruitment_hire_mercenary	Recruit units||Any units in the queue will instantly be recruited to your army.	false
@@ -2025,6 +2026,7 @@ campaign_localised_strings_string_wh2_main_skv_skaven_discovered_tooltip	{{tr:sk
 campaign_localised_strings_string_wh2_main_skv_skaven_hidden_discovered_tooltip	{{tr:skaven_under_empire_discovered_tooltip}}	false
 campaign_localised_strings_string_wh2_main_skv_skaven_owned_discovered_tooltip	Your Under-City has been discovered!	false
 campaign_localised_strings_string_wh2_main_skv_skaven_owned_tooltip	Under-City Established	false
+campaign_localised_strings_string_wh3_cp1_bhashiva_caravans_no_owned_settlements_dispatch_button_tooltip_warning	[[col:red]You must own at least one settlement to be able to dispatch Caravans[[/col]]	false
 campaign_localised_strings_string_wh3_cp1_insignia_panel_inactive_button_no_available_units_tooltip	\\n\\n[[col:red]]You can equip Insignias only to units found in Shang-Yang's Warhold.[[/col]]	false
 campaign_localised_strings_string_wh3_cp1_ivory_road_active_dispatch_btn_tooltip	Dispatch the Caravan escort by paying the cost of their supplies.	false
 campaign_localised_strings_string_wh3_cp1_ivory_road_confirmation_popup	This route will only yield [[img:icon_iron_favour]][[//img]]Iron Favour in return for your protection.\\n\\nDo you wish to escort this Caravan?	false
@@ -2383,6 +2385,7 @@ campaign_localised_strings_string_wh3_dlc29_lock_chosen_of_ulric_elite	[[col:red
 campaign_localised_strings_string_wh3_dlc29_middenland_army_rituals_tooltip_tx	Winter Rites||Spend [[img:icon_fervour]][[/img]]Fervour to gain bonuses for this army through Ulrican Rites.	false
 campaign_localised_strings_string_wh3_dlc29_nag_black_pyramid_required_mystic_sigils	Empowered [[img:icon_mystic_sigils]][[/img]]Sigils required to reach this node: %d	false
 campaign_localised_strings_string_wh3_dlc29_nag_book_missing_txt	This Book is missing. Check back in %d turns.	false
+campaign_localised_strings_string_wh3_dlc29_nagash_necropolis_occupation_capacity_exceeded_tooltip_warning	[[col:red]]Necropolis limit reached. Additional Necropolises will introduce or increase negative effects to your faction[[/col]]	false
 campaign_localised_strings_string_wh3_dlc29_nagash_ror_lock_tooltip_wh2_dlc09_tmb_followers_of_nagash	[[col:red]]This unit will unlock after Arkhan the Black is Subjugated in the Mortarchs Panel and one of your [[img:icon_general]][[/img]]Lords reaches the required rank.[[/col]]	false
 campaign_localised_strings_string_wh3_dlc29_nagash_ror_lock_tooltip_wh2_dlc11_cst_vampire_coast	[[col:red]]This unit will unlock after Luthor Harkon is Subjugated in the Mortarchs Panel and one of your [[img:icon_general]][[/img]]Lords reaches the required rank.[[/col]]	false
 campaign_localised_strings_string_wh3_dlc29_nagash_ror_lock_tooltip_wh_main_vmp_vampire_counts	[[col:red]]This unit will unlock after Mannfred von Carstein is Subjugated in the Mortarchs Panel and one of your [[img:icon_general]][[/img]]Lords reaches the required rank.[[/col]]	false
@@ -2418,6 +2421,7 @@ campaign_localised_strings_string_wh3_kairos_fragments_of_sorcery_rarity_ability
 campaign_localised_strings_string_wh3_kairos_fragments_of_sorcery_rarity_ability_rare	Rare Spells	false
 campaign_localised_strings_string_wh3_kairos_fragments_of_sorcery_rarity_ability_uncommon	Uncommon Spells	false
 campaign_localised_strings_string_wh3_kairos_fragments_of_sorcery_unlock_slot_at_level	You can unlock this slot at level %d.	false
+campaign_localised_strings_string_wh3_main_force_war_inactive_button_force_war_aislinn_maritime_patrol_tooltip_warning	[[col:red]]War cannot be forced between these two factions[[/col]]	false
 campaign_localised_strings_string_wh3_main_great_game_title_tx	Unholy Manifestations	false
 campaign_localised_strings_string_wh3_main_ksl_force_invocations_title_tx	Army Invocations	false
 campaign_localised_strings_string_wh3_main_regiments_of_renown_pool_source_string	Regiments of Renown	false

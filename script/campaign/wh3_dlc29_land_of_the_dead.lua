@@ -318,19 +318,24 @@ function land_of_the_dead:add_listeners()
 		function(context)
 			local target_region = context:ritual_target_region()
 			local province = target_region:province()
-			-- the delay here is added so that the celebration animation that plays when devastating a province
-			-- is already underway when we add the vfx, which causes a bit of stutter
+
+			-- Apply devastation and region bundles immediately so LandOfTheDeadDevastated
+			-- building contextual effects (e.g. income) activate on ritual completion.
+			self.devastation_provinces[province:key()] = true
+			devastation_manager:devastate_region(target_region:name(),
+				self.map_event_key,
+				"land_of_the_dead"
+			)
+			cm:faction_add_pooled_resource(self.faction_key, self.devastation_count, "other", 1)
+ 
+			for _, region in model_pairs(province:regions()) do
+				self:update_region_effect_bundle(region)
+			end
+ 
+			-- Delay VFX only so the celebration animation is underway (avoids stutter)
 			cm:callback(
 				function()
-					self.devastation_provinces[province:key()] = true
-					devastation_manager:devastate_region(target_region:name(), 
-						self.map_event_key,
-						"land_of_the_dead"
-					)
-					cm:faction_add_pooled_resource(self.faction_key, self.devastation_count, "other", 1)
-
 					for _, region in model_pairs(province:regions()) do
-						self:update_region_effect_bundle(region)
 						cm:add_region_vfx(region, self.vfx_key, true, false)
 					end
 				end,

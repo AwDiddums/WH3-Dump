@@ -14592,7 +14592,7 @@
 				</callback_with_context>
 				<callback_with_context
 					callback_id="ContextCommandEvent"
-					context_function_id="(target_height = self.ChildContext(&quot;list_box&quot;).Dimensions.y, height_cap = GetIfElse(RootComponent.Dimensions.y &lt; 1079, 490, 562), final_height = MinNumericValue(target_height, height_cap)) =&gt; { DoIf(final_height != 1, Do(self.Resize(self.Dimensions.x, final_height, true), self.ScrollToValue(9999, true))) }">
+					context_function_id="(target_height = self.ChildContext(&quot;list_box&quot;).Dimensions.y, height_cap = GetIfElse(RootComponent.Dimensions.y &lt; 1079, 490, 562), final_height = MinNumericValue(target_height, height_cap)) =&gt; { DoIf(final_height != 1, Do(self.Resize(self.Dimensions.x, final_height, true))) }">
 					<child_m_user_properties>
 						<property
 							name="event0"
@@ -16461,7 +16461,7 @@
 				</callback_with_context>
 				<callback_with_context
 					callback_id="ContextCommandEvent"
-					context_function_id="(target_height = self.ChildContext(&quot;list_box&quot;).Dimensions.y, height_cap = GetIfElse(RootComponent.Dimensions.y &lt; 1079, 490, 562), final_height = MinNumericValue(target_height, height_cap)) =&gt; { DoIf(final_height != 1, Do(self.Resize(self.Dimensions.x, final_height, true), self.ScrollToValue(9999, true))) }">
+					context_function_id="(target_height = self.ChildContext(&quot;list_box&quot;).Dimensions.y, height_cap = GetIfElse(RootComponent.Dimensions.y &lt; 1079, 490, 562), final_height = MinNumericValue(target_height, height_cap)) =&gt; { DoIf(final_height != 1, Do(self.Resize(self.Dimensions.x, final_height, true))) }">
 					<child_m_user_properties>
 						<property
 							name="event0"

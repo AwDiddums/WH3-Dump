@@ -336,9 +336,9 @@ end
 --------------------------------------------- Alluress check ----------------------------
 -------------------------------------------------------------------------------------------------
 
-enemy_armies.alluress_01.army:message_on_commander_death(enemy_armies.alluress_01.death_message)
-enemy_armies.alluress_02.army:message_on_commander_death(enemy_armies.alluress_02.death_message)
-enemy_armies.alluress_03.army:message_on_commander_death(enemy_armies.alluress_03.death_message)
+enemy_armies.alluress_01.army:message_on_commander_dead_or_shattered(enemy_armies.alluress_01.death_message)
+enemy_armies.alluress_02.army:message_on_commander_dead_or_shattered(enemy_armies.alluress_02.death_message)
+enemy_armies.alluress_03.army:message_on_commander_dead_or_shattered(enemy_armies.alluress_03.death_message)
 
 -------------------------------------------------------------------------------------------------
 ------------------------------------------- OBJECTIVES ------------------------------------------
@@ -427,8 +427,14 @@ gb:complete_objective_on_message(enemy_armies.alluress_03.death_message, "wh3_dl
 
 gb:complete_objective_on_message("victory", "wh3_dlc25_qb_gotrek_felix_unlock_hints_objective_2")
 gb:message_on_all_messages_received("victory", enemy_armies.alluress_01.death_message, enemy_armies.alluress_02.death_message, enemy_armies.alluress_03.death_message)
-ga_attacker_01:force_victory_on_message("victory", 7000)
-
+ga_attacker_01:force_victory_on_message("victory", 2000)
+gb:message_on_time_offset("force_battle_end", 5000, "victory")
+gb:add_listener(
+    "force_battle_end",
+	function()
+		bm:force_battle_end(gb:get_player_alliance_num(), "scripted", true, true)
+	end
+)
 -------------------------------------------------------------------------------------------------
 --------------------------------------------- DEFEAT -------------------------------------------
 -------------------------------------------------------------------------------------------------

@@ -414,6 +414,7 @@ mission_text_text_mis_activity_perform_eshin_actions	Perform 8 Eshin Actions 	fa
 mission_text_text_mis_activity_perform_specific_ritual	Perform the following rite:	false
 mission_text_text_mis_activity_perform_specific_ritual_crafting	{{tr:complete_specific_crafting_ritual}}	false
 mission_text_text_mis_activity_perform_specific_ritual_vortex	Complete the following ritual:	false
+mission_text_text_mis_activity_perform_x_nag_unit_cap_rituals	Increase %n unit capacities within the Necromancy panel.	false
 mission_text_text_mis_activity_perform_x_rituals_of_category	Perform %n rituals of the following category: %n	false
 mission_text_text_mis_activity_prologue_complete_brazen_altar	Win Brazen Altar quest battle	false
 mission_text_text_mis_activity_prologue_complete_dervingard	Liberate Fort Dervingard	false
@@ -519,6 +520,7 @@ mission_text_text_mis_construct_n_buildings_including	Construct the %n following
 mission_text_text_mis_construct_n_of_building_chain	Construct %n buildings from the following chains: 	false
 mission_text_text_mis_construct_n_of_buildings	Construct %n of each of the following buildings: 	false
 mission_text_text_mis_construct_no_buildings_type	Ensure that you possess none of the following buildings: 	false
+mission_text_text_mis_construct_tier_5_necropolis	Construct a Tier 5 Necropolis in any region.	false
 mission_text_text_mis_convert_state_religion	Convert your state to the following religion: 	false
 mission_text_text_mis_defeat_n_armies	Win %n battles.	false
 mission_text_text_mis_defeat_n_armies_of_faction	Win %n battles against the following faction:	false
@@ -596,6 +598,7 @@ mission_text_text_mis_outcome_success_europeans	"An envoy has been sent from our
 mission_text_text_mis_outcome_success_shogun	"An envoy has been sent from our allies. They are most grateful that we have been able to accomplish the task set us."	false
 mission_text_text_mis_own_embed_agent_in_army	Embed a %n [[img:icon_hero]][[/img]]Hero into the following [[img:icon_general]][[/img]]Lord's army:	false
 mission_text_text_mis_own_n_provinces	Own the entirety of %n province(s).	false
+mission_text_text_mis_own_n_regions_percent_of_faction	You must control %2% times as many regions as %1%. Required regions: %5%\\n(Current progress: %3%/%5%)	false
 mission_text_text_mis_own_resources	Obtain access to the following resource(s):	false
 mission_text_text_mis_raise_loyalty_objective	Raise the [[img:icon_loyalty]][[/img]]loyalty of one of your [[img:icon_general]][[/img]]Lords above 7.	false
 mission_text_text_mis_raise_wanted_level_objective	Raise hostility level to Very Hostile.	false
@@ -2969,6 +2972,7 @@ mission_text_text_wh3_dlc29_emp_elspeth_rankup_units_long	Recruit %2% {{tr:land_
 mission_text_text_wh3_dlc29_emp_elspeth_unlock_gunnery_school_tier_long	Upgrade to {{tr:prophecy_of_sotek_stages_localised_name_gunnery_school_stage_4}} in [[img:ui/campaign ui/effect_bundles/icon_imperial_gunnery_school.png]][[/img]]{{tr:uied_component_texts_localised_string_StateText_1260fa78}}	false
 mission_text_text_wh3_dlc29_emp_elspeth_unlock_gunnery_school_tier_short	Upgrade to {{tr:prophecy_of_sotek_stages_localised_name_gunnery_school_stage_3}} in [[img:ui/campaign ui/effect_bundles/icon_imperial_gunnery_school.png]][[/img]]{{tr:uied_component_texts_localised_string_StateText_1260fa78}} 	false
 mission_text_text_wh3_dlc29_emp_gelt_build_landmark_short	{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_prefix}}{{tr:building_culture_variants_name_wh3_dlc25_special_gelt_elemental_templewh_main_emp_empire}}{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_suffix}}	false
+mission_text_text_wh3_dlc29_emp_gelt_build_landmark_short_empire_var	{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_prefix}}{{tr:building_culture_variants_name_wh_main_special_conclave_of_magic}}{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_suffix}}	false
 mission_text_text_wh3_dlc29_emp_gelt_complete_com_single_actions_long	Complete %2% Single-Use Actions from any of the Colleges of Magic.\\nCurrent total: %n / %n	false
 mission_text_text_wh3_dlc29_emp_gelt_complete_com_single_actions_short	Perform a Single-Use Action from any of the Colleges of Magic. 	false
 mission_text_text_wh3_dlc29_emp_gelt_complete_n_college_of_magic_actions	Complete %2% Colleges of Magic Repeatable Actions.\\nCurrent total: %n / %n	false
@@ -3029,6 +3033,7 @@ mission_text_text_wh3_dlc29_hef_construct_gaean_vale_landmark	Fully upgrade [[im
 mission_text_text_wh3_dlc29_hef_construct_lothern_landmark	Fully upgrade [[img:icon_strategic_location]][[/img]][[col:yellow]]{{tr:building_chains_chain_tooltip_wh2_main_special_lothern_port}}[[/col]] to [[col:yellow]]{{tr:building_culture_variants_name_wh2_main_special_lothern_port_3}}{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_suffix}}	false
 mission_text_text_wh3_dlc29_hef_eltharion_construct_landmark_short	{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_prefix}}{{tr:building_culture_variants_name_wh3_dlc27_hef_special_colony_gronti_mingol}}{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_suffix}}	false
 mission_text_text_wh3_dlc29_hef_teclis_construct_landmark_short	Construct [[img:icon_hef_colonies]][[/img]]{{tr:building_chains_chain_tooltip_wh3_dlc27_sla_special_defiled_elven_colony}}: [[img:icon_strategic_location]][[/img]][[col:yellow]]{{tr:building_culture_variants_name_wh3_dlc27_hef_special_colony_fortress_of_dawn}}{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_suffix}}	false
+mission_text_text_wh3_dlc29_hef_teclis_construct_landmark_short_alt_ver	{{tr:mission_text_text_wh3_dlc29_build_multiple_landmarks_objective_template_prefix}}[[img:icon_strategic_location]][[/img]]{{tr:building_culture_variants_name_wh3_dlc27_hef_special_colony_fortress_of_dawn}}[[/col]] or [[col:yellow]][[img:icon_strategic_location]][[/img]]{{tr:building_culture_variants_name_wh2_main_special_tower_of_hoeth_1}}{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_suffix}}	false
 mission_text_text_wh3_dlc29_hef_teclis_rankup_mages_long	Get %2% [[img:icon_hero]][[/img]]Mages to Rank 25.\\nCurrent total: %n / %n	false
 mission_text_text_wh3_dlc29_hef_tyrion_construct_landmark_long	{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_prefix}}{{tr:building_culture_variants_name_wh2_main_special_phoenix_king_court}}{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_suffix}}	false
 mission_text_text_wh3_dlc29_hef_tyrion_construct_landmarks_short	{{tr:mission_text_text_wh3_dlc29_build_multiple_landmarks_objective_template_prefix}}[[img:icon_strategic_location]]{{tr:building_culture_variants_name_wh2_main_special_phoenix_king_court}}[[/col]] and [[img:icon_strategic_location]][[/img]][[col:yellow]]{{tr:building_culture_variants_name_wh2_main_special_lothern_port_3}}{{tr:mission_text_text_wh3_dlc29_build_single_landmark_objective_template_suffix}}	false
@@ -3053,6 +3058,12 @@ mission_text_text_wh3_dlc29_kho_skulltaker_empower_skulls_short	Empower %2% Skul
 mission_text_text_wh3_dlc29_kho_spawn_n_bloodhosts_long	Spawn %2% Bloodhost Armies.\\n Current total: %n / %n	false
 mission_text_text_wh3_dlc29_khorne_spend_skulls_on_throne_long	Send 55000 [[img:icon_skulls]][[/img]]Skulls to the Skull Throne	false
 mission_text_text_wh3_dlc29_khorne_spend_skulls_on_throne_short	Send 15000 [[img:icon_skulls]][[/img]]Skulls to the Skull Throne	false
+mission_text_text_wh3_dlc29_kill_n_entities_with_cst_units	Kill %1% entities with Vampire Coast units.	false
+mission_text_text_wh3_dlc29_kill_n_entities_with_knight_units	Kill %1% entities with Knight units.	false
+mission_text_text_wh3_dlc29_kill_n_entities_with_morghast_units	Kill %1% entities with Morghast units.	false
+mission_text_text_wh3_dlc29_kill_n_entities_with_nagash	Kill %1% entities with Nagash.	false
+mission_text_text_wh3_dlc29_kill_n_entities_with_tmb_units	Kill %1% entities with Tomb Kings units.	false
+mission_text_text_wh3_dlc29_kill_n_entities_with_vmp_units	Kill %1% entities with Vampire Counts units.	false
 mission_text_text_wh3_dlc29_kill_x_monsters_in_battle	Kill %2% units in battle of type: {{tr:unit_castes_localised_name_monster}}\\nCurrent total: %n / %n	false
 mission_text_text_wh3_dlc29_ksl_dotf_create_n_incantations_long	Create %2% incantations of any combination.\\nCurrent total: %n / %n	false
 mission_text_text_wh3_dlc29_ksl_dotf_get_n_hag_witches_to_rank_10_short	Get %2% Hag Witches to rank 10.\\nCurrent total: %n / %n	false
@@ -3117,6 +3128,7 @@ mission_text_text_wh3_dlc29_nag_build_nagashizzar_landmark_long	{{tr:mission_tex
 mission_text_text_wh3_dlc29_nag_mis_mortarchs_arkhan_recruit	Recruit 5 Tomb Kings units	false
 mission_text_text_wh3_dlc29_nag_mis_mortarchs_luthor_recruit	Recruit 12 Vampire Coast units	false
 mission_text_text_wh3_dlc29_nag_mis_mortarchs_neferata_recruit	Recruit 12 Vampire Count units	false
+mission_text_text_wh3_dlc29_nag_recruit_n_knight_units	Recruit %2% Knight units and increase their rank to 7.\\nCurrent total: %n / %n	false
 mission_text_text_wh3_dlc29_nagash_collect_n_books	Collect %2% [[img:icon_books_of_nagash]][[/img]]{{tr:uied_component_texts_localised_string_tx_objectives_NewState_Text_180079}}.\\nCurrent total: %n / %n	false
 mission_text_text_wh3_dlc29_nagash_unlock_mortarchs_long	Unlock 6 {{tr:ui_text_replacements_localised_text_wh3_dlc29_nag_mortarchs_title}}	false
 mission_text_text_wh3_dlc29_nagash_unlock_mortarchs_short	Unlock 2 {{tr:ui_text_replacements_localised_text_wh3_dlc29_nag_mortarchs_title}}	false

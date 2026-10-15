@@ -236,6 +236,7 @@ episode_narrative_thanquol.stages =
 		{
 			{
 				payload_type = "mission",
+				faction_key = episode_narrative_thanquol.faction_key,
 				mission_key = episode_narrative_thanquol.missions["mission_2"].key,
 			},
 		},
@@ -306,7 +307,10 @@ episode_narrative_thanquol.stages =
 			local skavenblight_region = cm:get_region(episode_narrative_thanquol.missions["mission_4"].objective_region)
 			episode_narrative_thanquol:episode_mission("mission_4", skavenblight_region)
 			cm:make_region_visible_in_shroud(episode_narrative_thanquol.faction_key, episode_narrative_thanquol.missions["mission_4"].objective_region)
-			if skavenblight_region:owning_faction():name() == episode_narrative_thanquol.faction_key or devastation_manager:is_region_devastated(episode_narrative_thanquol.missions["mission_4"].objective_region) then
+			if skavenblight_region:owning_faction():name() == episode_narrative_thanquol.faction_key 
+				or devastation_manager:is_region_devastated(episode_narrative_thanquol.missions["mission_4"].objective_region) 
+				or skavenblight_region:is_abandoned() 
+			then
 				cm:callback(
 					function()
 						cm:complete_scripted_mission_objective(
@@ -359,6 +363,7 @@ episode_narrative_thanquol.stages =
 		{
 			{
 				payload_type = "incident",
+				faction_key = episode_narrative_thanquol.faction_key,
 				incident_key = episode_narrative_thanquol.incident_3,
 			},
 			{
@@ -680,6 +685,34 @@ core:add_listener(
 	end,
 	true
 )
+
+core:add_listener(
+	"thanquol_narrative_listeners_mission_completed_for_mis_4_CharacterRazedSettlement",
+	"CharacterRazedSettlement",
+	function(context)
+		local thanquol_faction = cm:get_faction(episode_narrative_thanquol.faction_key)
+		if thanquol_faction then
+			local region = context:garrison_residence():region()
+			return cm:mission_is_active_for_faction(thanquol_faction, episode_narrative_thanquol.missions["mission_1"].key)
+				or cm:mission_is_active_for_faction(thanquol_faction, episode_narrative_thanquol.missions["mission_4"].key)
+		else
+			return false
+		end
+	end,
+	function(context)
+		local region = context:garrison_residence():region()
+		local region_name = region:name()
+		local mission_table = {episode_narrative_thanquol.missions["mission_1"], episode_narrative_thanquol.missions["mission_4"]}
+		for i, mission_data in ipairs(mission_table) do
+			if mission_data.objective_region == region_name then
+				cm:complete_scripted_mission_objective(episode_narrative_thanquol.faction_key, mission_data.key,  mission_data.key, true)
+			end
+		end
+	end,
+	true
+)
+
+
 
 core:add_listener(
 	"thanquol_narrative_listeners_ChaoticPlanExecutedEvent_Undercity",

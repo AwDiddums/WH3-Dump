@@ -187,8 +187,17 @@ thanquol_chaotic_plans_config = {
 			rank_up = 9
 		},
 	},
-	
+	multiplayer_unlocking_config = {
+		["mp_unlock_turn_to_receive_first_schemer"] = 6, -- assuming first game turn is 1
+		["mp_unlock_turn_to_receive_remaining_schemers"] = 36, -- assuming first game turn is 1
+		["mp_unlock_turn_to_receive_undercity_magic_plan"] = 31, -- assuming first game turn is 1
+		["mp_unlock_turn_to_receive_pull_moon"] = 81, -- assuming first game turn is 1
+	},
+	mp_unlock_economic_plan_key = "mp_unlock_economic_plan",
+	mp_chaotic_plans_turn_notification_key = "mp_chaotic_plans_turn_notification"
 }
+
+
 
 ------------------
 ------DATA--------
@@ -200,6 +209,7 @@ thanquol_chaotic_plans.persistent = {
 	cai_last_turn_activated = 0,
 	-- plans the CAI has created and is waiting on, as {region_key = plan_region, turn_created = round_number}
 	cai_tracked_plans = {},
+	mp_unlock_activated = {}
 }
 
 ------------------
@@ -238,6 +248,17 @@ function thanquol_chaotic_plans:initialise()
 		end
 	end
 
+	if faction:is_human() == true and cm:is_multiplayer() then
+		--implementing this out of new game as we want it to apply retroactively (if the state already exists nothing happens)
+		for unlock_action_name, turn_number in dpairs(thanquol_chaotic_plans_config.multiplayer_unlocking_config) do
+			cm:set_script_state(faction, unlock_action_name, turn_number)
+		end
+
+		if not cm:is_new_game() then
+			self:process_multiplayer_unlocks(faction)
+			self:try_unlock_economic_plan_from_history(faction)
+		end
+	end
 	core:add_listener(
 		"EconomicPlanApplyPayloads",
 		"ChaoticPlanApplyAccumulatedPayloadsEvent",
@@ -252,6 +273,17 @@ function thanquol_chaotic_plans:initialise()
 						and not schemer_character:military_force():is_null_interface()
 						and schemer_character:military_force():unit_list():num_items() > 0 then
 					self:add_schemer_passive_unit_rank_up(schemer_character)
+				end
+				if cm:is_multiplayer() then
+					if not self.persistent.mp_unlock_activated then
+						self.persistent.mp_unlock_activated = {}
+					end
+
+					if not self.persistent.mp_unlock_activated[self.config.mp_unlock_economic_plan_key] then
+						cm:apply_effect_bundle("wh3_dlc29_chaotic_plans_enable_economic", self.config.faction_key , 0)
+						self.persistent.mp_unlock_activated[self.config.mp_unlock_economic_plan_key] = true
+						self:set_mp_chaotic_plans_turn_notification(cm:get_faction(self.config.faction_key))
+					end
 				end
 			elseif context:plan():type_key() == self.config.economic_plan.db_key then
 				self:trigger_economic_plan_failure_mission(plan)
@@ -393,6 +425,129 @@ function thanquol_chaotic_plans:initialise()
 		end,
 		true
 	)
+
+	if faction:is_human() and cm:is_multiplayer() then
+		core:add_listener(
+			"ThanquolChaoticPlansMPUnlockTurnStart",
+			"FactionTurnStart",
+			function(context)
+				return context:faction():is_null_interface() == false and context:faction():name() == self.config.faction_key
+			end,
+			function(context)
+				self:process_multiplayer_unlocks(context:faction())
+			end,
+			true
+		)
+
+		core:add_listener(
+			"ThanquolChaoticPlansMPUnlockSchemerDilemmaChoicMade",
+			"DilemmaChoiceMadeEvent",
+			function(context)
+					return context:faction():is_null_interface() == false
+							and context:faction():name() == self.config.faction_key
+							and context:dilemma() == episode_narrative_thanquol.dilemma_1
+			end,
+			function(context)
+				local choice_index = context:choice()
+				local schemer_family_member = thanquol_schemers.get_schemer_family_member(thanquol_schemers.agent_subtypes[choice_index + 2])
+				thanquol_schemers.unlock_schemer(schemer_family_member)
+			end,
+			true
+		)
+	end
+end
+
+
+function thanquol_chaotic_plans:process_multiplayer_unlocks(faction)
+	local first_schemer_key = "mp_unlock_turn_to_receive_first_schemer"
+	local remaining_schemers_key = "mp_unlock_turn_to_receive_remaining_schemers"
+	local remaining_schemers_turn = self.config.multiplayer_unlocking_config[remaining_schemers_key]
+
+	-- If remaining underlings are overdue, skip the second-underling dilemma and grant all at once
+	if cm:turn_number() >= remaining_schemers_turn then
+		if not self.persistent.mp_unlock_activated then
+			self.persistent.mp_unlock_activated = {}
+		end
+		self.persistent.mp_unlock_activated[first_schemer_key] = true
+	end
+
+	for unlock_functionality_key, turn_number in dpairs(thanquol_chaotic_plans_config.multiplayer_unlocking_config) do
+		if cm:turn_number() >= turn_number then
+			self:unlock_functionality_in_multiplayer(faction, unlock_functionality_key)
+		end
+	end
+end
+
+
+function thanquol_chaotic_plans:try_unlock_economic_plan_from_history(faction)
+	if not self.persistent.mp_unlock_activated then
+		self.persistent.mp_unlock_activated = {}
+	end
+
+	if self.persistent.mp_unlock_activated[self.config.mp_unlock_economic_plan_key] then
+		return
+	end
+
+	local plans_manager = cm:model():chaotic_plans_manager()
+	if not plans_manager or plans_manager:is_null_interface() then
+		return
+	end
+
+	if plans_manager:faction_has_successful_plan_in_history(faction) then
+		cm:apply_effect_bundle("wh3_dlc29_chaotic_plans_enable_economic", self.config.faction_key, 0)
+		self.persistent.mp_unlock_activated[self.config.mp_unlock_economic_plan_key] = true
+		self:set_mp_chaotic_plans_turn_notification(faction)
+	end
+end
+
+
+function thanquol_chaotic_plans:unlock_functionality_in_multiplayer(faction, unlock_functionality_key)
+	if not self.persistent.mp_unlock_activated then
+		self.persistent.mp_unlock_activated = {}
+	end
+
+	local has_unlocked_functionality_key = self.persistent.mp_unlock_activated[unlock_functionality_key] or false 
+
+	if has_unlocked_functionality_key then
+		return
+	end
+
+	if unlock_functionality_key == "mp_unlock_turn_to_receive_first_schemer" then
+		if faction:is_human() and not faction:is_idle_human() then --if the player is dropped at this turn make sure to select a schemer for them
+			cm:trigger_dilemma(self.config.faction_key, episode_narrative_thanquol.dilemma_1)
+		else
+			local schemer_family_member = thanquol_schemers.get_schemer_family_member("wh3_dlc29_skv_schemer_master_assassin")
+			thanquol_schemers.unlock_schemer(schemer_family_member)
+		end
+	elseif unlock_functionality_key == "mp_unlock_turn_to_receive_remaining_schemers" then
+		for _, schemer_agent_subtype_key in ipairs(thanquol_schemers.agent_subtypes) do
+			local schemer_family_member = thanquol_schemers.get_schemer_family_member(schemer_agent_subtype_key)
+			thanquol_schemers.unlock_schemer(schemer_family_member)
+		end
+	elseif unlock_functionality_key == "mp_unlock_turn_to_receive_undercity_magic_plan" then
+		cm:apply_effect_bundle("wh3_dlc29_chaotic_plans_enable_magic", self.config.faction_key, 0)
+		cm:set_script_state(faction, thanquol_schemers.magic_plan_subtypes.undercity.rat_group, true)
+	elseif unlock_functionality_key == "mp_unlock_turn_to_receive_pull_moon" then
+		cm:set_script_state(faction, thanquol_schemers.magic_plan_subtypes.pull_moon.rat_group, true)
+	end
+	self.persistent.mp_unlock_activated[unlock_functionality_key] = true
+	self:set_mp_chaotic_plans_turn_notification(faction)
+end
+
+function thanquol_chaotic_plans:set_mp_chaotic_plans_turn_notification(faction)
+	if not is_faction(faction) then
+		return
+	end
+
+	local plans_manager = cm:model():chaotic_plans_manager()
+	if not plans_manager or plans_manager:is_null_interface() then
+		return
+	end
+
+	plans_manager:set_faction_turn_notification(faction, true)
+	-- Drive SharedStateChanged so the HUD alert_icon re-evaluates HasNotificationThisTurn.
+	-- Cleared when the player opens the chaotic plans panel (button left-click).
+	cm:set_script_state(faction, self.config.mp_chaotic_plans_turn_notification_key, true)
 end
 
 function thanquol_chaotic_plans:remove_thanquol_special_buildings(region_slot_list)

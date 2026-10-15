@@ -2607,7 +2607,19 @@
 				<callback_with_context
 					callback_id="ContextVisibilitySetter"
 					context_object_id="CcoCampaignRitual"
-					context_function_id="ExNagashConfederationRitual_IsOwnedByOtherPlayer"/>
+					context_function_id="ExNagashConfederationRitual_IsOwnedByOtherPlayer">
+					<child_m_user_properties>
+						<property
+							name="event0"
+							value="MissionEnded"/>
+						<property
+							name="event1"
+							value="RitualComplete"/>
+						<property
+							name="event2"
+							value="CampaignTechnologyResearchComplete"/>
+					</child_m_user_properties>
+				</callback_with_context>
 			</callbackwithcontextlist>
 			<userproperties>
 				<property
@@ -3155,6 +3167,7 @@
 			id="fill"
 			uniqueguid_in_template="F56CC9AF-B4FF-4AB2-B9A87822546F39FE"
 			offset="2.00,2.00"
+			visible="false"
 			docking="Center"
 			component_anchor_point="0.50,0.50"
 			priority="60"
@@ -3165,7 +3178,7 @@
 			defaultstate="2E5E2377-3239-451F-BFEDCAB82C509DF8">
 			<callbackwithcontextlist>
 				<callback_with_context
-					callback_id="ContextFillBarCircular"
+					callback_id="#ContextFillBarCircular"
 					context_object_id="CcoCampaignMissionObjective"
 					context_function_id="Percentage(CurrentProgressValue, MaxProgressValue)">
 					<child_m_user_properties>
@@ -3193,6 +3206,9 @@
 					callback_id="#ContextVisibilitySetter"
 					context_object_id="CcoCampaignMissionObjective"
 					context_function_id="ObjectiveCompleted == false"/>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_function_id="false"/>
 			</callbackwithcontextlist>
 			<componentimages>
 				<component_image
@@ -4391,7 +4407,7 @@
 					this="33F61AA6-2488-42A3-81765A5BCC6A43FA"
 					name="NewState"
 					width="600"
-					height="203"
+					height="491"
 					interactive="true"
 					uniqueguid="33F61AA6-2488-42A3-81765A5BCC6A43FA"/>
 			</states>
@@ -4637,7 +4653,7 @@
 				<callback_with_context
 					callback_id="ContextList"
 					context_object_id="CcoStaticObject"
-					context_function_id="PlayersFaction.UnlockableRitualList(&quot;NAGASH_MORTARCH_LORDS&quot;).Sort(RitualContext.SortOrder, true)"/>
+					context_function_id="PlayersFaction.UnlockableRitualList(&quot;NAGASH_MORTARCH_LORDS&quot;).Sort(RitualContext.SortOrder, true).Filter(RitualContext.IsContentUnlocked)"/>
 			</callbackwithcontextlist>
 			<states>
 				<default
@@ -4965,7 +4981,7 @@
 				<callback_with_context
 					callback_id="ContextList"
 					context_object_id="CcoCampaignMission"
-					context_function_id="MissionDefinitionContext.PrimaryObjectivesList.Filter(IsPerformRiteObjective == false)"/>
+					context_function_id="MissionDefinitionContext.PrimaryObjectivesList.Filter(IsPerformRiteOfCategory(CcoRitualCategoryRecord(&quot;NAGASH_MORTARCH_LORDS&quot;)) == false)"/>
 				<callback_with_context
 					callback_id="ContextVisibilitySetter"
 					context_object_id="CcoCampaignRitual"
@@ -6300,7 +6316,7 @@
 			priority="60"
 			tooltipslocalised="true"
 			uniqueguid="EBD7F20C-4D16-4283-B7499FA8BCDAB862"
-			currentstate="F9A06DF8-8915-47C8-8D79626196D504E0"
+			currentstate="3C812C60-E7C2-4A94-AD829FD8DBD86569"
 			defaultstate="3C812C60-E7C2-4A94-AD829FD8DBD86569">
 			<callbackwithcontextlist>
 				<callback_with_context callback_id="StatePropagatorCallback"/>
@@ -7504,6 +7520,10 @@
 				<callback_with_context
 					callback_id="ContextObjectStore"
 					context_object_id="CcoCampaignMissionObjective"/>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoCampaignMissionObjective"
+					context_function_id="IsPerformRiteObjective == false &amp;&amp; ObjectiveRequirementsList.Skip(1).Filter(IsContextValid(BuildingLevelRecordContext) &amp;&amp; BuildingLevelRecordContext.Key == &quot;wh3_dlc29_nag_settlement_necropolis_5&quot;).IsEmpty"/>
 			</callbackwithcontextlist>
 			<states>
 				<newstate
@@ -7620,7 +7640,7 @@
 			priority="60"
 			tooltipslocalised="true"
 			uniqueguid="508EE27B-47ED-478A-B3978208272F8FFB"
-			currentstate="0DEE2EEE-11EE-4A30-998E96219C309802"
+			currentstate="F1C357E1-074A-4296-AE84A01FD1AB2466"
 			defaultstate="F1C357E1-074A-4296-AE84A01FD1AB2466">
 			<callbackwithcontextlist>
 				<callback_with_context
@@ -8029,7 +8049,7 @@
 			priority="60"
 			soundcategory="UI_CAM_Button_DLC29_NAG_Mortarchs_Portrait_Select"
 			uniqueguid="DB077AAE-10DC-4B73-BAD89E5B771C36D2"
-			currentstate="FB32D699-E277-4394-8A7F9BCA05E8C13C"
+			currentstate="DDF8EDAA-7C56-4C85-A24FC95741169050"
 			defaultstate="DDF8EDAA-7C56-4C85-A24FC95741169050">
 			<callbackwithcontextlist>
 				<callback_with_context callback_id="StatePropagatorCallback"/>
@@ -8446,7 +8466,7 @@
 			tooltipslocalised="true"
 			soundcategory="UI_GBL_TMP_Parchment_Row"
 			uniqueguid="BF4262EB-D0B9-4439-80A8EE3BF709AAB1"
-			currentstate="36D4E258-FCDA-4DE4-A20AAAB0E711CBD9"
+			currentstate="AF5BA554-44E0-4B15-B07608590A799D50"
 			defaultstate="36D4E258-FCDA-4DE4-A20AAAB0E711CBD9">
 			<callbackwithcontextlist>
 				<callback_with_context callback_id="#ObjectivesTarget"/>
@@ -8469,6 +8489,11 @@
 					context_object_id="CcoCampaignMissionObjectiveRequirements"
 					context_function_id="ZoomTo"/>
 			</callbackwithcontextlist>
+			<userproperties>
+				<property
+					name="min_text_height"
+					value="34"/>
+			</userproperties>
 			<componentimages>
 				<component_image
 					this="8F74049F-D3D3-47F5-BA766DB81E0773C6"
@@ -8519,6 +8544,9 @@
 					<component_text
 						textvalign="Center"
 						texthalign="Center"
+						textxoffset="8.00,8.00"
+						textyoffset="8.00,8.00"
+						texthbehaviour="Resize"
 						font_m_size="12"
 						font_m_colour="#FFF8D7FF"
 						font_m_leading="3"
@@ -8555,6 +8583,9 @@
 					<component_text
 						textvalign="Center"
 						texthalign="Center"
+						textxoffset="8.00,8.00"
+						textyoffset="8.00,8.00"
+						texthbehaviour="Resize"
 						font_m_size="12"
 						font_m_colour="#FFF8D7FF"
 						font_m_leading="3"
@@ -8587,6 +8618,9 @@
 					<component_text
 						textvalign="Center"
 						texthalign="Center"
+						textxoffset="8.00,8.00"
+						textyoffset="8.00,8.00"
+						texthbehaviour="Resize"
 						font_m_size="12"
 						font_m_colour="#FFF8D7FF"
 						font_m_leading="3"
@@ -8625,6 +8659,9 @@
 					<component_text
 						textvalign="Center"
 						texthalign="Center"
+						textxoffset="8.00,8.00"
+						textyoffset="8.00,8.00"
+						texthbehaviour="Resize"
 						font_m_size="12"
 						font_m_colour="#FFF8D7FF"
 						font_m_leading="3"
@@ -8651,6 +8688,9 @@
 					<component_text
 						textvalign="Center"
 						texthalign="Center"
+						textxoffset="8.00,8.00"
+						textyoffset="8.00,8.00"
+						texthbehaviour="Resize"
 						font_m_size="12"
 						font_m_colour="#FFF8D7FF"
 						font_m_leading="3"
@@ -9332,9 +9372,8 @@
 		<txt_summoned_description
 			this="C20FA9FC-E64A-42FC-AC12ED0600C690E6"
 			id="txt_summoned_description"
-			offset="0.00,24.00"
+			offset="4.00,143.00"
 			allowhorizontalresize="false"
-			visible="false"
 			dock_offset="0.00,-60.00"
 			priority="60"
 			tooltipslocalised="true"
@@ -9345,7 +9384,7 @@
 				<callback_with_context
 					callback_id="ContextVisibilitySetter"
 					context_object_id="CcoCampaignRitual"
-					context_function_id="(mission = PlayersFaction.MissionForRecordContext( NagashConfederationRitualsToMissionContext.MissionContext)) =&gt;&#10;{ IsComplete || (IsContextValid(mission) &amp;&amp; mission.IsCancelled) || (IsContextValid(mission) &amp;&amp; ExConfederationRitual_IsOwnedByOtherPlayer) }">
+					context_function_id="(mission = PlayersFaction.MissionForRecordContext( NagashConfederationRitualsToMissionContext.MissionContext)) =&gt;&#10;{ (IsComplete || (IsContextValid(mission) &amp;&amp; mission.IsCancelled) || (IsContextValid(mission) &amp;&amp; ExNagashConfederationRitual_IsOwnedByOtherPlayer)) &amp;&amp; ExNagashConfederationRitual_IsHeroOwnedByOtherHuman == false }">
 					<child_m_user_properties>
 						<property
 							name="event0"
@@ -9359,10 +9398,15 @@
 					</child_m_user_properties>
 				</callback_with_context>
 				<callback_with_context
-					callback_id="ContextStateSetter"
-					context_object_id="CcoCampaignRitual"
-					context_function_id="GetIfElse(ExNagashConfederationRitual_WasFactionConfederated, &quot;confederated&quot;, &quot;unobtainable&quot;)">
+					callback_id="ContextStateSetterConditional"
+					context_object_id="CcoCampaignRitual">
 					<child_m_user_properties>
+						<property
+							name="1.confederated"
+							value="IsComplete"/>
+						<property
+							name="2.confederated_other_player"
+							value="ExNagashConfederationRitual_WasFactionConfederated"/>
 						<property
 							name="event0"
 							value="RitualComplete"/>
@@ -9372,6 +9416,12 @@
 						<property
 							name="event2"
 							value="FactionJoinsConfederation"/>
+						<property
+							name="fallback_state"
+							value="unobtainable"/>
+						<property
+							name="ordered_states"
+							value=""/>
 					</child_m_user_properties>
 				</callback_with_context>
 			</callbackwithcontextlist>
@@ -9403,18 +9453,51 @@
 							shader_name="brighten_t0"/>
 					</imagemetrics>
 					<component_text
-						text="This faction has already been confederated"
+						text="This Mortarch has already been subjugated"
 						texthalign="Center"
 						textxoffset="5.00,5.00"
 						textyoffset="250.00,5.00"
 						textlocalised="true"
-						textlabel="wh3_dlc29_vmp_confederate_complete_other_player_label"
+						textlabel="wh3_dlc29_nag_subjugate_complete_label"
 						font_m_font_name="la_gioconda_uppercase"
 						font_m_size="16"
 						font_m_colour="#FFF8D7FF"
 						font_m_leading="3"
 						fontcat_name="header_16_bold"/>
 				</confederated>
+				<confederated_other_player
+					this="0FA629F5-D10D-4850-AE0BE523AC636F63"
+					name="confederated_other_player"
+					width="592"
+					height="348"
+					uniqueguid="0FA629F5-D10D-4850-AE0BE523AC636F63">
+					<imagemetrics>
+						<image
+							this="186D64DC-2625-4E82-A4A5DB9961A21F43"
+							uniqueguid="186D64DC-2625-4E82-A4A5DB9961A21F43"
+							componentimage="4842F795-45D0-452E-ADB765FA5CD9DB21"
+							offset="140.00,59.00"
+							width="312"
+							height="320"
+							colour="#46F0FFFF"
+							dockpoint="Center"
+							dock_offset="0.00,45.00"
+							shadertechnique_vars="2.50,0.00,0.00,0.00"
+							shader_name="brighten_t0"/>
+					</imagemetrics>
+					<component_text
+						text="This Mortarch is unavailable for subjugation"
+						texthalign="Center"
+						textxoffset="5.00,5.00"
+						textyoffset="250.00,5.00"
+						textlocalised="true"
+						textlabel="wh3_dlc29_nag_subjugate_complete_other_player_label"
+						font_m_font_name="la_gioconda_uppercase"
+						font_m_size="16"
+						font_m_colour="#FFF8D7FF"
+						font_m_leading="3"
+						fontcat_name="header_16_bold"/>
+				</confederated_other_player>
 				<unobtainable
 					this="07E8F968-C52D-4592-9EFBAA28205D9FFC"
 					name="unobtainable"
@@ -9429,18 +9512,16 @@
 							offset="140.00,59.00"
 							width="312"
 							height="320"
-							colour="#46F0FFFF"
+							colour="#46F0FF00"
 							dockpoint="Center"
 							dock_offset="0.00,45.00"
 							shadertechnique_vars="2.50,0.00,0.00,0.00"
 							shader_name="brighten_t0"/>
 					</imagemetrics>
 					<component_text
-						text="{{tr:ui_text_replacements_localised_text_wh3_dlc29_vmp_confederation_mission_completed_warning}}"
 						texthalign="Center"
 						textxoffset="5.00,5.00"
 						textyoffset="239.00,5.00"
-						textlabel="StateText_e1569a37"
 						font_m_font_name="la_gioconda_uppercase"
 						font_m_size="16"
 						font_m_colour="#FFF8D7FF"
@@ -9557,7 +9638,7 @@
 				<callback_with_context
 					callback_id="ContextVisibilitySetter"
 					context_object_id="CcoCampaignRitual"
-					context_function_id="(mission = PlayersFaction.MissionForRecordContext( NagashConfederationRitualsToMissionContext.MissionContext)) =&gt;&#10;{&#10;IsComplete == false &amp;&amp; ExNagashConfederationRitual_IsHumanTarget &amp;&amp; IsContextValid(mission) == false&#10;}">
+					context_function_id="(mission = PlayersFaction.MissionForRecordContext( NagashConfederationRitualsToMissionContext.MissionContext)) =&gt;&#10;{&#10;(IsComplete == false &amp;&amp; ExNagashConfederationRitual_IsHumanTarget &amp;&amp; IsContextValid(mission) == false) || ExNagashConfederationRitual_IsHeroOwnedByOtherHuman&#10;}">
 					<child_m_user_properties>
 						<property
 							name="event0"
@@ -9565,6 +9646,9 @@
 						<property
 							name="event1"
 							value="MissionEnded"/>
+						<property
+							name="event2"
+							value="CampaignTechnologyResearchComplete"/>
 					</child_m_user_properties>
 				</callback_with_context>
 			</callbackwithcontextlist>

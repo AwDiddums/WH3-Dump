@@ -1817,6 +1817,9 @@
 						<property
 							name="event2"
 							value="CampaignTurnStart"/>
+						<property
+							name="event3"
+							value="SharedStateChanged"/>
 					</child_m_user_properties>
 				</callback_with_context>
 				<callback_with_context
@@ -7550,6 +7553,9 @@
 					callback_id="ContextTrashOnCondition"
 					context_object_id="CcoStaticObject"
 					context_function_id="CanUseUiFeature(&quot;CHAOTIC_PLANS&quot;) == false"/>
+				<callback_with_context
+					callback_id="ContextCommandLeftClick"
+					context_function_id="PlayersFaction.ChaoticPlansManagerContext.ClearTurnNotification()"/>
 				<callback_with_context
 					callback_id="ContextCommandGiverOnDestroyed"
 					context_function_id="Do(TargettingContext.ClearTarget)"/>
@@ -17146,7 +17152,7 @@
 							value="active"/>
 						<property
 							name="inactive"
-							value="IsLocalPlayersTurn == false || (SharedStateValueExists(&quot;black_pyramid_panel_locked&quot;) &amp;&amp; SharedStateReadBool(&quot;black_pyramid_panel_locked&quot;))"/>
+							value="IsLocalPlayersTurn == false&#10;|| (SharedStateValueExists(&quot;black_pyramid_region_lost&quot;) &amp;&amp; SharedStateReadBool(&quot;black_pyramid_region_lost&quot;))&#10;|| (SharedStateValueExists(&quot;black_pyramid_panel_locked&quot;) &amp;&amp; SharedStateReadBool(&quot;black_pyramid_panel_locked&quot;))"/>
 						<property
 							name="selected"
 							value="IsPanelOpen(&quot;dlc29_nag_black_pyramid&quot;)"/>
@@ -17166,6 +17172,15 @@
 					</child_m_user_properties>
 				</callback_with_context>
 				<callback_with_context callback_id="CallbackAnimTrigger"/>
+				<callback_with_context
+					callback_id="ContextTooltipSetter"
+					context_function_id="GetIfElse(&#10;    (SharedStateValueExists(&quot;black_pyramid_region_lost&quot;) &amp;&amp; SharedStateReadBool(&quot;black_pyramid_region_lost&quot;)),&#10;    StringGet(&quot;ui_text_replacements_localised_text_wh3_dlc29_nag_tooltip_black_pyramid_region_lost&quot;),&#10;    GetIfElse(&#10;        (SharedStateValueExists(&quot;black_pyramid_panel_locked&quot;) &amp;&amp; SharedStateReadBool(&quot;black_pyramid_panel_locked&quot;)),&#10;        StringGet(&quot;ui_text_replacements_localised_text_wh3_dlc29_nag_tooltip_black_pyramid_locked&quot;),&#10;        StringGet(&quot;ui_text_replacements_localised_text_wh3_dlc29_nag_tooltip_black_pyramid&quot;)&#10;    )&#10;)">
+					<child_m_user_properties>
+						<property
+							name="update_tooltip_asap"
+							value=""/>
+					</child_m_user_properties>
+				</callback_with_context>
 			</callbacks_with_context>
 			<user_properties>
 				<property
@@ -17193,8 +17208,6 @@
 					is_text_localised="false"/>
 				<localised_text
 					state="inactive"
-					tooltip_label="StateTooltip_50e53383"
-					tooltip_text="{{tr:ui_text_replacements_localised_text_wh3_dlc29_nag_tooltip_black_pyramid_locked}}"
 					is_text_localised="false"/>
 				<localised_text
 					state="selected"
@@ -36158,7 +36171,7 @@
 			<callbackwithcontextlist>
 				<callback_with_context
 					callback_id="ContextVisibilitySetter"
-					context_function_id="!self.ParentContext.IsDisabled &amp;&amp; GreatTempleOfUlric.UnlockedInitiativesCount &gt; 0">
+					context_function_id="!self.ParentContext.IsDisabled &amp;&amp; GreatTempleOfUlric.UnlockedAffordableInitiativesCount &gt; 0">
 					<child_m_user_properties>
 						<property
 							name="update_constant"
@@ -36167,7 +36180,7 @@
 				</callback_with_context>
 				<callback_with_context
 					callback_id="ContextTextLabel"
-					context_function_id="GreatTempleOfUlric.UnlockedInitiativesCount">
+					context_function_id="GreatTempleOfUlric.UnlockedAffordableInitiativesCount">
 					<child_m_user_properties>
 						<property
 							name="update_constant"

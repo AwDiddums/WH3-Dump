@@ -31,7 +31,7 @@ episode_chaos_invasion = {
 
 	invasion_force_count = 50, -- The total number of forces the invasion will spawn, not including Archaon and the Fortresses
 	archaon_force_effect_list = {
-		{key = "wh3_main_effect_force_enforce_autoresolver_battle", scope = "force_to_force_own", value = 1, value_type = "STATIC", required_bonus = 91},
+		{key = "wh3_main_effect_force_enforce_autoresolver_battle", scope = "force_to_force_own", value = 1, value_type = "STATIC", required_bonus = 96},
 		{key = "wh3_main_effect_force_ignore_damage_resistance_cap", scope = "force_to_force_own", value = 1, value_type = "STATIC"},
 		{key = "wh3_main_effect_force_chaos_invasion_fortress_count", scope = "force_to_force_own", value = 1, value_type = "FORTRESS_COUNT"},
 		{key = "wh3_main_effect_force_chaos_invasion_army_count", scope = "force_to_force_own", value = 1, value_type = "FORCE_COUNT"},
@@ -781,6 +781,19 @@ episode_chaos_invasion.trigger_endgame_diplomacy = function(self)
 	-- No diplomacy with the endgame faction
 	cm:force_diplomacy("all", "faction:"..episode_chaos_invasion.invasion_faction_key, "all", false, false, true)
 	cm:force_diplomacy("faction:"..episode_chaos_invasion.invasion_faction_key, "all", "all", false, false, true)
+end
+
+function episode_chaos_invasion:break_non_chaos_vassalage_from_faction(faction_key)
+	local faction_obj = cm:get_faction(faction_key)
+
+	local chaos_factions = episode_chaos_invasion:get_chaos_alligned_factions()
+	local faction_vassals = faction_obj:vassals()
+	for i = 0, faction_vassals:num_items() - 1 do
+		local vassal_name = faction_vassals:item_at(i):name()
+		if not chaos_factions[vassal_name] then
+			cm:force_break_vassalage(vassal_name)
+		end
+	end
 end
 
 episode_chaos_invasion.trigger_endgame_missions = function(self, faction_key)
@@ -1807,17 +1820,15 @@ episode_chaos_invasion.remove_dark_fortress_map_override_for_last_battle = funct
 end
 
 episode_chaos_invasion.remove_autoresolve_bonus_from_battle = function(self)
-	if cm:pending_battle_cache_human_is_involved() then
-		for i = 1, cm:pending_battle_cache_num_defenders() do
-			local current_char_cqi, current_mf_cqi, current_faction_name = cm:pending_battle_cache_get_defender(i)
-			cm:remove_effect_bundle_from_force("wh3_main_effect_force_total_autoresolve_victory", current_mf_cqi)
-		end
-		for i = 1, cm:pending_battle_cache_num_attackers() do
-			local current_char_cqi, current_mf_cqi, current_faction_name = cm:pending_battle_cache_get_attacker(i)
-			cm:remove_effect_bundle_from_force("wh3_main_effect_force_total_autoresolve_victory", current_mf_cqi)
-		end
-		cm:update_pending_battle()
+	for i = 1, cm:pending_battle_cache_num_defenders() do
+		local current_char_cqi, current_mf_cqi, current_faction_name = cm:pending_battle_cache_get_defender(i)
+		cm:remove_effect_bundle_from_force("wh3_main_effect_force_total_autoresolve_victory", current_mf_cqi)
 	end
+	for i = 1, cm:pending_battle_cache_num_attackers() do
+		local current_char_cqi, current_mf_cqi, current_faction_name = cm:pending_battle_cache_get_attacker(i)
+		cm:remove_effect_bundle_from_force("wh3_main_effect_force_total_autoresolve_victory", current_mf_cqi)
+	end
+	cm:update_pending_battle()
 end
 
 episode_chaos_invasion.toggle_endgame_ui = function(self)
@@ -2067,16 +2078,6 @@ core:add_listener(
 			local archaon_faction = cm:get_faction(episode_chaos_invasion.invasion_faction_key)
 
 			if archaon_faction and archaon_faction:is_null_interface() == false and cm:pending_battle_cache_char_is_involved(archaon_faction:faction_leader()) then
-				local ward_save = cm:model():shared_states_manager():get_state_as_float_value("invasion_ward_save") or 0
-				local required_bonus = 90
-
-				for _, effect in ipairs(episode_chaos_invasion.archaon_force_effect_list) do
-					if effect.key == "wh3_main_effect_force_enforce_autoresolver_battle" then
-						required_bonus = effect.required_bonus
-						break
-					end
-				end
-
 				cm:win_next_autoresolve_battle(episode_chaos_invasion.invasion_faction_key)
 				
 				if cm:pending_battle_cache_char_is_attacker(archaon_faction:faction_leader()) then
@@ -2085,11 +2086,35 @@ core:add_listener(
 					cm:modify_next_autoresolve_battle(0, 1, 9, 1, true)
 				end
 
-				if ward_save < required_bonus then
-					episode_chaos_invasion:remove_autoresolve_bonus_from_battle()
+				if cm:pending_battle_cache_human_is_involved() then
+					local ward_save = cm:model():shared_states_manager():get_state_as_float_value("invasion_ward_save") or 0
+					local required_bonus = 90
+
+					for _, effect in ipairs(episode_chaos_invasion.archaon_force_effect_list) do
+						if effect.key == "wh3_main_effect_force_enforce_autoresolver_battle" then
+							required_bonus = effect.required_bonus
+							break
+						end
+					end
+
+					if ward_save < required_bonus then
+						episode_chaos_invasion:remove_autoresolve_bonus_from_battle()
+					end
 				end
 			else
-				episode_chaos_invasion:remove_autoresolve_bonus_from_battle()
+				if cm:pending_battle_cache_human_is_involved() then
+					episode_chaos_invasion:remove_autoresolve_bonus_from_battle()
+				else
+					local removal_chance = 10
+
+					if cm:model():shared_states_manager():get_state_as_bool_value("endgame_legendary_difficulty") then
+						removal_chance = 5
+					end
+
+					if cm:model():random_percent(removal_chance) then
+						episode_chaos_invasion:remove_autoresolve_bonus_from_battle()
+					end
+				end
 			end
 		end
 	end,
@@ -2159,8 +2184,10 @@ core:add_listener(
 
 		local invasion_faction = cm:get_faction(episode_chaos_invasion.invasion_faction_key)
 		if choice == 0 then
-
 			-- Join the Invasion
+
+			-- all your non-chaos vassals break the vassalage
+			episode_chaos_invasion:break_non_chaos_vassalage_from_faction(faction_key)
 			cm:force_make_peace(faction_key, episode_chaos_invasion.invasion_faction_key)
 			cm:force_alliance(faction_key, episode_chaos_invasion.invasion_faction_key, true)
 
@@ -2245,20 +2272,20 @@ core:add_listener(
 core:add_listener(
 	"chaos_invasion_RegionFactionChangeEvent",
 	"RegionFactionChangeEvent",
+	true,
 	function(context)
 		local context_reason = context:reason()
+		local region_key = context:region():name()
+
 		if episode_chaos_invasion:is_main_invasion_active() and context_reason == "abandoned" then
-			return true
+			episode_chaos_invasion:update_razed_region(region_key)
+			return
 		end
+
 		local devastation_culture = devastation_manager:get_region_devastation_culture(context:region():name())
 		if episode_chaos_invasion.invasion_culture_key == devastation_culture and context_reason == "unopposed capture" then
-			return true
+			episode_chaos_invasion:update_province_devastation_for_region(region_key, false)
 		end
-		return false
-	end,
-	function(context)
-		local region_key = context:region():name()
-		episode_chaos_invasion:update_razed_region(region_key)
 	end,
 	true
 )

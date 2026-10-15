@@ -22,6 +22,7 @@ local minor_cult = {
 		["wh_main_sc_grn_greenskins"] = true,
 		["wh_main_sc_grn_savage_orcs"] = true,
 		["wh_main_sc_vmp_vampire_counts"] = true,
+		["wh3_dlc29_sc_nag_undead_legions"] = true,
 		-- Chaos
 		["wh3_dlc23_sc_chd_chaos_dwarfs"] = true,
 		["wh3_main_sc_dae_daemons"] = true,

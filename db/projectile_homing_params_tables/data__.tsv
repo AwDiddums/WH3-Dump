@@ -1,6 +1,7 @@
 key	lookahead_time	max_target_angle_delta	start_time	steering_coefficient
 #projectile_homing_params_tables;0;db/projectile_homing_params_tables/data__				
 homing_medium_artillery_fast	0.1000	180.0000	3.0000	0.0750
+homing_medium_artillery_faster	0.1000	180.0000	2.0000	0.0750
 homing_medium_artillery_glider	0.3000	120.0000	4.0000	0.1000
 homing_medium_artillery_slow	0.1000	180.0000	3.0000	0.1500
 homing_medium_artillery_slow_short_range	0.1000	180.0000	1.5000	0.1500

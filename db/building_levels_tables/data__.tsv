@@ -404,7 +404,7 @@ wh2_dlc14_special_dragon_isle_port_3_grn	wh2_dlc14_special_dragon_isle_port_grn	
 wh2_dlc14_special_dragon_isle_port_3_tmb	wh2_dlc14_special_dragon_isle_port_tmb	3	7	6000	0		false	false			true	wh2_dlc14_special_dragon_isle_port	false	0.0000	0	true	3	Wh_Cam_Settlement_Port_Tomb_Kings	true	0	0		0		-1	false
 wh2_dlc14_special_dragon_isle_port_ruin	wh2_dlc14_special_dragon_isle_port	0	0	0	0		false	false			true	wh2_dlc14_special_dragon_isle_port	false	0.0000	0	false	0	wh_cam_settlement_generic_ruin	true	0	0		0		-1	false
 wh2_dlc14_special_dragon_isle_port_ruin_grn	wh2_dlc14_special_dragon_isle_port_grn	0	0	0	0		false	false			true	wh2_dlc14_special_dragon_isle_port	false	0.0000	0	false	0	wh_cam_settlement_generic_ruin	true	0	0		0		-1	false
-wh2_dlc14_special_dragon_isle_port_ruin_nag	wh2_dlc14_special_dragon_isle_port_nag	0	0	0	0		false	false			true	wh2_dlc14_special_dragon_isle_port	false	0.0000	0	false	0	wh_cam_settlement_generic_ruin	true	0	0		0		-1	false
+wh2_dlc14_special_dragon_isle_port_ruin_nag	wh2_dlc14_special_dragon_isle_port_nag	0	1	0	0		false	false			true	wh2_dlc14_special_dragon_isle_port	false	0.0000	0	false	0	wh_cam_settlement_generic_ruin	true	0	0		0		-1	false
 wh2_dlc14_special_dragon_isle_port_ruin_tmb	wh2_dlc14_special_dragon_isle_port_tmb	0	0	0	0		false	false			true	wh2_dlc14_special_dragon_isle_port	false	0.0000	0	false	0	wh_cam_settlement_generic_ruin	true	0	0		0		-1	false
 wh2_dlc14_special_fyrus_holy_monastery	wh2_dlc14_special_fyrus_holy_monastery	0	5	6000	0		false	false			false	wh2_dlc14_special_fyrus_holy_monastery	false	0.0000	0	true	3		true	0	0		0		-1	false
 wh2_dlc14_special_lzd_konquata	wh2_dlc14_special_lzd_konquata	0	5	6000	0		false	false			false	wh2_dlc14_special_lzd_konquata	false	0.0000	0	true	3		true	0	0		0		-1	false

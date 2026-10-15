@@ -10266,6 +10266,11 @@
 			<callbackwithcontextlist>
 				<callback_with_context callback_id="List"/>
 			</callbackwithcontextlist>
+			<userproperties>
+				<property
+					name="disable_keys"
+					value="1"/>
+			</userproperties>
 			<states>
 				<newstate
 					this="5AFA64F9-6EB3-4ABF-BB5F7D7C3FBF34CA"
@@ -11185,7 +11190,7 @@
 					name="low"
 					width="370"
 					height="198"
-					interactive="true"
+					disabled="true"
 					uniqueguid="230A2336-8488-4571-ABABED5015218B00">
 					<component_text
 						text="Select an action"
@@ -14009,8 +14014,29 @@
 					this="FCDD8625-13EC-494C-BDDFBF446CE3D8BD"
 					uniqueguid="FCDD8625-13EC-494C-BDDFBF446CE3D8BD"
 					imagepath="ui/skins/default/dlc29_vmp_web_of_power/icon_target_faction.png"/>
+				<component_image
+					this="530FE887-3C79-4FA7-ABBA69E049AEF5A9"
+					uniqueguid="530FE887-3C79-4FA7-ABBA69E049AEF5A9"
+					imagepath="ui/skins/default/dlc29_vmp_web_of_power/icon_target_agent.png"/>
 			</componentimages>
 			<states>
+				<agent
+					this="17A959F0-3FE0-4BDC-97486BA99C6E7E45"
+					name="agent"
+					width="60"
+					height="61"
+					uniqueguid="17A959F0-3FE0-4BDC-97486BA99C6E7E45">
+					<imagemetrics>
+						<image
+							this="4C138B2B-9517-4395-94076900AE5A4873"
+							uniqueguid="4C138B2B-9517-4395-94076900AE5A4873"
+							componentimage="530FE887-3C79-4FA7-ABBA69E049AEF5A9"
+							offset="5.00,6.00"
+							width="49"
+							height="49"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</agent>
 				<army
 					this="B993F579-7969-4FDD-BE2A7BAADD51F64C"
 					name="army"

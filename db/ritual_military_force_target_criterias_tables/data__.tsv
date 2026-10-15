@@ -23,6 +23,7 @@ ritual_target_force_own	False		True	force_own_land	false			Undefined		Undefined	
 ritual_target_force_own_10_units_minimum	False		True	force_own_10_min	false			Undefined	exclude_enemies	Undefined	False	false			10	true	Undefined	Undefined	
 ritual_target_force_own_1_marauder_minimum	False		True	force_own_1_marauder_minimum	false			Undefined	exclude_enemies	Undefined	False	false	dlc08_nor_marauders_inf		1	true	Undefined	Undefined	
 ritual_target_force_own_allied	False		Undefined	force_own_allied	false		self_or_allied	Undefined		Undefined	Undefined	false			1	true	Undefined	Undefined	
+ritual_target_force_own_allied_land_or_sea	Undefined		Undefined	force_own_allied	false		self_or_allied	Undefined		Undefined	Undefined	false			1	true	Undefined	Undefined	
 ritual_target_force_own_allied_territory_own_allied	False		Undefined	force_own_allied_friendly_territory	false		self_or_allied	Undefined	self_or_allied	Undefined	Undefined	false			1	true	Undefined	Undefined	
 ritual_target_force_own_black_ark	Undefined		Undefined	force_own_black_ark	false		self	Undefined		Undefined	Undefined	false	black_ark		1	true	Undefined	Undefined	
 ritual_target_force_own_enemy_territory	False		True	force_own_enemy_territory	false			False	enemies	Undefined	Undefined	false			1	true	Undefined	Undefined	

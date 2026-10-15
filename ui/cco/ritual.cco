@@ -57,7 +57,8 @@ CcoCampaignRitual
 	{
 		(faction_to_confederate = ExNagashConfederationRitual_TargetFaction) =>
 		{
-			IsContextValid(faction_to_confederate) && (faction_to_confederate.IsHuman || faction_to_confederate.IsIdleHuman || (faction_to_confederate.WasConfederated && !faction_to_confederate.WasConfederatedByFaction(PlayersFaction)))
+			(IsContextValid(faction_to_confederate) && (faction_to_confederate.IsHuman || faction_to_confederate.IsIdleHuman || (faction_to_confederate.WasConfederated && !faction_to_confederate.WasConfederatedByFaction(PlayersFaction))))
+			|| ExNagashConfederationRitual_IsHeroOwnedByOtherHuman
 		}
 	}
 
@@ -75,6 +76,31 @@ CcoCampaignRitual
 		{ ExNagashConfederationRitual_IsHumanTarget || 
 			ExNagashConfederationRitual_WasFactionConfederated || 
 			(IsContextValid(mission) && mission.IsCancelled) 
+		}
+	}
+
+	ExNagashConfederationRitual_HeroSubtype
+	{
+		GetIfElse(
+			RitualContext.Key.Contains("walach"),
+			DatabaseRecordContext("CcoAgentSubtypeRecord", "wh3_dlc29_vmp_walach_harkon"),
+			GetIf(
+				RitualContext.Key.Contains("dieter"),
+				DatabaseRecordContext("CcoAgentSubtypeRecord", "wh3_dlc29_vmp_dieter_helsnicht")
+			)
+		)
+	}
+
+	ExNagashConfederationRitual_IsHeroOwnedByOtherHuman
+	{
+		(subtype = ExNagashConfederationRitual_HeroSubtype) =>
+		{
+			IsContextValid(subtype) &&
+			IsContextValid(
+				CampaignRoot.FactionList
+					.Filter((IsHuman || IsIdleHuman) && IsPlayersFaction == false)
+					.FirstContext(CharacterForAgentSubtype(subtype))
+			)
 		}
 	}
 }

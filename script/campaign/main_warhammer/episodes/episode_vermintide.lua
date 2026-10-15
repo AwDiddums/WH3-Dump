@@ -31,7 +31,7 @@ episode_vermintide = {
 	war_plans_dilemma = "wh3_dlc29_skaven_vermintide_war_plans",
 	war_plans_mission = "wh3_dlc29_skaven_vermintide_gain_war_plans",
 	war_plans_progress_increase = 5,
-	war_plans_drop_chance = 55,
+	war_plans_drop_chance = 66,
 
 	under_empire_slot_set = "wh2_dlc29_slot_set_underempire_endgame",
 	under_empire_spread_per_turn_cap = 3, -- The max number of Under-Cities that can spread each turn
@@ -275,7 +275,7 @@ episode_vermintide.stages =
 			return episodes_manager:get_episode_stage_index_by_name(episode_vermintide, "episode_skaven_vermintide_stage_battle")
 		end,
 	},
-	-- Archaon was defeated in a normal battle - We now trigger the final battle marker via a mission
+	-- Plans have bee gained - We now trigger the final battle marker via a mission
 	{
 		stage_key = "episode_skaven_vermintide_stage_battle",
 		payloads =
@@ -345,12 +345,24 @@ episode_vermintide.stages =
 				end
 			end
 
-			-- Also remove all region effect bundles
-			local region_list = cm:model():world():region_manager():region_list()
-
-			for _, region in model_pairs(region_list) do
+			-- Also remove all region effect bundles and the Vermintide buildings
+			local all_regions = cm:model():world():region_manager():region_list()
+			for i = 0, all_regions:num_items() -1 do
+				local region = all_regions:item_at(i)
+				local region_slot_list = region:slot_list()
 				local region_key = region:name()
 				cm:remove_effect_bundle_from_region(episode_vermintide.devastated_region_bundle, region_key)
+
+				for _, building_key in ipairs(episode_vermintide.anti_vermintide_buildings) do
+					if region_slot_list:buliding_type_exists(building_key) then
+						for j = 0, region_slot_list:num_items() - 1 do
+							local slot = region_slot_list:item_at(j)
+							if slot:has_building() and slot:building():name() == building_key then
+								cm:instantly_dismantle_building_in_region(slot)
+							end
+						end
+					end
+				end
 			end
 
 			-- Finally clear the persistent data as its no longer needed
@@ -529,7 +541,6 @@ episode_vermintide.on_episode_end = function(self)
 	cm:remove_script_state("skaven_war_plans")
 end
 
--- TODO: Implement "get war plans" mission
 episode_vermintide.trigger_endgame_missions = function(self, faction_key)
 	out.invasions("\ttrigger_endgame_missions - "..faction_key)
 
@@ -585,11 +596,17 @@ episode_vermintide.spawn_skaven_invasion = function(self)
 		episode_vermintide:reveal_region_to_humans(region_key)
 
 		-- Upgrade the main settlement incase it is a ruin
-		local primary_slot = region:settlement():primary_slot()
+		local settlement = region:settlement()
+		local primary_slot = settlement:primary_slot()
 		cm:instantly_upgrade_building_in_region(primary_slot, "wh3_main_skv_endgame_settlement_1")
 		-- Add one of the army spawning buildings
-		local secondary_slot = region:slot_list():item_at(1)
-		cm:instantly_upgrade_building_in_region(secondary_slot, "wh3_main_skv_endgame_army_spawn_1")
+		local army_spawn_building = "wh3_main_skv_endgame_army_spawn_1"
+		if not region:building_exists(army_spawn_building) then
+			local secondary_slot = settlement:first_empty_active_secondary_slot()
+			if secondary_slot then
+				cm:instantly_upgrade_building_in_region(secondary_slot, army_spawn_building)
+			end
+		end
 		
 		-- Make sure Skavenblight becomes the capital if its given
 		if region_key == "wh3_main_combi_region_skavenblight" then
@@ -674,7 +691,7 @@ episode_vermintide.create_skaven_invasion_force = function(self, lord_subtype_ov
 	local force_bundle = ""
 	local forename = ""
 	local surname = ""
-	local lord_xp = 30
+	local lord_xp = 29
 	local unit_xp = 0
 
 	if lord_subtype_override then
@@ -684,7 +701,7 @@ episode_vermintide.create_skaven_invasion_force = function(self, lord_subtype_ov
 		force_bundle = episode_vermintide.skaven_armies[army_key].bundle
 		forename = episode_vermintide.skaven_legendary_lords[lord_subtype].forename
 		surname = episode_vermintide.skaven_legendary_lords[lord_subtype].surname
-		lord_xp = 50
+		lord_xp = 49
 		unit_xp = 3
 	else
 		local possible_armies = weighted_list:new()
@@ -718,6 +735,7 @@ episode_vermintide.create_skaven_invasion_force = function(self, lord_subtype_ov
 			local character_lookup = "character_cqi:"..char_cqi
 			cm:add_agent_experience(character_lookup, lord_xp, true)
 			cm:apply_effect_bundle_to_force(force_bundle, force_cqi, 0)
+			cm:apply_effect_bundle_to_force("wh3_main_effect_force_total_autoresolve_victory", force_cqi, 0)
 
 			if unit_xp > 0 then
 				cm:add_experience_to_units_commanded_by_character(character_lookup, unit_xp)
@@ -752,6 +770,7 @@ episode_vermintide.create_random_invasion_force = function(self, region_key)
 	local unit_list = episode_vermintide.skaven_armies[selected_army].units
 	local force_bundle = episode_vermintide.skaven_armies[selected_army].bundle
 	local x_pos, y_pos = cm:find_valid_spawn_location_for_character_from_settlement(episode_vermintide.invasion_faction_key, region_key, false, true)
+	local lord_xp = 9
 
 	if x_pos == -1 or y_pos == -1 then
 		return false
@@ -764,7 +783,12 @@ episode_vermintide.create_random_invasion_force = function(self, region_key)
 		x_pos, y_pos,
 		false, -- False means allowing legendary lords to spawn, which we want as this will function as their respawn method
 		function(char_cqi, force_cqi)
+			local character_lookup = "character_cqi:"..char_cqi
+			cm:add_agent_experience(character_lookup, lord_xp, true)
 			cm:apply_effect_bundle_to_force(force_bundle, force_cqi, 0)
+			if selected_army ~= "skaven" then -- The trash stack
+				cm:apply_effect_bundle_to_force("wh3_main_effect_force_total_autoresolve_victory", force_cqi, 0)
+			end
 		end
 	)
 	return true
@@ -1211,9 +1235,10 @@ episode_vermintide.update_province = function(self, faction_province, allow_army
 	local army_spawned = false
 
 	if allow_army_spawning == true then
-		local army_spawn_chance = cm:get_provinces_bonus_value(faction_province, "endgame_skaven_army_spawn")
+		local army_spawn_chance = cm:get_provinces_bonus_value(faction_province, "endgame_skaven_army_spawn") or 0
+		army_spawn_chance = army_spawn_chance + 2
 
-		if army_spawn_chance and cm:model():random_percent(army_spawn_chance) then
+		if cm:model():random_percent(army_spawn_chance) then
 			local regions = faction_province:regions()
 			local possible_regions = {}
 
@@ -1305,6 +1330,18 @@ episode_vermintide.update_under_city = function(self, under_city, allow_bad_thin
 		end
 	end
 	return bad_thing_created
+end
+
+episode_vermintide.remove_autoresolve_bonus_from_battle = function(self)
+	for i = 1, cm:pending_battle_cache_num_defenders() do
+		local current_char_cqi, current_mf_cqi, current_faction_name = cm:pending_battle_cache_get_defender(i)
+		cm:remove_effect_bundle_from_force("wh3_main_effect_force_total_autoresolve_victory", current_mf_cqi)
+	end
+	for i = 1, cm:pending_battle_cache_num_attackers() do
+		local current_char_cqi, current_mf_cqi, current_faction_name = cm:pending_battle_cache_get_attacker(i)
+		cm:remove_effect_bundle_from_force("wh3_main_effect_force_total_autoresolve_victory", current_mf_cqi)
+	end
+	cm:update_pending_battle()
 end
 
 episode_vermintide.increase_region_script_state = function(self, region)
@@ -1516,20 +1553,40 @@ core:add_listener(
 	true
 )
 
+--skaven_vermintide_FactionDeath
+core:add_listener(
+	"skaven_vermintide_FactionDeath",
+	"FactionDeath",
+	function(context)
+		return context:faction():name() == episode_vermintide.invasion_faction_key
+	end,
+	function(context)
+		local current_stage_index = episode_vermintide.persistent.current_stage_index
+		local invasion_index = episodes_manager:get_episode_stage_index_by_name(episode_vermintide, "episode_skaven_vermintide_stage_main")
+		
+		if episode_vermintide.persistent.invasion_spawned and is_number(current_stage_index) and current_stage_index == invasion_index then
+			episodes_manager:advance_stage(episode_vermintide, episode_vermintide.persistent.current_stage_index)
+			episode_vermintide.persistent.war_plan_progress = 100
+			cm:set_script_state("skaven_war_plans", 100)
+		end
+	end,
+	true
+)
+
 --skaven_vermintide_BattleCompleted
 core:add_listener(
 	"skaven_vermintide_BattleCompleted",
 	"BattleCompleted",
 	function()
 		local pb = cm:model():pending_battle()
-		return episode_vermintide:is_main_invasion_active() and pb:has_been_fought() == true and pb:is_draw() == false
-			and cm:pending_battle_cache_faction_is_involved(episode_vermintide.invasion_faction_key)
+		return episode_vermintide:is_main_invasion_active() and episode_vermintide.persistent.war_plan_progress < 100
+			and pb:has_been_fought() == true and pb:is_draw() == false and cm:pending_battle_cache_faction_is_involved(episode_vermintide.invasion_faction_key)
 	end,
 	function(context)
 		episode_vermintide:update_endgame_tooltip()
 		if cm:pending_battle_cache_human_is_involved() == false then
 			return
-		end 
+		end
 		-- Immediatly roll the drop chance, so we can potentially save doing everything else
 		if cm:model():random_percent(episode_vermintide.war_plans_drop_chance) == false then
 			return false
@@ -1691,15 +1748,37 @@ core:add_listener(
 	"skaven_vermintide_PendingBattle",
 	"PendingBattle",
 	function()
-		local pb = cm:model():pending_battle();
-		return pb:quest_mission_key() == episode_vermintide.final_battle_mission_key
+		return episode_vermintide:is_main_invasion_active()
 	end,
 	function()
-		episode_vermintide:set_final_battle_modifiers()
+		local pb = cm:model():pending_battle()
+		if pb:quest_mission_key() == episode_vermintide.final_battle_mission_key then
+			episode_vermintide:set_final_battle_modifiers()
 
-		cm:callback(function()
-			episode_chaos_invasion:play_voiceline("Play_wh3_dlc29_endtimes_narrative_vermintide_skreech_003")
-		end, 0.5)
+			cm:callback(function()
+				episode_chaos_invasion:play_voiceline("Play_wh3_dlc29_endtimes_narrative_vermintide_skreech_003")
+			end, 0.5)
+		end
+
+		if cm:pending_battle_cache_human_is_involved() == true then
+			episode_vermintide:remove_autoresolve_bonus_from_battle()
+		else
+			local faction = cm:get_faction(episode_vermintide.invasion_faction_key)
+
+			if faction and faction:num_regions() < 5 then
+				cm:win_next_autoresolve_battle(episode_vermintide.invasion_faction_key)
+			else
+				local removal_chance = 20
+
+				if cm:model():shared_states_manager():get_state_as_bool_value("endgame_legendary_difficulty") then
+					removal_chance = 10
+				end
+
+				if cm:model():random_percent(removal_chance) then
+					episode_vermintide:remove_autoresolve_bonus_from_battle()
+				end
+			end
+		end
 	end,
 	true
 )

@@ -200,14 +200,14 @@ campaign_ai_script = {
 			-- keyed by combined_difficulty_level(): 1 = easy, 0 = normal, -1 = hard, -2 = very hard, -3 = legendary
 			amount_by_difficulty = {
 				[1] = 200,
-				[0] = 300,
-				[-1] = 400,
-				[-2] = 500,
-				[-3] = 600,
+				[0] = 250,
+				[-1] = 300,
+				[-2] = 350,
+				[-3] = 450,
 			},
 			-- on top of the difficulty amount, the income grows as the campaign progresses
 			turn_scaling = {
-				turn_interval = 10,
+				turn_interval = 15,
 				amount_per_interval = 50,
 			},
 		},

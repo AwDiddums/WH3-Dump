@@ -1,6 +1,7 @@
 black_pyramid = {
 	config = {
 		faction_key = "wh3_dlc29_nag_host_of_nagash",
+		region_key = "wh3_main_combi_region_black_pyramid_of_nagash",
 		mystic_sigil_effect_key = "wh3_dlc29_effect_initiative_set_point_increase_black_pyramid",
 		mystic_sigil_cheat_effect_bundle_key = "wh3_dlc29_black_pyramid_sigils_cheat_bundle",
 		sigils_change_per_cheat_usage = 50,
@@ -80,7 +81,8 @@ black_pyramid = {
 			default_lord = "wh3_dlc29_vmp_master_necromancer_undeath_spawned_army",
 			lord_upgrade = {initiative = "wh3_dlc29_black_pyramid_nagash_shambling_horde_4", lord = "wh_dlc04_vmp_strigoi_ghoul_king_spawned_army"}
 		},
-		black_pyramid_panel_lock_shared_state_key = "black_pyramid_panel_locked"
+		black_pyramid_panel_lock_shared_state_key = "black_pyramid_panel_locked",
+		black_pyramid_region_lost_shared_state_key = "black_pyramid_region_lost"
 	},
 	gravecall = {
 		tooltip_prefix = "nagash_gravecall_lock_tooltip_",
@@ -178,11 +180,11 @@ black_pyramid = {
 					"wh2_dlc11_cst_cav_deck_droppers_1", 
 					"wh2_dlc11_cst_cav_deck_droppers_2", 
 				},
-				["wh3_dlc29_black_pyramid_undead_monstrous_4"] = {
+				["wh3_dlc29_black_pyramid_undead_monstrous_5"] = {
 					"wh2_dlc11_cst_mon_rotting_prometheans_0", 
 					"wh2_dlc11_cst_mon_rotting_prometheans_gunnery_mob_0",
 				},
-				["wh3_dlc29_black_pyramid_undead_monstrous_5"] = {
+				["wh3_dlc29_black_pyramid_undead_monstrous_4"] = {
 					"wh2_dlc11_cst_mon_mournguls_0",
 				},
 				["wh3_dlc29_black_pyramid_gunpowder_artillery_1"] = {
@@ -231,7 +233,7 @@ black_pyramid = {
 				["wh3_dlc29_black_pyramid_undead_monstrous_1"] = {
 					"wh_main_vmp_mon_varghulf",
 				},
-				["wh3_dlc29_black_pyramid_undead_monstrous_5"] = {
+				["wh3_dlc29_black_pyramid_undead_monstrous_4"] = {
 					"wh_main_vmp_mon_crypt_horrors", 
 					"wh_main_vmp_mon_vargheists",
 				},
@@ -282,14 +284,27 @@ black_pyramid = {
 		},
 		unit_cap_ritual_prefix = "wh3_dlc29_ritual_nag_unit_capacity_",
 		sigils_gained = 0,
-		target_growth = 200, -- how much the target grows after each sigil gained this way.
+		target_growth = 100, -- how much the target grows after each sigil gained this way.
 		current_value = 0,
-		current_target = 200 -- This default value is the starting target in a new campaign
+		current_target = 100 -- This default value is the starting target in a new campaign
 	}
 }
 
+function black_pyramid:update_region_lost_shared_state()
+	local black_pyramid_region = cm:get_region(self.config.region_key)
+	if not black_pyramid_region or black_pyramid_region:is_null_interface() then
+		return
+	end
+
+	cm:set_script_state(
+		self.config.black_pyramid_region_lost_shared_state_key, not cm:is_region_owned_by_faction(self.config.region_key, self.config.faction_key)
+	)
+end
+
 
 function black_pyramid:initialise()
+	self:update_region_lost_shared_state()
+
 	if cm:is_new_game() then
 		local nagash_faction_interface = cm:get_faction(self.config.faction_key)
 		if nagash_faction_interface:is_human() then
@@ -321,6 +336,18 @@ function black_pyramid:initialise()
 				cm:remove_effect_bundle(self.config.mystic_sigil_cheat_effect_bundle_key, nagash_faction_interface:name())
 				self:apply_mystic_sigil_cheat_bundle(nagash_faction_interface, math.max(0, current_sigils - self.config.sigils_change_per_cheat_usage))
 			end
+		end,
+		true
+	)
+
+	core:add_listener(
+		"BlackPyramid_RegionFactionChangeEvent",
+		"RegionFactionChangeEvent",
+		function(context)
+			return context:region():name() == self.config.region_key
+		end,
+		function(context)
+			self:update_region_lost_shared_state()
 		end,
 		true
 	)

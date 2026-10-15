@@ -39,6 +39,7 @@
 					</list_box>
 				</details_table>
 				<reward_summary_list this="E0F62C43-D775-4B0A-96C1B8163FE8B669">
+					<wh3_dlc29_nag_necromantic_energy_post_battle_not_gained this="07789DFF-7700-432E-811575822766AD61"/>
 					<template_reward_summary_entry this="4DD451FD-2A09-481E-864633C9D41489E1"/>
 					<template_ancillary_reward_summary_entry this="49DB82E0-9D01-4227-A539EB44DEFF23A6"/>
 				</reward_summary_list>
@@ -2588,7 +2589,7 @@
 		<template_ancillary_reward_summary_entry
 			this="49DB82E0-9D01-4227-A539EB44DEFF23A6"
 			id="template_ancillary_reward_summary_entry"
-			offset="259.00,24.00"
+			offset="296.00,24.00"
 			allowverticalresize="false"
 			priority="60"
 			tooltipslocalised="true"
@@ -2995,7 +2996,7 @@
 		<template_reward_summary_entry
 			this="4DD451FD-2A09-481E-864633C9D41489E1"
 			id="template_reward_summary_entry"
-			offset="81.00,24.00"
+			offset="118.00,24.00"
 			allowverticalresize="false"
 			priority="60"
 			tooltipslocalised="true"
@@ -3455,5 +3456,80 @@
 				</victory>
 			</states>
 		</tx_battle_results>
+		<wh3_dlc29_nag_necromantic_energy_post_battle_not_gained
+			this="07789DFF-7700-432E-811575822766AD61"
+			id="wh3_dlc29_nag_necromantic_energy_post_battle_not_gained"
+			offset="43.00,24.00"
+			allowverticalresize="false"
+			priority="60"
+			uniqueguid="07789DFF-7700-432E-811575822766AD61"
+			currentstate="7C27A4EC-E736-4D69-9C5098F29C69D46F"
+			defaultstate="7C27A4EC-E736-4D69-9C5098F29C69D46F">
+			<callbackwithcontextlist>
+				<callback_with_context
+					callback_id="ContextPropagator"
+					context_function_id="CampaignBattleContext"/>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoCampaignBattle"
+					context_function_id="CanUseUiFeature(&quot;LAND_OF_THE_DEAD&quot;) &amp;&amp; IsInRegionGroup(&quot;land_of_the_dead&quot;) == false &amp;&amp; IsPlayersFactionInWinningAlliance"/>
+			</callbackwithcontextlist>
+			<userproperties>
+				<property
+					name="max_text_width"
+					value="500"/>
+			</userproperties>
+			<componentimages>
+				<component_image
+					this="EB4B202A-729B-4C95-9D6AF45B99462D91"
+					uniqueguid="EB4B202A-729B-4C95-9D6AF45B99462D91"
+					imagepath="ui/skins/default/wh3_dlc29_pooled_resource_necromantic_power.png"/>
+				<component_image
+					this="A26983D4-F5B0-42D2-8D74D3BFD63A1F76"
+					uniqueguid="A26983D4-F5B0-42D2-8D74D3BFD63A1F76"
+					imagepath="ui/skins/default/icon_no_necromantic_energy.png"/>
+			</componentimages>
+			<states>
+				<default
+					this="7C27A4EC-E736-4D69-9C5098F29C69D46F"
+					name="default"
+					width="45"
+					height="33"
+					tooltip="{{tr:ui_text_replacements_localised_text_wh3_dlc29_nag_no_necrotic_power_outside_land_of_dead_warning}}"
+					tooltiplabel="StateTooltip_f2584c53"
+					interactive="true"
+					uniqueguid="7C27A4EC-E736-4D69-9C5098F29C69D46F">
+					<imagemetrics>
+						<image
+							this="A23B6A7C-268C-4EEB-AED63D57617FDD90"
+							uniqueguid="A23B6A7C-268C-4EEB-AED63D57617FDD90"
+							componentimage="EB4B202A-729B-4C95-9D6AF45B99462D91"
+							offset="3.00,3.00"
+							width="26"
+							height="26"
+							dockpoint="Center Left"
+							dock_offset="3.00,0.00"/>
+						<image
+							this="05FDFB94-46D8-4BE2-A51E1C9BED3C9DDB"
+							uniqueguid="05FDFB94-46D8-4BE2-A51E1C9BED3C9DDB"
+							componentimage="A26983D4-F5B0-42D2-8D74D3BFD63A1F76"
+							width="30"
+							height="30"/>
+					</imagemetrics>
+					<component_text
+						text="0"
+						textvalign="Center"
+						textxoffset="32.00,4.00"
+						textyoffset="4.00,4.00"
+						texthbehaviour="Resize"
+						textlabel="StateText_f2584c53"
+						font_m_size="12"
+						font_m_colour="#FFF8D7FF"
+						font_m_leading="3"
+						fontcat_name="body_12"
+						font_colour_override_preset_key="red"/>
+				</default>
+			</states>
+		</wh3_dlc29_nag_necromantic_energy_post_battle_not_gained>
 	</components>
 </layout>

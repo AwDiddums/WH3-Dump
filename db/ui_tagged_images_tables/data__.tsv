@@ -496,6 +496,7 @@ icon_sotek_captives	UI\skins\warhammer2\sotek_sacrifieces_slaves_icon.png
 icon_soul_hybrid_nurgle	UI\skins\default\icon_soul_hybrid_nurgle.png
 icon_souls_resource	UI/skins/default/icon_souls.png
 icon_spawning	UI/Campaign UI/Effect_bundles/spawning.png
+icon_spawning_sequence	UI/skins/default/blessed_spawning_resource.png
 icon_speed	ui/skins/default/icon_stat_speed.png
 icon_spell_cooldown	UI/Campaign UI/Effect_bundles/magic_cooldown_character.png
 icon_spell_cost	UI/Campaign UI/Effect_bundles/magic_character.png

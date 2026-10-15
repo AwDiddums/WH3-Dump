@@ -1722,7 +1722,7 @@
 				<callback_with_context
 					callback_id="ContextCommandGiverOnVisibilityChanged"
 					context_object_id="CcoCampaignSettlement"
-					context_function_id="DoIf(self.IsVisible &amp;&amp; IsPlayerOwned == false, self.SimulateLClick)"/>
+					context_function_id="(lairs_button = self.ParentContext().ChildContext(&quot;button_lair_view&quot;)) =&gt; DoIf(self.IsVisible &amp;&amp; IsPlayerOwned == false &amp;&amp; (IsContextValid(lairs_button) == false || lairs_button.IsSelected == false), self.SimulateLClick)"/>
 				<callback_with_context
 					callback_id="ContextTooltipSetter"
 					context_object_id="CcoCampaignSettlement"

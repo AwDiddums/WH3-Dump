@@ -64,7 +64,7 @@ episode_nagash_endgame = {
 		is_male = true,
 		agent_key = "general", 
 		agent_subtype_key = "wh_dlc04_emp_arch_lector", 
-		is_immortal = false, 
+		is_immortal = true, 
 		art_set = "wh_dlc04_art_set_emp_arch_lector_04", 
 	},
 
@@ -981,7 +981,7 @@ episode_nagash_endgame.disable_targeting_of_region = function(self, region_key)
 	cm:apply_effect_bundle_to_region(self.untargetable_region_bundle, region_key, 0)
 end
 
--- this will spawn the mortarchs and indirectly call on_nagash_taking_mortarch_character - and that will actually put them in Limbo
+-- Puts mortarchs in limbo for the endgame invasion via calls to on_nagash_taking_mortarch_character, which will actually put them in Limbo.
 episode_nagash_endgame.put_mortarchs_in_limbo = function(self)
 	nag_mortarchs:check_unlocks_for_ai(true)
 
@@ -1005,7 +1005,14 @@ episode_nagash_endgame.put_mortarchs_in_limbo = function(self)
 
 	for subtype_key, spawn_data in dpairs(self.mortarch_spawn_data) do
 		if is_string(spawn_data.ritual_key) then
-			cm:perform_ritual(self.nagash_faction_key, "", spawn_data.ritual_key)
+			-- Already subjugated mortarchs (confederated before endgame) call on_nagash_taking_mortarch_character directly, since re-performing their ritual will not work.
+			-- Not yet subjugated mortarchs are acquired via performing their subjugation ritual, which will indirectly calls on_nagash_taking_mortarch_character.
+			local has_spawned, faction, cqi = nag_mortarchs:is_mortarch_spawned(subtype_key)
+			if has_spawned and is_number(cqi) and is_faction(faction) and faction:name() == self.nagash_faction_key then
+				self:on_nagash_taking_mortarch_character(cqi)
+			else
+				cm:perform_ritual(self.nagash_faction_key, "", spawn_data.ritual_key)
+			end
 		end
 	end
 end
@@ -1415,8 +1422,9 @@ episode_nagash_endgame.spawn_mortarchs = function(self)
 			local on_mortarch_force_ready = function(force_cqi)
 				local new_force_interface = cm:get_military_force_by_cqi(force_cqi)
 				cm:apply_effect_bundle_to_force(self.military_upkeep_free_force_effect_bundle, force_cqi, 0)
-				-- we make mortarchs mortal so we only need to kill them once
-				cm:set_character_immortality(character_lookup, false)
+				cm:apply_effect_bundle_to_force("wh3_main_effect_force_total_autoresolve_victory", force_cqi, 0)
+				-- wa make them immortal, but later set their convalescence_time to 999
+				cm:set_character_immortality(character_lookup, true)
 
 				-- Unit XP must go through the commanding general (heroes do not command the force).
 				local general = new_force_interface:general_character()
@@ -1546,6 +1554,9 @@ end
 -- DEVASTATION SECTION
 
 episode_nagash_endgame.should_region_be_devastated = function(self, region_obj)
+	if not self:is_main_invasion_active() then
+		return false
+	end
 	local region_list = region_obj:regions_in_same_event_area()
 	if (not region_list) or region_list:is_null_interface() then
 		return false
@@ -1696,6 +1707,18 @@ episode_nagash_endgame.vassalize_undead = function(self)
 			end
 		end
 	end
+end
+
+episode_nagash_endgame.remove_autoresolve_bonus_from_battle = function(self)
+	for i = 1, cm:pending_battle_cache_num_defenders() do
+		local current_char_cqi, current_mf_cqi, current_faction_name = cm:pending_battle_cache_get_defender(i)
+		cm:remove_effect_bundle_from_force("wh3_main_effect_force_total_autoresolve_victory", current_mf_cqi)
+	end
+	for i = 1, cm:pending_battle_cache_num_attackers() do
+		local current_char_cqi, current_mf_cqi, current_faction_name = cm:pending_battle_cache_get_attacker(i)
+		cm:remove_effect_bundle_from_force("wh3_main_effect_force_total_autoresolve_victory", current_mf_cqi)
+	end
+	cm:update_pending_battle()
 end
 
 episode_nagash_endgame.debug_show_all_pyramid_positions = function(self)
@@ -2316,13 +2339,41 @@ core:add_listener(
 		return is_table(episode_nagash_endgame.persistent.spawned_mortarchs_cqi) and #episode_nagash_endgame.persistent.spawned_mortarchs_cqi > 0
 	end,
 	function(context)
-		local character = context:character()
-		local character_fm_cqi = character:family_member():command_queue_index()
+		local character_obj = context:character()
+		if is_character(character_obj) == false then
+			return
+		end
+
+		local character_fm_cqi = character_obj:family_member():command_queue_index()
 		local _element, index = table.find(episode_nagash_endgame.persistent.spawned_mortarchs_cqi, character_fm_cqi)
 		if is_number(index) then
+			cm:set_character_convalescence_time(character_obj, 999)
 			table.remove(episode_nagash_endgame.persistent.spawned_mortarchs_cqi, index)
 			cm:set_script_state(episode_nagash_endgame.number_of_spawned_mortarchs_shared_state, #episode_nagash_endgame.persistent.spawned_mortarchs_cqi)
 			episode_nagash_endgame:recalculate_nagash_power_level()
+		end
+	end,
+	true
+)
+
+--episode_nagash_endgame_nagash_CharacterConvalescedOrKilled
+core:add_listener(
+	"episode_nagash_endgame_nagash_CharacterConvalescedOrKilled",
+	"CharacterConvalescedOrKilled",
+	function()
+		return episode_nagash_endgame:is_main_invasion_active() and is_number(episode_nagash_endgame.persistent_nagash_family_member_cqi)
+	end,
+	function(context)
+		local character_obj = context:character()
+		if is_character(character_obj) == false then
+			return
+		end
+
+		local character_fm_cqi = character_obj:family_member():command_queue_index()
+		if episode_nagash_endgame.persistent_nagash_family_member_cqi == character_fm_cqi then
+			cm:set_character_convalescence_time(character_obj, 999)
+			episode_nagash_endgame:play_voiceline("Play_wh3_dlc29_endtimes_narrative_nagash_nagash_004")
+			return
 		end
 	end,
 	true
@@ -2363,15 +2414,37 @@ core:add_listener(
 	"episode_nagash_endgame_PendingBattle",
 	"PendingBattle",
 	function()
-		local pb = cm:model():pending_battle();
-		return pb:quest_mission_key() == episode_nagash_endgame.final_battle_mission_key
+		return episode_nagash_endgame:is_main_invasion_active()
 	end,
 	function()
-		episode_nagash_endgame:set_final_battle_modifiers()
+		local pb = cm:model():pending_battle();
+		if pb:quest_mission_key() == episode_nagash_endgame.final_battle_mission_key then
+			episode_nagash_endgame:set_final_battle_modifiers()
 
-		cm:callback(function()
-			episode_nagash_endgame:play_voiceline("Play_wh3_dlc29_endtimes_narrative_nagash_nagash_005")
-		end, 0.5)
+			cm:callback(function()
+				episode_nagash_endgame:play_voiceline("Play_wh3_dlc29_endtimes_narrative_nagash_nagash_005")
+			end, 0.5)
+		end
+
+		if cm:pending_battle_cache_human_is_involved() == true then 
+			episode_nagash_endgame:remove_autoresolve_bonus_from_battle()
+		else
+			local faction = cm:get_faction(episode_nagash_endgame.nagash_faction_key)
+
+			if faction and faction:num_regions() < 5 then
+				cm:win_next_autoresolve_battle(episode_nagash_endgame.nagash_faction_key)
+			else
+				local removal_chance = 20
+
+				if cm:model():shared_states_manager():get_state_as_bool_value("endgame_legendary_difficulty") then
+					removal_chance = 10
+				end
+
+				if cm:model():random_percent(removal_chance) then
+					episode_nagash_endgame:remove_autoresolve_bonus_from_battle()
+				end
+			end
+		end
 	end,
 	true
 )
@@ -2401,46 +2474,6 @@ core:add_listener(
 			episode_nagash_endgame:declare_war_on_faction_or_overlord(other_faction)
 		elseif other_faction_name == episode_nagash_endgame.nagash_faction_key then
 			episode_nagash_endgame:declare_war_on_faction_or_overlord(faction)
-		end
-	end,
-	true
-)
-
---episode_nagash_CharacterDestroyed
-core:add_listener(
-	"episode_nagash_CharacterDestroyed",
-	"CharacterDestroyed",
-	function(context)
-		-- Someone has defeated Nagash or a Mortarch during the main invasion stage
-		return episode_nagash_endgame:is_main_invasion_active() and is_number(episode_nagash_endgame.persistent_nagash_family_member_cqi)
-	end,
-	function(context)
-		local family_member = context:family_member()
-		if (not family_member)
-			or family_member:is_null_interface()
-		then
-			return
-		end
-
-		-- if Nagash was destroyed, we wound him for a long time
-		local character_obj = family_member:character()
-		if is_character(character_obj) == false then
-			return
-		end
-
-		local family_member_cqi = family_member:command_queue_index()
-		if episode_nagash_endgame.persistent_nagash_family_member_cqi == family_member_cqi then
-			cm:set_character_convalescence_time(character_obj, 999)
-			episode_nagash_endgame:play_voiceline("Play_wh3_dlc29_endtimes_narrative_nagash_nagash_004")
-			return
-		end
-
-		-- if this is one of the mortaches, we also wound them for a long time
-		for _, mortarch_family_cqi in dpairs(episode_nagash_endgame.persistent.mortarchs_family_cqi) do
-			if mortarch_family_cqi == family_member_cqi then
-				cm:set_character_convalescence_time(character_obj, 999)
-				return
-			end
 		end
 	end,
 	true

@@ -168,17 +168,6 @@ function vampire_concealment:do_per_turn_concealment(faction)
 				local concealment_innate_faction = cm:get_factions_bonus_value(faction, "concealment_gain_innate");
 				local concealment_innate_region = cm:get_regions_bonus_value(region, "concealment_gain_innate");
 				local concealment_gain_innate = concealment_innate_region + concealment_innate_faction;
-
-				if concealment_gain_innate > 0 then
-					cm:pooled_resource_factor_transaction(concealment_resource, "neferata_innate", concealment_gain_innate);
-				end
-				
-				local concealment_gain_covens = cm:get_regions_bonus_value(region, "concealment_gain_covens");
-
-				if concealment_gain_covens > 0 then
-					cm:pooled_resource_factor_transaction(concealment_resource, "neferata_covens_positive", concealment_gain_covens);
-				end
-
 				local concealment_loss_covens = cm:get_regions_bonus_value(region, "concealment_loss_covens");
 				
 				if concealment_loss_covens < 0 then
@@ -197,6 +186,16 @@ function vampire_concealment:do_per_turn_concealment(faction)
 					if concealment_loss_force < 0 then
 						cm:pooled_resource_factor_transaction(concealment_resource, "neferata_owner_armies_present", concealment_loss_force);
 					end
+				end
+
+				if concealment_gain_innate > 0 then
+					cm:pooled_resource_factor_transaction(concealment_resource, "neferata_innate", concealment_gain_innate);
+				end
+				
+				local concealment_gain_covens = cm:get_regions_bonus_value(region, "concealment_gain_covens");
+
+				if concealment_gain_covens > 0 then
+					cm:pooled_resource_factor_transaction(concealment_resource, "neferata_covens_positive", concealment_gain_covens);
 				end
 			end
 		end

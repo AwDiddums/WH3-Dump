@@ -9,6 +9,11 @@ local non_participant_dilemma_key = "wh3_dlc29_book_of_nagash_acquired_not_book_
 
 local nagash_faction_key = "wh3_dlc29_nag_host_of_nagash"
 
+-- Force book bundles stop distributing factionwide effects while the army is in limbo (e.g. Nagash portal travel).
+-- This faction bundle temporarily replaces mystic sigils and book spell-slot capacity for books on limbo Nagash forces.
+local nagash_book_limbo_compensation_bundle_key = "wh3_dlc29_books_of_nagash_limbo_compensation"
+local nagash_book_limbo_sigil_effect_key = "wh3_dlc29_effect_initiative_set_point_increase_black_pyramid"
+
 local book_transfer_ritual_category = "BOOK_OF_NAGASH_TRANSFER"
 local cult_of_sigmar_faction_key = "wh3_main_emp_cult_of_sigmar"
 local arkhan_faction_key = "wh2_dlc09_tmb_followers_of_nagash"
@@ -454,6 +459,32 @@ function initialise_books_of_nagash()
 					table.remove(books_on_cooldown, i)
 				end
 			end
+		end,
+		true
+	)
+
+	core:add_listener(
+		"NagashBooks_CharacterEntersLimboCompensation",
+		"CharacterEntersLimboEvent",
+		function(context)
+			local character = context:character()
+			return character:faction():name() == nagash_faction_key and character:has_military_force()
+		end,
+		function(context)
+			refresh_nagash_book_limbo_compensation()
+		end,
+		true
+	)
+
+	core:add_listener(
+		"NagashBooks_CharacterExitsLimboCompensation",
+		"CharacterExitsLimboEvent",
+		function(context)
+			local character = context:character()
+			return character:faction():name() == nagash_faction_key and character:has_military_force()
+		end,
+		function(context)
+			refresh_nagash_book_limbo_compensation()
 		end,
 		true
 	)
@@ -958,6 +989,7 @@ function grant_book_to_new_book_participant_owner(book_number, new_owner_force_i
 	end
 
 	update_number_of_books_owned_by_faction(new_owner_faction_interface)
+	refresh_nagash_book_limbo_compensation()
 end
 
 function grant_owned_books_to_new_owner(owned_books, new_owner_force_cqi)
@@ -1087,6 +1119,7 @@ function remove_book_from_current_owner(book_number)
 		update_number_of_books_owned_by_faction(current_owning_faction_interface)
 	end
 	clear_saved_value_and_script_state_for_book_owner(book_key)
+	refresh_nagash_book_limbo_compensation()
 end
 
 function is_book_held_by_human(book_number)
@@ -1233,6 +1266,7 @@ function set_book_on_cooldown(book_number, book_lost_logical_position, cooldown_
 	local cooldown_shared_state_key = book_key .. "_cooldown_end"
 	cm:set_script_state(cooldown_shared_state_key, cooldown_end_turn)
 	deactivate_nagash_book_slot_if_unowned(book_number)
+	refresh_nagash_book_limbo_compensation()
 	--TODO: potentially fire off an incident here
 end
 
@@ -1500,6 +1534,123 @@ function does_nagash_currently_hold_book(book_number)
 
 	local owning_faction_interface = force_owner_interface:faction()
 	return owning_faction_interface and not owning_faction_interface:is_null_interface() and owning_faction_interface:name() == nagash_faction_key
+end
+
+function is_nagash_book_owner_force_in_limbo(force_cqi)
+	local force_owner_interface = cm:get_military_force_by_cqi(force_cqi)
+	if not force_owner_interface or force_owner_interface:is_null_interface() then
+		return false
+	end
+
+	local owning_faction_interface = force_owner_interface:faction()
+	if not owning_faction_interface or owning_faction_interface:is_null_interface() then
+		return false
+	end
+
+	if owning_faction_interface:name() ~= nagash_faction_key then
+		return false
+	end
+
+	if not force_owner_interface:has_general() then
+		return false
+	end
+
+	local general = force_owner_interface:general_character()
+	if not general or general:is_null_interface() then
+		return false
+	end
+
+	return general:is_in_limbo()
+end
+
+function get_nagash_books_held_by_forces_in_limbo()
+	local books_in_limbo = {}
+
+	for book_number = 1, books_of_nagash_max_count do
+		local current_book_owner = cm:get_saved_value(get_book_and_mission_key_for_index(book_number))
+		if is_number(current_book_owner) and is_nagash_book_owner_force_in_limbo(current_book_owner) then
+			books_in_limbo[book_number] = true
+		end
+	end
+
+	return books_in_limbo
+end
+
+function get_nagash_book_reward_effect_value(book_number, effect_key)
+	local book_key = get_book_and_mission_key_for_index(book_number)
+	local book_bundle_key = get_book_effect_bundle_for_faction(nagash_faction_key, book_key)
+	if not book_bundle_key then
+		return 0
+	end
+
+	local book_effect_bundle = cm:create_new_custom_effect_bundle(book_bundle_key)
+	if not book_effect_bundle or book_effect_bundle:is_null_interface() then
+		script_error("ERROR: Failed to create custom effect bundle [" .. tostring(book_bundle_key) .. "] while reading Books of Nagash limbo compensation values")
+		return 0
+	end
+
+	local effects = book_effect_bundle:effects()
+	for i = 0, effects:num_items() - 1 do
+		local effect = effects:item_at(i)
+		if effect:key() == effect_key then
+			return effect:value()
+		end
+	end
+
+	script_error("ERROR: Effect [" .. tostring(effect_key) .. "] not found on Book of Nagash reward bundle [" .. tostring(book_bundle_key) .. "]")
+	return 0
+end
+
+function refresh_nagash_book_limbo_compensation()
+	local nagash_faction_interface = cm:get_faction(nagash_faction_key)
+	if not nagash_faction_interface or nagash_faction_interface:is_null_interface() then
+		return
+	end
+
+	local books_in_limbo = get_nagash_books_held_by_forces_in_limbo()
+	local total_sigils_to_compensate = 0
+	local has_books_in_limbo = false
+	for book_number = 1, books_of_nagash_max_count do
+		if books_in_limbo[book_number] then
+			has_books_in_limbo = true
+			total_sigils_to_compensate = total_sigils_to_compensate + get_nagash_book_reward_effect_value(book_number, nagash_book_limbo_sigil_effect_key)
+		end
+	end
+
+	if has_books_in_limbo == false then
+		if nagash_faction_interface:has_effect_bundle(nagash_book_limbo_compensation_bundle_key) then
+			cm:remove_effect_bundle(nagash_book_limbo_compensation_bundle_key, nagash_faction_key)
+		end
+		return
+	end
+
+	local effect_bundle = cm:create_new_custom_effect_bundle(nagash_book_limbo_compensation_bundle_key)
+	if not effect_bundle or effect_bundle:is_null_interface() then
+		script_error("ERROR: Failed to create custom effect bundle [" .. nagash_book_limbo_compensation_bundle_key .. "] for Books of Nagash limbo compensation")
+		return
+	end
+
+	-- build the compensation bundle with the total number of sigils we need to grant + capacity in the corresponding initiative set for owned books so any slotted spell initiatives remain active
+	local effects = effect_bundle:effects()
+	for i = 0, effects:num_items() - 1 do
+		local effect = effects:item_at(i)
+		local effect_key = effect:key()
+		if effect_key == nagash_book_limbo_sigil_effect_key then
+			effect_bundle:set_effect_value(effect, total_sigils_to_compensate)
+		else
+			local book_number = tonumber(string.match(effect_key, "wh3_dlc29_books_of_nagash_nagash_reward_(%d+)_initiative"))
+			if book_number then
+				if books_in_limbo[book_number] then
+					effect_bundle:set_effect_value(effect, get_nagash_book_reward_effect_value(book_number, effect_key))
+				else
+					effect_bundle:set_effect_value(effect, 0)
+				end
+			end
+		end
+	end
+
+	effect_bundle:set_duration(0)
+	cm:apply_custom_effect_bundle_to_faction(effect_bundle, nagash_faction_interface)
 end
 
 -- Book spell slots are faction initiatives whose capacity comes from the army/region book bundle.

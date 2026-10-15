@@ -3712,6 +3712,7 @@ wh3_dlc29_archaon_short_victory_lord_of_the_end_times_devastated_bundle	This ent
 wh3_dlc29_archaon_short_victory_lord_of_the_end_times_dummy_reward	{{tr:effect_bundles_localised_description_wh3_dlc29_archaon_short_victory_lord_of_the_end_times}}	{{tr:effect_bundles_localised_title_wh3_dlc29_archaon_short_victory_lord_of_the_end_times}}	faction	1	corruption_chaos.png	false	false	true
 wh3_dlc29_bind_to_lesser_undead	{{tr:cdir_events_dilemma_choice_details_localised_choice_title_wh3_dlc29_nag_dilemma_hearts_and_mindsSECOND}}	{{tr:cdir_events_dilemma_choice_details_localised_choice_label_wh3_dlc29_nag_dilemma_hearts_and_mindsSECOND}}	faction	1	morale.png	true	false	true
 wh3_dlc29_black_pyramid_sigils_cheat_bundle	black pyramid sigils cheat [STATUS: HIDDEN]	black pyramid sigils cheat	faction	1		false	false	true
+wh3_dlc29_books_of_nagash_limbo_compensation	books of nagash limbo	books of nagash limbo	faction	1		false	false	true
 wh3_dlc29_books_of_nagash_nagash_reward_1		{{tr:effect_bundles_localised_title_wh2_dlc09_books_of_nagash_reward_1}}	force	1	books_of_nagash.png	false	false	true
 wh3_dlc29_books_of_nagash_nagash_reward_2		{{tr:effect_bundles_localised_title_wh2_dlc09_books_of_nagash_reward_2}}	force	1	books_of_nagash.png	false	false	true
 wh3_dlc29_books_of_nagash_nagash_reward_3		{{tr:effect_bundles_localised_title_wh2_dlc09_books_of_nagash_reward_3}}	force	1	books_of_nagash.png	false	false	true
@@ -3820,7 +3821,7 @@ wh3_dlc29_bundle_ie_victory_objective_brt_repanse_speed_of_virtue	From afar, a b
 wh3_dlc29_bundle_ie_victory_objective_brt_town_crier	Valour is hard-earned, but easily multiplied by vociferous voices.	Town Crier	faction	1	chivalry_positive.png	true	false	true
 wh3_dlc29_bundle_ie_victory_objective_cth_greater_protection	As the wealth of the Ivory Road grows, so too does the importance of protecting it.	Mercantile Interests 	faction	1	magic_campaign.png	true	false	true
 wh3_dlc29_bundle_ie_victory_objective_def_long	There is always more to gain from the loss of others.	Droves of the Dispossessed	faction	1	income.png	true	false	true
-wh3_dlc29_bundle_ie_victory_objective_dwf_age_of_reckoning_progress_after_reset	"Let it be recorded that upon this day did Thorgrim Grudgebearer, High King of Karaz-a-Karak, the Karaz Ankor, and the all the Holds therein, did pronounce lawful Grudgement upon…"	New Age of Reckoning	faction	1	grudges.png	true	false	true
+wh3_dlc29_bundle_ie_victory_objective_dwf_age_of_reckoning_progress_after_reset	"Let it be recorded that upon this day did Thorgrim Grudgebearer, High King of Karaz-a-Karak, the Karaz Ankor, and all the Holds therein, did pronounce lawful Grudgement upon…"	New Age of Reckoning	faction	1	grudges.png	true	false	true
 wh3_dlc29_bundle_ie_victory_objective_dwf_dwarf_forge_assistant	It takes several human lifetimes to truly master the skills of the forge.	Forge Assistant	faction	1	magic_campaign.png	true	false	true
 wh3_dlc29_bundle_ie_victory_objective_dwf_dwarf_stonemason	Grudges run deep, and so does the earth.	Mining Guild	faction	1	construction.png	true	false	true
 wh3_dlc29_bundle_ie_victory_objective_dwf_oathgold_trader	"In the year 685, by the manling counting, Bragi Bolghammer procured six barrels of Grobkaz Best with 10 silver pieces of credit. With 1800 years of compound interest, his clan now owes…"	Travelling Reckoner 	faction	1	income.png	true	false	true
@@ -3947,6 +3948,8 @@ wh3_dlc29_bundle_purple_dwarfs_any_dwarf_brew		Allows use of the ale barrels, wh
 wh3_dlc29_bundle_purple_magic_draw_combo_piece		Drawing on these Winds will help complete the Masterplan, but carry a risk of Complication	faction	1	wh3_dlc29_skv_thanquol_cp.png	false	false	true
 wh3_dlc29_bundle_ruthless_expansion	Nothing short of total domination, and one day, deification itself, will satisfy the Hag Sorceress of Ghrond.	Ruthless Ambition 	faction	1	construction.png	true	false	true
 wh3_dlc29_bundle_skv_thanquol_mission_7	Genius schemer, brilliant tactician, unmatched sorcerer of verminkind – rats across the Under-Empire twitch at Thanquol’s command, eager to hurl their wretched lives away for his greatest plan yet!	The Greatest Grey Seer	faction	1	melee_character.png	true	false	true
+wh3_dlc29_bundle_stance_army_encampment_horde_nag	{{tr:effect_bundles_localised_description_wh2_dlc11_bundle_stance_army_encampment_horde_coast}}	{{tr:effect_bundles_localised_title_wh2_dlc11_bundle_stance_army_encampment_coast}}	force	1	icon_effects_fortify.png	true	false	true
+wh3_dlc29_bundle_stance_army_encampment_nag	{{tr:effect_bundles_localised_description_wh2_dlc11_bundle_stance_army_encampment_coast}}	{{tr:effect_bundles_localised_title_wh2_dlc11_bundle_stance_army_encampment_coast}}	force	1	icon_effects_fortify.png	true	false	true
 wh3_dlc29_bundle_stance_chs_dark_fortress	This bleak edifice draws the ruinous power of the Chaos Gods unto Archaon, swelling the Everchosen's dreadful might!	Invasion Fortress	force	1	reign_of_chaos.png	true	false	true
 wh3_dlc29_bundle_token_upgrade_increase_amount		Increase the number of times this Scheme can appear in a Plan	faction	1	wh3_dlc29_skv_thanquol_cp.png	false	false	true
 wh3_dlc29_bundle_token_upgrade_increase_odds		Increase the likelyhood of this Scheme appearing in a Plan	faction	1	wh3_dlc29_skv_thanquol_cp.png	false	false	true
@@ -4080,13 +4083,14 @@ wh3_dlc29_glottkin_souls_progression_6	Endlessly wailing in sundry stages of dec
 wh3_dlc29_glottkin_souls_progression_7	“Grandfather's love – a proboscis slithering down reality's tender throat – will wring from it but a mewling wail, swiftly drowned beneath His booming laughter.”\n– Flail Rotgloam	{{tr:ui_text_replacements_localised_text_wh3_dlc29_woc_glottkin_earned_souls}}	faction	1		true	false	true
 wh3_dlc29_hef_dungeon_mistwalker_upgrade_undead_legions	{{tr:effect_bundles_localised_description_wh2_dlc15_hef_dungeon_mistwalker_upgrade_vampire_counts}}	Interrogation: Undead Legions	faction	1	0_placeholder_effect_bundle.png	true	false	true
 wh3_dlc29_hef_eltharion_dungeon_reward_undead_legions	Athel Tamarha is a fitting place for those who seek to imprison the world in undeath.	Undead Legions Prisoner	faction	1	trait_nagash.png	true	false	true
+wh3_dlc29_hidden_beastmen_invasion_bundle	[HIDDEN] [STATUS: HIDDEN]	[HIDDEN]	faction	0	food.png	false	false	true
 wh3_dlc29_high_corruption_nag_dummy	[HIDDEN] [STATUS: HIDDEN]	[HIDDEN]	region	0		true	false	true
 wh3_dlc29_ie_victory_conditions_blessed_spawning_kroxigor_capacity_bundle	A Kroxigor’s emergence is a rare, auspicious sight. These are auspicious times.	Sacred Spawning Pools	faction	1	merc_replen.png	true	false	true
 wh3_dlc29_ie_victory_conditions_blessed_spawning_ripperdactyl_terradon_capacity_bundle	Recent spawnings have produced many generations of Skinks with a predilection for riding. There may be something to learn in the priests’ methods.	Focused Spawning Rituals 	faction	1	merc_replen.png	true	false	true
 wh3_dlc29_ie_victory_conditions_blessed_spawning_saurus_warriors_capacity_bundle	The cold depths breed those marked for fury since time immemorial.	Deeper Spawning Pools 	faction	1	merc_replen.png	true	false	true
 wh3_dlc29_ie_victory_conditions_blessed_spawning_skink_capacity_bundle	Dappled by the jungle canopy, the swampy pools breed a skittish, secretive warrior tribe.	Open Spawning Pools 	faction	1	merc_replen.png	true	false	true
 wh3_dlc29_ie_victory_conditions_blessed_spawning_temple_guard_capacity_bundle	A deeper understanding of the celestial movements allow for larger and more frequent spawnings.	Improved Astrological Calendar	faction	1	merc_replen.png	true	false	true
-wh3_dlc29_ie_victory_conditions_caravan_capacity	For those who reject the Harmony of the Western Province, there are fortunes to made on the Ivory Road.	Foreign Ventures 	faction	1	army.png	true	false	true
+wh3_dlc29_ie_victory_conditions_caravan_capacity	For those who reject the Harmony of the Western Province, there are fortunes to be made on the Ivory Road.	Foreign Ventures	faction	1	army.png	true	false	true
 wh3_dlc29_ie_victory_conditions_champions_essence_bonus	As tales of your bloody prowess grow, Khorne himself has begun to take note of your duels. 	Soul Extractor	faction	1	khorne_skull_throne.png	true	false	true
 wh3_dlc29_ie_victory_conditions_characters_recruit_rank_bundle	History remembers the deeds of its victors, their names etched across countless manuscripts.	Names of Legend	faction	1	army.png	true	false	true
 wh3_dlc29_ie_victory_conditions_chs_archaon_unit_cap	The earth trembles beneath the thunder of spiked hooves. A charge that heralds the beginning of the end.	Steeds of the Apocalypse	faction	1	army.png	true	false	true
@@ -4162,6 +4166,10 @@ wh3_dlc29_mortal_qualified_labourers	{{tr:cdir_events_dilemma_choice_details_loc
 wh3_dlc29_mortarchs_healthy_competition	{{tr:cdir_events_dilemma_choice_details_localised_choice_title_wh3_dlc29_nag_dilemma_mortarch_squabblingFIRST}}	{{tr:cdir_events_dilemma_choice_details_localised_choice_label_wh3_dlc29_nag_dilemma_mortarch_squabblingFIRST}}	faction	1	experience.png	true	false	true
 wh3_dlc29_nag_background_ai_extra_bonuses_hidden			faction	1		true	false	true
 wh3_dlc29_nag_control_relic_trade	{{tr:cdir_events_dilemma_choice_details_localised_choice_title_wh3_dlc29_nag_dilemma_legacy_of_nagashSECOND}}	{{tr:cdir_events_dilemma_choice_details_localised_choice_label_wh3_dlc29_nag_dilemma_legacy_of_nagashSECOND}}	faction	1	income.png	true	false	true
+wh3_dlc29_nag_difficulty_income_scaling_easy			faction	0		true	false	true
+wh3_dlc29_nag_difficulty_income_scaling_hard			faction	0		true	false	true
+wh3_dlc29_nag_difficulty_income_scaling_normal			faction	0		true	false	true
+wh3_dlc29_nag_difficulty_income_scaling_very_hard			faction	0		true	false	true
 wh3_dlc29_nag_kill_smugglers	{{tr:cdir_events_dilemma_choice_details_localised_choice_title_wh3_dlc29_nag_dilemma_legacy_of_nagashFIRST}}	{{tr:cdir_events_dilemma_choice_details_localised_choice_label_wh3_dlc29_nag_dilemma_legacy_of_nagashFIRST}}	faction	1	income.png	true	false	true
 wh3_dlc29_nag_mortarch_mis_bundle_arkhan	[HIDDEN] Enable ritual for mortarch: Arkhan	[HIDDEN] Enable ritual for mortarch: Arkhan	faction	0	character.png	false	false	true
 wh3_dlc29_nag_mortarch_mis_bundle_dieter	[HIDDEN] Enable ritual for mortarch: Dieter	[HIDDEN] Enable ritual for mortarch: Dieter	faction	0	character.png	false	false	true

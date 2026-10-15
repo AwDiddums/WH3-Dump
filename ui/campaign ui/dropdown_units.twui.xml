@@ -2406,6 +2406,12 @@
 			uniqueguid="48F6817B-337F-4493-ABB49FC185A0F3B2"
 			currentstate="7ABA3B05-BFDB-42B1-AF71E806D1A6FF19"
 			defaultstate="7ABA3B05-BFDB-42B1-AF71E806D1A6FF19">
+			<callbackwithcontextlist>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_object_id="CcoCampaignCharacter"
+					context_function_id="IsInLimbo &amp;&amp; (AgentSubtypeRecordContext.Key == &quot;wh3_dlc29_vmp_handmaiden&quot; || AgentSubtypeRecordContext.Key ==  &quot;wh3_dlc29_vmp_handmaiden_imentet&quot;)"/>
+			</callbackwithcontextlist>
 			<componentimages>
 				<component_image
 					this="84802672-D076-4373-A6DF562FBD9EC8C7"
@@ -3919,6 +3925,10 @@
 					callback_id="ContextStateSetter"
 					context_object_id="CcoCampaignCharacter"
 					context_function_id="GetIfElse(IsInLimbo &amp;&amp; !HasChaoticPlanSchemerForce, &quot;invalid&quot;, &quot;unselected&quot;)"/>
+				<callback_with_context
+					callback_id="ContextTooltipSetter"
+					context_object_id="CcoCampaignCharacter"
+					context_function_id="GetIfElse(IsInLimbo &amp;&amp; (AgentSubtypeRecordContext.Key == &quot;wh3_dlc29_vmp_handmaiden&quot; || AgentSubtypeRecordContext.Key ==  &quot;wh3_dlc29_vmp_handmaiden_imentet&quot;), &quot;{{tr:units_dropdown_not_on_map_tooltip_wh3_dlc29_vmp_neferata}}&quot;, self.CurrentTooltip)"/>
 			</callbacks_with_context>
 			<user_properties>
 				<property

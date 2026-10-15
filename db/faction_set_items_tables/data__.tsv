@@ -388,7 +388,7 @@ id	culture	faction	remove	set	subculture
 1592974081		wh3_main_ksl_the_great_orthodoxy	true	KislevButNotOrthodoxy	
 1593482940		wh2_main_skv_clan_mors	false	all_vanilla_playable_factions	
 1593523062		wh2_dlc15_hef_imrik	false	wh3_dlc27_all_regular_factions	
-1594495639	wh3_main_sla_slaanesh		false	acn_set_multi_slaanesh_chaos	
+1594495639	wh3_main_sla_slaanesh		false	anc_set_multi_slaanesh_chaos	
 1595082492		wh2_main_def_har_ganeth	false	wh2_main_def_har_ganeth	
 1595686085	wh3_main_sla_slaanesh		false	anc_set_multi_khorne_tzeentch_daemons_nurgle_slaanesh	
 1597888991	wh_main_brt_bretonnia		false	anc_set_exclusive_lore_of_beasts	
@@ -579,6 +579,7 @@ id	culture	faction	remove	set	subculture
 1874641095		wh3_main_ogr_thunderguts	false	wh3_dlc27_all_regular_factions	
 1876201429		wh_dlc05_wef_torgovann	false	wh3_dlc27_all_regular_factions	
 1876660930		wh3_main_ogr_sons_of_the_mountain	false	wh3_dlc27_all_regular_factions	
+187773647	wh_main_chs_chaos		false	anc_set_multi_sla_chs_nor	
 1880654323		wh2_dlc16_vmp_lahmian_sisterhood	false	wh3_dlc27_all_regular_factions	
 1881247645	wh_main_brt_bretonnia		true	has_ranged_character	
 1884208575		wh_dlc08_nor_vanaheimlings	false	norscan_homeland_factions	
@@ -701,6 +702,7 @@ id	culture	faction	remove	set	subculture
 2059193089	wh_main_chs_chaos		false	anc_set_multi_beastmen_norsca_chaos	
 2060590208		wh3_dlc29_chaos_invasion_confederation_owner	true	all_except_endgames	
 206269432	wh_dlc08_nor_norsca		true	disabled_diplomacy_with_kurgan_warband	
+206561929	wh3_main_sla_slaanesh		false	anc_set_multi_sla_chs_nor	
 2066330631	wh_main_dwf_dwarfs		false	anc_set_multi_kislev_norsca_bretonnia_chaos_dwarfs_empire_vampire_counts	
 2071995519		wh2_dlc13_lzd_avengers	false	wh3_dlc27_all_regular_factions	
 2073491416		wh2_main_brt_thegans_crusaders	false	wh3_dlc27_all_regular_factions	
@@ -788,6 +790,7 @@ id	culture	faction	remove	set	subculture
 275853929		wh_main_emp_hochland	false	wh3_dlc27_all_regular_factions	
 276615236			false	wh3_dlc27_hef_not_aislinn	wh2_main_sc_hef_high_elves
 276871608	wh2_main_hef_high_elves		false	anc_set_exclusive_lore_of_beasts	
+277480602	wh_dlc08_nor_norsca		false	anc_set_multi_sla_chs_nor	
 280538045	wh3_main_nur_nurgle		false	all_nurgle_culture	
 288319416		wh2_dlc11_cst_rogue_terrors_of_the_dark_straights	true	FavouredCorruptionNone	
 288821344			false	FavouredCorruptionUndivided	wh2_main_rogue_chaos
@@ -1096,7 +1099,7 @@ id	culture	faction	remove	set	subculture
 768822948	wh_dlc08_nor_norsca		false	anc_set_multi_high_elves_kislev_norsca_chaos_empire	
 769733333		wh3_dlc29_chs_host_of_the_triplets	true	wh3_dlc29_plague_effect_set_gardens_negative	
 770956844		wh3_dlc20_chs_azazel	false	faction_set_azazel	
-771348634	wh_main_chs_chaos		false	acn_set_multi_slaanesh_chaos	
+771348634	wh_main_chs_chaos		false	anc_set_multi_slaanesh_chaos	
 771926704		wh3_main_rogue_the_putrid_swarm	false	FavouredCorruptionNurgle	
 771980704		wh2_main_def_blood_hall_coven	false	wh3_dlc27_all_regular_factions	
 772400608	wh2_main_def_dark_elves		false	anc_set_exclusive_lore_of_beasts	

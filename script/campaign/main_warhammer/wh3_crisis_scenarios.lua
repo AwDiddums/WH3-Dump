@@ -157,8 +157,14 @@ cm:add_first_tick_callback(
 			
 		end
 
-		if cm:get_saved_value("crisis_scenario_data") then
-			crisis:add_early_warning_listener(cm:get_saved_value("crisis_scenario_data"))
+		local scenario_data = cm:get_saved_value("crisis_scenario_data")
+		if scenario_data then
+			if is_number(scenario_data.turn) and cm:turn_number() >= scenario_data.turn then
+				out("Crisis scenario was already due at the start of turn " .. tostring(scenario_data.turn) .. ". Most likely something crashed. Skip duplicate spawn.")
+				cm:set_saved_value("crisis_scenario_data", false)
+			else
+				crisis:add_early_warning_listener(scenario_data)
+			end
 		end
 
 		if cm:get_saved_value("crisis_ultimate_crisis_data") then
@@ -285,6 +291,8 @@ function crisis:add_early_warning_listener(scenario_data)
 			return cm:turn_number() >= scenario_data.turn
 		end,
 		function()
+			cm:set_saved_value("crisis_scenario_data", false)
+
 			if self.settings.all_scenarios then
 				for i = 1, #self.scenarios do
 					local scenario = self.scenarios[i]
@@ -295,11 +303,9 @@ function crisis:add_early_warning_listener(scenario_data)
 			else
 				self:generate_crisis(scenario_data.scenario)
 			end
-			cm:set_saved_value("crisis_scenario_data", false)
-			core:remove_listener("crisis_early_warning_listener")
 			self:reveal_regions(self.revealed_regions)
 		end,
-		true
+		false
 	)
 end
 
@@ -421,21 +427,23 @@ function crisis:generate_crisis(chosen_scenario)
 	out("Executing crisis scenario: "..chosen_scenario)
 
 	local env = core:get_env()
+	local scenario = env and chosen_scenario and env[chosen_scenario]
 
 	-- Only proceed if filename:trigger() is registered as a function in the chosen scenario's script
-	if is_function(env[chosen_scenario]:trigger()) then
+	if is_table(scenario) and is_function(scenario.trigger) then
 
-		-- call the function
-		local ok, result = pcall(env[chosen_scenario]:trigger(), unpack(arg))
+		local ok, result = pcall(function()
+			scenario:trigger()
+		end)
 
 		if ok then
 			out(chosen_scenario .. ":trigger() executed successfully")
 		else
-			out("ERROR: " .. chosen_scenario .. ":trigger() failed while executing with error: " .. result)
+			out("ERROR: " .. chosen_scenario .. ":trigger() failed while executing with error: " .. tostring(result))
 		end
 
 	else
-		out(chosen_scenario .. ":trigger() not found")
+		out(tostring(chosen_scenario) .. ":trigger() not found")
 	end
 
 	out("****************************")

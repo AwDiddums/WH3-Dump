@@ -83,7 +83,7 @@ local function apply_mists_of_yvresse_effects(region_key)
 		local owning_faction = region:owning_faction()
 		
 		if owning_faction:culture() == m_hef_culture and (owning_faction:name() == m_eltharion_faction_key or owning_faction:allied_with(yvresse_faction)) then
-			cm:create_storm_for_region(region_key, 1, 1, "hef_mist_storm")
+			cm:create_storm_for_region(region_key, 1, 1, "hef_mist_storm", m_eltharion_faction_key)
 			
 			local m_mist_ritual = cm:get_saved_value("m_mist_ritual") or 0
 			

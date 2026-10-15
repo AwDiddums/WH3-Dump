@@ -39,6 +39,7 @@ ritual_target_force_neutral_allied		ritual_target_force_neutral_allied		false	FF
 ritual_target_force_own		ritual_target_force_own		false	FFFFFF	FFFFFF	FFFFFF		-1
 ritual_target_force_own_10_units_minimum		ritual_target_force_own_10_units_minimum		false	FFFFFF	FFFFFF	FFFFFF		-1
 ritual_target_force_own_1_marauder_minimum		ritual_target_force_own_1_marauder_minimum		false	FFFFFF	FFFFFF	FFFFFF		-1
+ritual_target_force_own_allied_land_or_sea		ritual_target_force_own_allied_land_or_sea		false	FFFFFF	FFFFFF	FFFFFF		-1
 ritual_target_force_own_allied_territory_own_allied		ritual_target_force_own_allied_territory_own_allied		false	FFFFFF	FFFFFF	FFFFFF		-1
 ritual_target_force_own_enemy_territory		ritual_target_force_own_enemy_territory		false	FFFFFF	FFFFFF	FFFFFF		-1
 ritual_target_force_own_enemy_territory_not_besieging		ritual_target_force_own_enemy_territory_not_besieging		false	FFFFFF	FFFFFF	FFFFFF		-1
@@ -86,6 +87,7 @@ ritual_target_region_skv			ritual_target_region_skv	false	FFFFFF	FFFFFF	FFFFFF		
 ritual_target_region_tyrants_demands			ritual_target_region_tyrants_demands	false	FFFFFF	FFFFFF	FFFFFF		-1
 ritual_target_region_under_empire			ritual_target_region_skv_under_empire	false	FFFFFF	FFFFFF	FFFFFF		-1
 ritual_target_region_with_major_settlement			ritual_target_region_with_major_settlement	false	FFFFFF	FFFFFF	FFFFFF		-1
+web_of_power_target_character_any_but_self_no_endgame				false	FFFFFF	FFFFFF	FFFFFF	web_of_power_target_character_any_but_self_no_endgame	-1
 web_of_power_target_faction_all_but_self	web_of_power_target_faction_all_but_self			false	FFFFFF	FFFFFF	FFFFFF		-1
 web_of_power_target_force_any_but_self		web_of_power_target_force_any_but_self		false	FFFFFF	FFFFFF	FFFFFF		-1
 web_of_power_target_force_any_but_self_land		web_of_power_target_force_any_but_self_land		false	FFFFFF	FFFFFF	FFFFFF		-1

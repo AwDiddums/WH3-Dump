@@ -21416,7 +21416,7 @@ in_plans_scroll:add_trigger_condition(
 	"ComponentLClickUp",
 	function(context)
 		local oakenhammer_region = cm:get_region("wh3_main_combi_region_oakenhammer")
-		local zhufbar_region = cm:get_region("wh3_dlc29_skv_thanquol_zhufbar")
+		local zhufbar_region = cm:get_region("wh3_main_combi_region_zhufbar")
 		local zhufbar_owned = zhufbar_region and not zhufbar_region:is_null_interface() and zhufbar_region:owning_faction():name() == thanquol_chaotic_plans_config.faction_key
 		local oakenhammer_owned = oakenhammer_region and not oakenhammer_region:is_null_interface() and oakenhammer_region:owning_faction():name() == thanquol_chaotic_plans_config.faction_key
 		if context.string == "new_plan_button" and oakenhammer_owned and not zhufbar_owned then

@@ -116,50 +116,50 @@ vampire_lairs = {
 				key = "wh_main_vmp_vampire_counts", -- Mannfred
 				first_lair = "wh3_main_combi_region_antoch",
 				lair_pools = {
-					{key = "close", distance = 35000, lair_count = 2}, -- Distance set at the value at which at least 50 regions are within range
+					{key = "close", distance = 35000, lair_count = 1}, -- Distance set at the value at which at least 50 regions are within range
 					{key = "medium", distance = 240000, lair_count = 2}, -- Distance set at the value at which 50% of all regions are within range
 					{key = "far", distance = 400000, lair_count = 3}, -- Distance set at the value at which 75% of all region are within range
-					{key = "random", distance = 9999999, lair_count = 3}, -- All regions are valid at this distance
+					{key = "random", distance = 9999999, lair_count = 4}, -- All regions are valid at this distance
 				}
 			},
 			{
 				key = "wh2_dlc11_vmp_the_barrow_legion", -- Kemmler
 				first_lair = "wh3_main_combi_region_castle_bastonne",
 				lair_pools = {
-					{key = "close", distance = 20000, lair_count = 2},
+					{key = "close", distance = 20000, lair_count = 1},
 					{key = "medium", distance = 135000, lair_count = 2},
 					{key = "far", distance = 290000, lair_count = 3},
-					{key = "random", distance = 9999999, lair_count = 3}
+					{key = "random", distance = 9999999, lair_count = 4}
 				}
 			},
 			{
 				key = "wh3_main_vmp_caravan_of_blue_roses", -- Ghorst
 				first_lair = "wh3_main_combi_region_shattered_cove",
 				lair_pools = {
-					{key = "close", distance = 45000, lair_count = 2},
+					{key = "close", distance = 45000, lair_count = 1},
 					{key = "medium", distance = 300000, lair_count = 2},
 					{key = "far", distance = 700000, lair_count = 3},
-					{key = "random", distance = 9999999, lair_count = 3}
+					{key = "random", distance = 9999999, lair_count = 4}
 				}
 			},
 			{
 				key = "wh_main_vmp_schwartzhafen", -- Vlad/Isabella
 				first_lair = "wh3_main_combi_region_castle_templehof",
 				lair_pools = {
-					{key = "close", distance = 20000, lair_count = 2},
+					{key = "close", distance = 20000, lair_count = 1},
 					{key = "medium", distance = 140000, lair_count = 2},
 					{key = "far", distance = 300000, lair_count = 3},
-					{key = "random", distance = 9999999, lair_count = 3}
+					{key = "random", distance = 9999999, lair_count = 4}
 				}
 			},
 			{
 				key = "wh3_dlc29_vmp_neferata", -- Neferata
 				first_lair = "wh3_main_combi_region_desolation_of_drakenmoor",
 				lair_pools = {
-					{key = "close", distance = 25000, lair_count = 2},
+					{key = "close", distance = 25000, lair_count = 1},
 					{key = "medium", distance = 160000, lair_count = 2},
 					{key = "far", distance = 390000, lair_count = 3},
-					{key = "random", distance = 9999999, lair_count = 3}
+					{key = "random", distance = 9999999, lair_count = 4}
 				}
 			}
 		},
@@ -871,6 +871,17 @@ function vampire_lairs:awaken_vampire(vampire_index, slot_manager)
 			end
 		end
 	end
+	-- same as above we need to handle the auto-skill for RoR's
+	if starting_rank >= 30 then
+		cm:character_details_add_skill_point(character_details, "wh3_main_skill_all_army_of_renown_lord");
+		cm:character_details_add_skill_point(character_details, "wh3_main_skill_all_army_of_renown_lord");
+		cm:character_details_add_skill_point(character_details, "wh3_main_skill_all_army_of_renown_lord");
+	elseif starting_rank >= 20 then
+		cm:character_details_add_skill_point(character_details, "wh3_main_skill_all_army_of_renown_lord");
+		cm:character_details_add_skill_point(character_details, "wh3_main_skill_all_army_of_renown_lord");
+	elseif starting_rank >= 10 then
+		cm:character_details_add_skill_point(character_details, "wh3_main_skill_all_army_of_renown_lord");
+	end
 
 	if spawn_army_for_character then
 		-- Character already exists on the campaign map, so grant everything applicable. Automatic mounts given immediately and without spending skill points.
@@ -1158,7 +1169,7 @@ function vampire_lairs:add_listeners()
 		function(context)
 			local option = context:occupation_decision_type();
 
-			if option:starts_with("occupation_decision_occupy") or option:starts_with("occupation_decision_colonise") or option:starts_with("occupation_decision_resettle") then
+			if option:starts_with("occupation_decision_occupy") or option:starts_with("occupation_decision_colonise") or option:starts_with("occupation_decision_resettle") or option:starts_with("occupation_decision_occupy_and_vassal") or option:starts_with("occupation_decision_loot") then
 				local region = context:garrison_residence():region();
 				cm:change_corruption_in_province_by(region:province_name(), "wh3_main_corruption_vampiric", 100, "characters");
 				cm:apply_effect_bundle_to_region("wh3_main_bundle_region_vampiric_climate", region:name(), 0);

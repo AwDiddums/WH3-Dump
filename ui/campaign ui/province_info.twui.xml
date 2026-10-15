@@ -8273,7 +8273,16 @@
 				<callback_with_context
 					callback_id="ContextVisibilitySetter"
 					context_object_id="CcoCampaignProvince"
-					context_function_id="CanUseUiFeature(&quot;WEB_OF_POWER&quot;) &amp;&amp; CapitalSettlementContext.HostileForeignSlotList(PlayersFaction).Any(ForeignSlotSetKey == &quot;wh3_dlc29_slot_set_vampire_coven&quot;)"/>
+					context_function_id="CanUseUiFeature(&quot;WEB_OF_POWER&quot;) &amp;&amp; CapitalSettlementContext.HasHostileForeignSlotSet(PlayersFaction, CcoSlotSetRecord(&quot;wh3_dlc29_slot_set_vampire_coven&quot;))">
+					<child_m_user_properties>
+						<property
+							name="event0"
+							value="ForeignSlotAdded"/>
+						<property
+							name="event1"
+							value="ForeignSlotRemoved"/>
+					</child_m_user_properties>
+				</callback_with_context>
 				<callback_with_context
 					callback_id="ContextPropagator"
 					context_object_id="CcoCampaignFactionProvinceManager">

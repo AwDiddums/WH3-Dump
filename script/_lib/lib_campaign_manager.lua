@@ -9784,7 +9784,8 @@ end;
 --- @p number storm strength
 --- @p number duration
 --- @p string storm type
-function campaign_manager:create_storm_for_region(region_key, strength, duration, storm_type)
+--- @p [opt=nil] @string faction key, Source faction key for the storm.
+function campaign_manager:create_storm_for_region(region_key, strength, duration, storm_type, faction_key)
 	if not is_string(region_key) then
 		script_error("ERROR: create_storm_for_region() called but supplied region key [" .. tostring(region_key) .. "] is not a string");
 		return false;
@@ -9804,10 +9805,18 @@ function campaign_manager:create_storm_for_region(region_key, strength, duration
 		script_error("ERROR: create_storm_for_region() called but supplied storm_type string [" .. tostring(storm_type) .. "] is not a string");
 		return false;
 	end;
+
+	if faction_key ~= nil and not is_string(faction_key) then
+		script_error("ERROR: create_storm_for_region() called but supplied faction_key [" .. tostring(faction_key) .. "] is not a string");
+		return false;
+	end;
 	
 	out("* create_storm_for_region() called, creating storm type [" .. storm_type .. "] in region [" .. region_key .. "]");
-
-	self.game_interface:create_storm_for_region(region_key, strength, duration, storm_type);
+	if faction_key ~= nil then
+		self.game_interface:create_storm_for_region(region_key, strength, duration, storm_type, faction_key);
+	else
+		self.game_interface:create_storm_for_region(region_key, strength, duration, storm_type);
+	end;
 end;
 
 
@@ -10159,7 +10168,7 @@ function campaign_manager:change_corruption_in_province_by(province, corruption_
 		if resource == nil or resource:is_null_interface() then
 			script_error(string.format(
 				"ERROR: change_corruption_in_province_by() called with corruption [%s] but corruption of type [%s] was not available in province [%s].",
-				tostring(corruption_type), resources_to_transact[r], province:name()
+				tostring(corruption_type), resources_to_transact[r], province:key()
 			));
 			return false;
 		end;

@@ -1440,8 +1440,9 @@ end
 --- @p @table building_level_list, Building levels by key to construct from
 --- @p [opt=nil] @table building_chain_list, Building chains by key to construct from
 --- @p [opt=nil] @string override_text, Localised name key, in the [table]_[key]_[field] format.
+--- @p [opt=nil] @string region_key, Optional region to zoom to if the building browser cannot open
 --- @r table objective and conditions construct including
-generate_CONSTRUCT_BUILDINGS_INCLUDING_objective = function(amount, faction_key, building_level_list, building_chain_list, override_text)
+generate_CONSTRUCT_BUILDINGS_INCLUDING_objective = function(amount, faction_key, building_level_list, building_chain_list, override_text, region_key)
 	local objective = new_objective("CONSTRUCT_N_BUILDINGS_INCLUDING")
 	table.insert(objective.conditions, "total " .. tostring(amount))
 	table.insert(objective.conditions, "faction " .. faction_key)
@@ -1457,6 +1458,9 @@ generate_CONSTRUCT_BUILDINGS_INCLUDING_objective = function(amount, faction_key,
 	end
 	if override_text then
 		table.insert(objective.conditions, "override_text " .. override_text)
+	end
+	if region_key then
+		table.insert(objective.conditions, "region " .. region_key)
 	end
 	return objective
 end

@@ -72,7 +72,9 @@ function crisis_will_of_hashut:trigger()
 	-- Check to see if AI CHD already own the region
 	if not region:is_abandoned() then
 		if not owning_faction:is_human() then
-			if owning_faction:subculture() == "wh3_dlc23_sc_chd_chaos_dwarfs" then
+			if owning_faction:subculture() == "wh3_dlc23_sc_chd_chaos_dwarfs"
+				and data.faction_key ~= owning_faction:name()
+			then
 				cm:force_confederation(data.faction_key, owning_faction:name())
 			end
 		end

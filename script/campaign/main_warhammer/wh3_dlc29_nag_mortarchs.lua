@@ -2,13 +2,17 @@ nag_mortarchs_config = {
 	faction_key = "wh3_dlc29_nag_host_of_nagash",
 	shared_objective_occupation_key = "scripted_mis_wh3_dlc29_nag_mortarchs_occupation",
 	shared_objective_discovery_key = "scripted_mis_faction_met",
-	limit_power_objective_amount = 5,
+	limit_power_objective_percent = 300,
 	camera_pan_duration_on_subjugate = 5, -- the time it takes for the camera to pan to the newly subjugated mortarch after the panel closes, in seconds
 	-- ensure AI gets an unlock every 40 turns if for some reason the conditions are not being met, this is a fallback to prevent the AI from never unlocking
 	ai_unlock_turn_gap_fallback = 40, 
 
 	building_lock_tooltip_prefix = "mortarch_building_lock_tooltip_",
-	locked_buildings = {
+	locked_buildings_agent = {
+		["wh3_dlc29_vmp_neferata"] = "wh3_dlc29_nag_necropolis_military_melee_5",
+		["wh3_dlc29_vmp_walach_harkon"] = "wh3_dlc29_nag_necropolis_military_cavalry_5"
+	},
+	locked_buildings_ritual = {
 		-- ritual / building key
 		["wh3_dlc29_nag_mortarchs_walach"] = "wh3_dlc29_nag_necropolis_military_cavalry_5",
 		["wh3_dlc29_nag_mortarchs_neferata"] = "wh3_dlc29_nag_necropolis_military_melee_5",
@@ -56,6 +60,7 @@ nag_mortarchs_config = {
 			payload = "text_display dummy_wh3_dlc24_mission_schemes_reveal_shroud_payload",	-- Mandatory there is at least one payload, but it isn't shown in the UI.
 			unique_objectives_config = {
 				black_pyramid_objective_key = "scripted_mis_wh3_dlc29_nag_mortarchs_pyramid_of_nagash",
+				zoom_region_key = "wh3_main_combi_region_black_pyramid_of_nagash",
 				unit_list = "wh3_dlc29_nag_tmb_unit_list",
 				unit_threshold = 5,
 				text_override = "wh3_dlc29_nag_mis_mortarchs_arkhan_recruit",
@@ -70,7 +75,7 @@ nag_mortarchs_config = {
 
 				local tmb_kings_units = cm:get_all_units_from_unit_list(mission_data.unit_list)
 				local objectives = {
-					generate_RECRUIT_N_UNITS_FROM_objective(tmb_kings_units, mission_data.unit_threshold, true, "mission_text_text_" .. mission_data.text_override)
+					generate_KILL_X_ENTITIES_BY_objective(1000, "tmb_all", "mission_text_text_wh3_dlc29_kill_n_entities_with_tmb_units", true)
 				}
 
 				-- Black Pyramid has reached T2
@@ -98,7 +103,7 @@ nag_mortarchs_config = {
 			ai_unlock_conditions = function(self)
 				local all_conditions_met = true
 				if self.limit_power_objective then
-					all_conditions_met = all_conditions_met and nag_mortarchs:check_for_occupation_mission_completion(cm:get_faction(self.target_faction), nag_mortarchs_config.limit_power_objective_amount)
+					all_conditions_met = all_conditions_met and nag_mortarchs:check_for_occupation_mission_completion(cm:get_faction(self.target_faction), nag_mortarchs_config.limit_power_objective_percent)
 			end
 				-- construct necropolis
 				local building_found = false
@@ -133,9 +138,9 @@ nag_mortarchs_config = {
 			add_unique_objectives = function(faction_key, mm, mission_data, mission_key)
 				local cst_units = cm:get_all_units_from_unit_list(mission_data.unit_list)
 				local objectives = {
-					generate_CONTROL_N_REGIONS_INCLUDING_objective(mission_data.region_list, 1),
 					generate_OWN_N_PORTS_INCLUDING_objective({}, mission_data.region_threshold),
-					generate_RECRUIT_N_UNITS_FROM_objective(cst_units, mission_data.unit_threshold, true, "mission_text_text_" .. mission_data.text_override),
+					generate_KILL_X_ENTITIES_BY_objective(10000, "wh2_dlc11_cst_all", "mission_text_text_wh3_dlc29_kill_n_entities_with_cst_units", true),
+					generate_LOOT_OR_SACK_N_DIFFERENT_SETTLEMENTS_INCLUDING_objective({}, 25)
 				}
 
 				nag_mortarchs:add_non_scripted_objectives(faction_key, mm, objectives)
@@ -143,7 +148,7 @@ nag_mortarchs_config = {
 			ai_unlock_conditions = function(self)
 				local all_conditions_met = true
 				if self.limit_power_objective then
-					all_conditions_met = all_conditions_met and nag_mortarchs:check_for_occupation_mission_completion(cm:get_faction(self.target_faction), nag_mortarchs_config.limit_power_objective_amount)
+					all_conditions_met = all_conditions_met and nag_mortarchs:check_for_occupation_mission_completion(cm:get_faction(self.target_faction), nag_mortarchs_config.limit_power_objective_percent)
 			end
 				-- control the awakenning region
 				local awakening_region_owned = cm:get_region("wh3_main_combi_region_the_awakening"):owning_faction():name() == nag_mortarchs_config.faction_key
@@ -226,7 +231,7 @@ nag_mortarchs_config = {
 				)
 
 				local objectives = {
-					generate_CONSTRUCT_BUILDINGS_INCLUDING_objective(1, faction_key, mission_data.hidden_vault_key, nil, "mission_text_text_"..mission_data.hidden_vault_objective_key),
+					generate_CONSTRUCT_BUILDINGS_INCLUDING_objective(1, faction_key, mission_data.hidden_vault_key, nil, "mission_text_text_"..mission_data.hidden_vault_objective_key, "wh3_main_combi_region_black_pyramid_of_nagash"),
 				}
 
 				nag_mortarchs:add_non_scripted_objectives(faction_key, mm, objectives)
@@ -234,7 +239,7 @@ nag_mortarchs_config = {
 			ai_unlock_conditions = function(self)
 				local all_conditions_met = true
 				if self.limit_power_objective then
-					all_conditions_met = all_conditions_met and nag_mortarchs:check_for_occupation_mission_completion(cm:get_faction(self.target_faction), nag_mortarchs_config.limit_power_objective_amount)
+					all_conditions_met = all_conditions_met and nag_mortarchs:check_for_occupation_mission_completion(cm:get_faction(self.target_faction), nag_mortarchs_config.limit_power_objective_percent)
 			end
 				-- construct vault building
 				local black_pyramid_region = cm:get_region("wh3_main_combi_region_black_pyramid_of_nagash")
@@ -264,9 +269,9 @@ nag_mortarchs_config = {
 				},
 			},
 			add_unique_objectives = function(faction_key, mm, mission_data, mission_key)
-
 				local objectives = {
-					generate_CONTROL_N_REGIONS_INCLUDING_objective(mission_data.region_list, 1)
+					generate_ASSASSINATE_X_CHARACTERS_objective(5),
+					generate_ACHIEVE_CHARACTER_RANK_objective(1, 20, "dignitary", nil, false, nil)
 				}
 				nag_mortarchs:add_non_scripted_objectives(faction_key, mm, objectives)
 
@@ -276,19 +281,11 @@ nag_mortarchs_config = {
 				mm:add_condition("total2 " .. mission_data.corruption_threshold)
 				mm:add_condition("pooled_resource " .. mission_data.corruption_key)
 				mm:add_condition("override_text mission_text_text_"..mission_data.corruption_text_override)
-
-				-- Recruit X vampiric units
-				local vmp_unit_list = cm:get_all_units_from_unit_list(mission_data.unit_list)
-				local objectives = {
-					generate_RECRUIT_N_UNITS_FROM_objective(vmp_unit_list, mission_data.unit_threshold, true, "mission_text_text_" .. mission_data.text_override),
-				}
-
-				nag_mortarchs:add_non_scripted_objectives(faction_key, mm, objectives)
 			end,
 			ai_unlock_conditions = function(self)
 				local all_conditions_met = true
 				if self.limit_power_objective then
-					all_conditions_met = all_conditions_met and nag_mortarchs:check_for_occupation_mission_completion(cm:get_faction(self.target_faction), nag_mortarchs_config.limit_power_objective_amount)
+					all_conditions_met = all_conditions_met and nag_mortarchs:check_for_occupation_mission_completion(cm:get_faction(self.target_faction), nag_mortarchs_config.limit_power_objective_percent)
 			end
 				-- corruption check, I am not in love with this approach but it is what it is
 				local region_list = cm:get_faction(nag_mortarchs_config.faction_key):region_list()
@@ -326,6 +323,11 @@ nag_mortarchs_config = {
 				objective_save_key = "nag_mortarchs_vlad_empire_region_objective",
 				agent_count = 5,
 				agent_key = "dignitary",
+				building_list = {
+					"wh3_dlc29_special_settlement_pyramid_of_nagash_nag_5",
+					"wh3_dlc29_special_settlement_nagashizzar_nag_5",
+					"wh3_dlc29_nag_settlement_necropolis_5"
+				},
 				region_list = {
 					"wh3_main_combi_region_castle_drakenhof",
 					"wh3_main_combi_region_altdorf",
@@ -334,18 +336,19 @@ nag_mortarchs_config = {
 				},
 			},
 			add_unique_objectives = function(faction_key, mm, mission_data, mission_key)
-
 				local objectives = {
-					generate_CONTROL_N_REGIONS_INCLUDING_objective(mission_data.region_list, 4),
-					generate_RECRUIT_AGENT_objective(mission_data.agent_count, mission_data.agent_key, nil, nil),
+					generate_KILL_X_ENTITIES_BY_objective(10000, "vmp_all", "mission_text_text_wh3_dlc29_kill_n_entities_with_vmp_units", true),
+					generate_HOLD_ENTIRETY_OF_N_PROVINCES_INCLUDING_objective({}, 10),
+					generate_CONSTRUCT_BUILDINGS_FROM_objective(1, nag_mortarchs_config.faction_key, mission_data.building_list, nil, "mission_text_text_mis_construct_tier_5_necropolis", nil)
 				}
+
 				nag_mortarchs:add_non_scripted_objectives(faction_key, mm, objectives)
 			end,
 			ai_unlock_conditions = function(self)
 				local all_conditions_met = true
 				if self.limit_power_objective then
-					all_conditions_met = all_conditions_met and nag_mortarchs:check_for_occupation_mission_completion(cm:get_faction(self.target_faction), nag_mortarchs_config.limit_power_objective_amount)
-			end
+					all_conditions_met = all_conditions_met and nag_mortarchs:check_for_occupation_mission_completion(cm:get_faction(self.target_faction), nag_mortarchs_config.limit_power_objective_percent)
+				end
 				local nag_faction = cm:get_faction(nag_mortarchs_config.faction_key)
 				-- agents objective, not checking the current or historic amount, only cap - this makes more sense with how the AI budgets and recruits agents
 				local agent_cap = nag_faction:agent_cap(self.unique_objectives_config.agent_key)
@@ -390,10 +393,13 @@ nag_mortarchs_config = {
 			},
 			add_unique_objectives = function(faction_key, mm, mission_data, mission_key) 
 				local objectives = {
-					generate_RECRUIT_N_UNITS_FROM_objective(mission_data.unit_set, mission_data.threshold, false, "mission_text_text_"..mission_data.knight_recruit_objective_key),
-					generate_CONSTRUCT_BUILDINGS_INCLUDING_objective(1, faction_key, mission_data.bloodkeep_key, nil, "mission_text_text_"..mission_data.bloodkeep_objective_key)
+					generate_KILL_X_ENTITIES_BY_objective(5000, "wh3_dlc29_nag_undead_knight", "mission_text_text_wh3_dlc29_kill_n_entities_with_knight_units", true),
+					generate_SCRIPTED_MISSION_objective("walach_rank_objective", "mission_text_text_wh3_dlc29_nag_recruit_n_knight_units", 3, 0, true) -- Get 3 Knight units to Rank 7
 				}
 				nag_mortarchs:add_non_scripted_objectives(faction_key, mm, objectives)
+
+				-- This is required to make the walach_rank_objective Scripted Objective work.
+				victory_objectives_scripted_listeners.add_listener_SCRIPTED_RANKUP_N_UNITS("WalachMortarchRankObjective", "wh3_dlc29_nag_mortarchs_walach", "walach_rank_objective", nag_mortarchs_config.faction_key, mission_data.unit_set, 7)
 			end,
 			ai_unlock_conditions = function(self)
 				-- landmark objective
@@ -410,8 +416,53 @@ nag_mortarchs_config = {
 			end,
 			unique_objectives_config = {
 				nagashizzar_objective_key = "scripted_mis_wh3_dlc29_nag_mortarchs_nagashizzar",
+				zoom_region_key = "wh3_main_combi_region_nagashizzar",
 				tier_5_building_keys = {
 					"wh3_dlc29_special_settlement_nagashizzar_nag_5",
+				},
+				ritual_list = {
+					"wh3_dlc29_ritual_nag_unit_capacity_animated_hulks",
+					"wh3_dlc29_ritual_nag_unit_capacity_black_knights",
+					"wh3_dlc29_ritual_nag_unit_capacity_blood_knights",
+					"wh3_dlc29_ritual_nag_unit_capacity_bone_giant",
+					"wh3_dlc29_ritual_nag_unit_capacity_corpse_carts",
+					"wh3_dlc29_ritual_nag_unit_capacity_crypt_ghoul",
+					"wh3_dlc29_ritual_nag_unit_capacity_deck_droppers",
+					"wh3_dlc29_ritual_nag_unit_capacity_deck_gunner",
+					"wh3_dlc29_ritual_nag_unit_capacity_depth_guard",
+					"wh3_dlc29_ritual_nag_unit_capacity_dire_wolves",
+					"wh3_dlc29_ritual_nag_unit_capacity_drakenhof_templars",
+					"wh3_dlc29_ritual_nag_unit_capacity_ethereal_infantry",
+					"wh3_dlc29_ritual_nag_unit_capacity_grave_guard",
+					"wh3_dlc29_ritual_nag_unit_capacity_gunnery_mobs",
+					"wh3_dlc29_ritual_nag_unit_capacity_gunpowder_artillery",
+					"wh3_dlc29_ritual_nag_unit_capacity_hexwraiths",
+					"wh3_dlc29_ritual_nag_unit_capacity_hierotitan",
+					"wh3_dlc29_ritual_nag_unit_capacity_khemrian_warsphinx",
+					"wh3_dlc29_ritual_nag_unit_capacity_khemric_titan",
+					"wh3_dlc29_ritual_nag_unit_capacity_lahmian_handmaiden",
+					"wh3_dlc29_ritual_nag_unit_capacity_magic_artillery",
+					"wh3_dlc29_ritual_nag_unit_capacity_magic_chariots",
+					"wh3_dlc29_ritual_nag_unit_capacity_morghasts",
+					"wh3_dlc29_ritual_nag_unit_capacity_necrofex_colossus",
+					"wh3_dlc29_ritual_nag_unit_capacity_necropolis_knights",
+					"wh3_dlc29_ritual_nag_unit_capacity_necrosphinx",
+					"wh3_dlc29_ritual_nag_unit_capacity_nehekharan_warrior",
+					"wh3_dlc29_ritual_nag_unit_capacity_polearm_inf",
+					"wh3_dlc29_ritual_nag_unit_capacity_rotting_leviathan",
+					"wh3_dlc29_ritual_nag_unit_capacity_rotting_prometheans",
+					"wh3_dlc29_ritual_nag_unit_capacity_sepulchral_stalkers",
+					"wh3_dlc29_ritual_nag_unit_capacity_skeleton_chariots",
+					"wh3_dlc29_ritual_nag_unit_capacity_skeleton_horsemen",
+					"wh3_dlc29_ritual_nag_unit_capacity_spirit_host",
+					"wh3_dlc29_ritual_nag_unit_capacity_terrorgheist",
+					"wh3_dlc29_ritual_nag_unit_capacity_tomb_guard",
+					"wh3_dlc29_ritual_nag_unit_capacity_tomb_scorpian",
+					"wh3_dlc29_ritual_nag_unit_capacity_undead_monstrosities",
+					"wh3_dlc29_ritual_nag_unit_capacity_ushabti",
+					"wh3_dlc29_ritual_nag_unit_capacity_vargheists",
+					"wh3_dlc29_ritual_nag_unit_capacity_varghulf",
+					"wh3_dlc29_ritual_nag_unit_capacity_zombie_dragon"
 				},
 				units_threshold = 10,
 				morghast_unit_list = {
@@ -421,29 +472,9 @@ nag_mortarchs_config = {
 				},
 			},
 			add_unique_objectives = function(faction_key, mm, mission_data, mission_key) 
-				-- Nagashizzar reach T3
-				mm:add_new_scripted_objective(
-					"mission_text_text_" .. mission_data.nagashizzar_objective_key, 
-					"BuildingCompleted", 
-					function(context)
-						local region = context:building():region()
-						if region:owning_faction():name() == faction_key then 
-							local building = context:building()
-							for i = 1, #mission_data.tier_5_building_keys do 
-								if building:name() == mission_data.tier_5_building_keys[i] then 
-									cm:complete_scripted_mission_objective(faction_key, mission_key, mission_data.nagashizzar_objective_key, true)
-									return true
-								end
-							end
-						end
-						return false
-					end,
-					mission_data.nagashizzar_objective_key
-				)
-
-				-- Own X Morghast
 				local objectives = {
-					generate_OWN_N_UNITS_objective(mission_data.units_threshold, mission_data.morghast_unit_list)
+					generate_KILL_X_ENTITIES_BY_objective(5000, "wh3_dlc29_nag_morghast", "mission_text_text_wh3_dlc29_kill_n_entities_with_morghast_units", true),
+					generate_PERFORM_RITUAL_BY_KEY_LIST_objective(mission_data.ritual_list, 50, nil, "mission_text_text_mis_activity_perform_x_nag_unit_cap_rituals")
 				}
 				nag_mortarchs:add_non_scripted_objectives(faction_key, mm, objectives)
 			end,
@@ -465,7 +496,7 @@ nag_mortarchs_config = {
 			},
 			add_unique_objectives = function(faction_key, mm, mission_data, mission_key) 
 				local objectives = {
-					generate_CONTROL_N_PROVINCES_INCLUDING_objective(mission_data.province_list, 1),
+					generate_KILL_X_ENTITIES_BY_objective(5000, "wh3_dlc29_nagash", "mission_text_text_wh3_dlc29_kill_n_entities_with_nagash", true),
 					generate_DEFEAT_N_ARMIES_OF_FACTION_objective(mission_data.victory_count, nil, nil)
 				}
 
@@ -608,6 +639,7 @@ function nag_mortarchs:initialise()
 
 	if nagash_is_human then 
 		self:setup_initial_mortarch_missions()
+		self:ensure_scripted_objective_region_zooms()
 	else
 		for mission_key, data in dpairs(self.config.initial_missions) do
 			-- Extra rules for AI:
@@ -684,9 +716,11 @@ function nag_mortarchs:initialise()
 			local is_port = region:settlement():is_port()
 			local conversion_settings = is_port and nag_mortarchs_config.settlement_conversions[previous_subculture].port or nag_mortarchs_config.settlement_conversions[previous_subculture].land
 
-			out("Nagash subjugation: converting main building of " .. region:name() .. " to " .. conversion_settings.main_building_chain .. " and setting settlement type to " .. conversion_settings.settlement_type)
-			cm:set_script_state(region, "main_building_conversion_override", conversion_settings.main_building_chain)
-			cm:set_script_state(region, "settlement_type_override", conversion_settings.settlement_type)
+			if region:settlement():is_settlement_type_valid_for_faction(context:new_faction(), conversion_settings.settlement_type) then
+				out("Nagash subjugation: converting main building of " .. region:name() .. " to " .. conversion_settings.main_building_chain .. " and setting settlement type to " .. conversion_settings.settlement_type)
+				cm:set_script_state(region, "main_building_conversion_override", conversion_settings.main_building_chain)
+				cm:set_script_state(region, "settlement_type_override", conversion_settings.settlement_type)
+			end
 		end,
 		true
 	)
@@ -713,24 +747,55 @@ function nag_mortarchs:initialise()
 		"GravecallInitialise",
 		"FactionTurnStart",
 		function(context)
-			return context:faction():name() == nag_mortarchs_config.faction_key and context:faction():is_human()
+			return context:faction():name() == nag_mortarchs_config.faction_key and context:faction():is_human() and cm:is_new_game()
 		end,
 		function(context)
-			for ritual, building in pairs(nag_mortarchs_config.locked_buildings) do
+			for ritual, building in pairs(nag_mortarchs_config.locked_buildings_ritual) do
 				cm:add_event_restricted_building_record_for_faction(building, nag_mortarchs_config.faction_key, nag_mortarchs_config.building_lock_tooltip_prefix..ritual)
+			end
+			local nef_faction =  cm:get_faction("wh3_dlc29_vmp_neferata")
+			local nagash_faction = cm:get_faction(nag_mortarchs_config.faction_key)
+
+			if nef_faction:is_human() and is_faction(nagash_faction) and nef_faction:is_team_mate(nagash_faction) then
+				cm:remove_event_restricted_building_record_for_faction("wh3_dlc29_nag_necropolis_military_melee_5", nag_mortarchs_config.faction_key)
 			end
 		end,
 		false
+	)
+
+	-- Listener to complete the legacy nagashizzar objective in old saves.
+	core:add_listener(
+		"scripted_mis_wh3_dlc29_nag_mortarchs_nagashizzar",
+		"BuildingCompleted", 
+		true,
+		function(context)
+			local region = context:building():region()
+			tier_5_building_keys = {
+				"wh3_dlc29_special_settlement_nagashizzar_nag_5",
+			}
+
+			if region:owning_faction():name() == nag_mortarchs_config.faction_key then 
+				local building = context:building()
+				for i = 1, #tier_5_building_keys do 
+					if building:name() == tier_5_building_keys[i] then 
+						cm:complete_scripted_mission_objective(nag_mortarchs_config.faction_key, "wh3_dlc29_nag_mortarchs_dieter", "scripted_mis_wh3_dlc29_nag_mortarchs_nagashizzar", true)
+						return true
+					end
+				end
+			end
+			return false
+		end,
+		true
 	)
 
 	core:add_listener(
 		"nagash_subjugate_settlement_completed",
 		"RitualCompletedEvent",
 		function(context)
-			return nag_mortarchs_config.locked_buildings[context:ritual():ritual_key()] ~= nil
+			return nag_mortarchs_config.locked_buildings_ritual[context:ritual():ritual_key()] ~= nil
 		end,
 		function(context)
-			local building_key = nag_mortarchs_config.locked_buildings[context:ritual():ritual_key()]
+			local building_key = nag_mortarchs_config.locked_buildings_ritual[context:ritual():ritual_key()]
 
 			if building_key ~= nil then
 				cm:remove_event_restricted_building_record_for_faction(building_key, nag_mortarchs_config.faction_key)
@@ -897,6 +962,47 @@ function nag_mortarchs:initialise()
 		end,
 		true
 	)
+
+	-- If Neferata or Walach join a faction your on the same team as (coop campaign), automatically unlock their buildings.
+	core:add_listener(
+		"nagash_multiplayer_building_unlock_confederated",
+		"CharacterFactionChangeEvent",
+		function(context)
+			return cm:is_multiplayer() and nag_mortarchs_config.locked_buildings_agent[context:character():character_subtype_key()]
+		end,
+		function(context)
+			local new_faction = context:character():faction()
+
+			if new_faction:name() ~= nag_mortarchs_config.faction_key then
+				local nagash_faction = cm:get_faction(nag_mortarchs_config.faction_key)
+
+				if is_faction(nagash_faction) and new_faction:is_team_mate(nagash_faction) then
+					cm:remove_event_restricted_building_record_for_faction(nag_mortarchs_config.locked_buildings_agent[context:character():character_subtype_key()], nag_mortarchs_config.faction_key)
+				end
+			end
+		end,
+		true
+	)
+
+	core:add_listener(
+		"nagash_multiplayer_building_unlock_spawned",
+		"UniqueAgentSpawned",
+		function(context)
+			return cm:is_multiplayer() and nag_mortarchs_config.locked_buildings_agent[context:unique_agent_details():character():character_subtype_key()]
+		end,
+		function(context)
+			local new_faction = context:unique_agent_details():faction()
+
+			if new_faction:name() ~= nag_mortarchs_config.faction_key then
+				local nagash_faction = cm:get_faction(nag_mortarchs_config.faction_key)
+
+				if is_faction(nagash_faction) and new_faction:is_team_mate(nagash_faction) then
+					cm:remove_event_restricted_building_record_for_faction(nag_mortarchs_config.locked_buildings_agent[context:unique_agent_details():character():character_subtype_key()], nag_mortarchs_config.faction_key)
+				end
+			end
+		end,
+		true
+	)
 end
 
 function nag_mortarchs:spawn_character(agent, general)
@@ -1050,6 +1156,7 @@ function nag_mortarchs:setup_initial_mortarch_missions()
 				cm:callback(
 					function()
 						mm:trigger()
+						nag_mortarchs:try_add_mission_region_zoom(mission_key, mission_data)
 					end,
 					0.5
 				)
@@ -1058,12 +1165,54 @@ function nag_mortarchs:setup_initial_mortarch_missions()
 	end
 end
 
-function nag_mortarchs:check_for_occupation_mission_completion(faction, threshold)
-	if faction:region_list():num_items() < threshold then
-		return true
+-- attach a zoomable region requirement row to a scripted objective
+function nag_mortarchs:add_scripted_objective_region_zoom(mission_key, script_key, region_key)
+	local region = cm:get_region(region_key)
+	if not region or region:is_null_interface() then
+		return
 	end
 
-	return false
+	cm:set_scripted_mission_entity_completion_states(
+		mission_key,
+		script_key,
+		{
+			{ region, false },
+		}
+	)
+end
+
+function nag_mortarchs:try_add_mission_region_zoom(mission_key, mission_data)
+	local mission_config = mission_data.unique_objectives_config
+	if not mission_config or not mission_config.zoom_region_key then
+		return
+	end
+
+	local script_key = mission_config.black_pyramid_objective_key or mission_config.nagashizzar_objective_key
+	if not script_key then
+		return
+	end
+
+	self:add_scripted_objective_region_zoom(mission_key, script_key, mission_config.zoom_region_key)
+end
+
+-- re-apply zoom entities for active unlock missions (covers mid-campaign saves issued before this fix)
+function nag_mortarchs:ensure_scripted_objective_region_zooms()
+	local faction = cm:get_faction(self.config.faction_key)
+	if not faction or faction:is_null_interface() then
+		return
+	end
+
+	for mission_key, mission_data in dpairs(self.config.initial_missions) do
+		if cm:mission_is_active_for_faction(faction, mission_key) then
+			self:try_add_mission_region_zoom(mission_key, mission_data)
+		end
+	end
+end
+
+function nag_mortarchs:check_for_occupation_mission_completion(faction, percent)
+	local nagash_faction = cm:get_faction(self.config.faction_key)
+	local required = math.floor(faction:region_list():num_items() * percent / 100)
+	return nagash_faction:region_list():num_items() >= required
 end
 
 function nag_mortarchs:convert_arkhan_vampire_units(faction)
@@ -1130,9 +1279,9 @@ function nag_mortarchs:setup_discover_faction_objective(mm, mission_data)
 end
 
 function nag_mortarchs:setup_limit_power_objective(mm, mission_data)
-	mm:add_new_objective("REDUCE_FACTION_TO_N_REGIONS")
+	mm:add_new_objective("OWN_N_REGIONS_PERCENT_OF_FACTION")
 	mm:add_condition("faction " .. mission_data.target_faction)
-	mm:add_condition("total " .. tonumber(self.config.limit_power_objective_amount))
+	mm:add_condition("total " .. tonumber(self.config.limit_power_objective_percent))
 end
 
 function nag_mortarchs:unlock_rituals_for_ai(mission_key, mission_data)
@@ -1146,8 +1295,13 @@ end
 function nag_mortarchs:check_unlocks_for_ai(force_unlock_all)
 	local turn_number = cm:model():turn_number()
 	for mission_key, data in dpairs(self.config.initial_missions) do
+		local target_faction_is_human = false
+		if data.target_faction then
+			local target_faction_obj = cm:get_faction(data.target_faction)
+			target_faction_is_human = is_faction(target_faction_obj) and target_faction_obj:is_human()
+		end
 		local conditions_met = not self.persistent[mission_key] and data.ai_unlock_conditions and is_function(data.ai_unlock_conditions) and data:ai_unlock_conditions() or false
-		if force_unlock_all or conditions_met then
+		if (force_unlock_all or conditions_met) and not target_faction_is_human then
 			self:unlock_rituals_for_ai(mission_key, data)
 			if not force_unlock_all then
 				return -- one unlock per turn, matches GDS algo that does the ritual casting

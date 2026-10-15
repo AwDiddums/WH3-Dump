@@ -3629,43 +3629,47 @@ function the_changeling_features:grand_scheme_badlands(region_key)
 	-- Update the ultimate battle with the grand scheme bonus
 	self:update_ultimate_battle_strings("the_changeling_tomb_kings_army_reinforce")
 
-	local region = cm:get_region(region_key)
-	local black_pyramid_key = "wh3_main_combi_region_black_pyramid_of_nagash"
-	if cm:get_region(black_pyramid_key):is_abandoned() == false then
-		cm:set_region_abandoned(black_pyramid_key)
-	end
+	-- Temporary workaround: If Nagash is a player, don't mess with the pyramid!
+	local nagash_faction = cm:get_faction("wh3_dlc29_nag_host_of_nagash")
+	if not is_faction(nagash_faction) or not nagash_faction:is_human() then
+		local region = cm:get_region(region_key)
+		local black_pyramid_key = "wh3_main_combi_region_black_pyramid_of_nagash"
+		if cm:get_region(black_pyramid_key):is_abandoned() == false then
+			cm:set_region_abandoned(black_pyramid_key)
+		end
 
-	if region_key == "wh3_main_combi_region_nonchang" and region:is_abandoned() == false then
-		cm:instantly_upgrade_building_in_region(region:slot_list():item_at(0), "wh2_dlc09_special_settlement_pyramid_of_nagash_tmb_5")
-		cm:override_building_chain_display("wh3_main_cth_settlement_major", "wh2_dlc09_special_settlement_pyramid_of_nagash_floating", region_key)
-	end
+		if region_key == "wh3_main_combi_region_nonchang" and region:is_abandoned() == false then
+			cm:instantly_upgrade_building_in_region(region:slot_list():item_at(0), "wh2_dlc09_special_settlement_pyramid_of_nagash_tmb_5")
+			cm:override_building_chain_display("wh3_main_cth_settlement_major", "wh2_dlc09_special_settlement_pyramid_of_nagash_floating", region_key)
+		end
 
-	if region_key == "wh3_main_combi_region_castle_templehof" and region:is_abandoned() == false then
-		cm:instantly_upgrade_building_in_region(region:slot_list():item_at(0), "wh2_dlc09_special_settlement_pyramid_of_nagash_tmb_5")
-		cm:override_building_chain_display("wh_main_VAMPIRES_settlement_major", "wh2_dlc09_special_settlement_pyramid_of_nagash_floating", region_key)
-	end
+		if region_key == "wh3_main_combi_region_castle_templehof" and region:is_abandoned() == false then
+			cm:instantly_upgrade_building_in_region(region:slot_list():item_at(0), "wh2_dlc09_special_settlement_pyramid_of_nagash_tmb_5")
+			cm:override_building_chain_display("wh_main_VAMPIRES_settlement_major", "wh2_dlc09_special_settlement_pyramid_of_nagash_floating", region_key)
+		end
 
-	if region_key == "wh3_main_combi_region_xlanhuapec" and region:is_abandoned() == false then
-		cm:instantly_upgrade_building_in_region(region:slot_list():item_at(0), "wh2_dlc09_special_settlement_pyramid_of_nagash_tmb_5")
-		cm:override_building_chain_display("wh2_main_lzd_settlement_major", "wh2_dlc09_special_settlement_pyramid_of_nagash_floating", region_key)
-	end
+		if region_key == "wh3_main_combi_region_xlanhuapec" and region:is_abandoned() == false then
+			cm:instantly_upgrade_building_in_region(region:slot_list():item_at(0), "wh2_dlc09_special_settlement_pyramid_of_nagash_tmb_5")
+			cm:override_building_chain_display("wh2_main_lzd_settlement_major", "wh2_dlc09_special_settlement_pyramid_of_nagash_floating", region_key)
+		end
 
-	if region_key == "wh3_main_combi_region_doomkeep" and region:is_abandoned() == false then
-		cm:instantly_upgrade_building_in_region(region:slot_list():item_at(0), "wh2_dlc09_special_settlement_pyramid_of_nagash_tmb_5")
-		cm:override_building_chain_display("wh_main_NORSCA_settlement_major", "wh2_dlc09_special_settlement_pyramid_of_nagash_floating", region_key)
-	end
+		if region_key == "wh3_main_combi_region_doomkeep" and region:is_abandoned() == false then
+			cm:instantly_upgrade_building_in_region(region:slot_list():item_at(0), "wh2_dlc09_special_settlement_pyramid_of_nagash_tmb_5")
+			cm:override_building_chain_display("wh_main_NORSCA_settlement_major", "wh2_dlc09_special_settlement_pyramid_of_nagash_floating", region_key)
+		end
 
-	if region:is_abandoned() == false then
-		local slot_manager = region:foreign_slot_manager_for_faction(self.faction_key)
-		if slot_manager:is_null_interface() == true then
-			cm:add_foreign_slot_set_to_region_for_faction(cm:get_faction(self.faction_key):command_queue_index(), region:cqi(), self.slot_set)
-			cm:make_region_visible_in_shroud(self.faction_key, region_key)
+		if region:is_abandoned() == false then
+			local slot_manager = region:foreign_slot_manager_for_faction(self.faction_key)
+			if slot_manager:is_null_interface() == true then
+				cm:add_foreign_slot_set_to_region_for_faction(cm:get_faction(self.faction_key):command_queue_index(), region:cqi(), self.slot_set)
+				cm:make_region_visible_in_shroud(self.faction_key, region_key)
+			end
 		end
 	end
 
-	self:trigger_rebellion(region, "wh2_dlc09_tmb_tomb_kings_rebels", true)
-	self:trigger_rebellion(region, "wh2_dlc09_tmb_tomb_kings_rebels", true)
-	self:trigger_rebellion(region, "wh2_dlc09_tmb_tomb_kings_rebels", true)
+	self:trigger_rebellion(region_key, "wh2_dlc09_tmb_tomb_kings_rebels", true)
+	self:trigger_rebellion(region_key, "wh2_dlc09_tmb_tomb_kings_rebels", true)
+	self:trigger_rebellion(region_key, "wh2_dlc09_tmb_tomb_kings_rebels", true)
 
 	-- Move the camera to the new pyramid location
 	self:start_camera_cutscene(region_key, "wh3_dlc24_story_panel_the_changeling_badlands_grand")

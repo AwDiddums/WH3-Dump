@@ -11,6 +11,22 @@
 					<region_effect_list this="E1BFAFB4-8C5C-4635-9C56FEC4A0EB430C">
 						<template_region_effect this="39AB83B3-8271-4899-8622BAF3F4846016"/>
 					</region_effect_list>
+					<status_docker this="50C0AEE5-5AD9-439F-8ADF332AFFD4F0A9">
+						<target_icons_holder this="7726EF2D-96AD-48CB-81946BFC847A5E93">
+							<shadowy_dealings_target this="64B8DCAD-F97D-46CD-84EDC5D9E5C16565">
+								<target_spinner this="E0016C01-E424-4F2C-B2651CD5853F2173"/>
+								<additional_criteria_info_icon this="C3F25C05-F987-45E1-B91F91877211A34C"/>
+							</shadowy_dealings_target>
+							<web_of_power_target this="17E1F764-F5A9-4EB0-83915A41D691F629">
+								<target_bite this="284EB428-EAE6-409B-884E04761CCFC544">
+									<left_wing this="AE61AC73-2EA1-4961-A19903B8C86B030D"/>
+									<right_wing this="02A886BB-F6D4-4318-BFA6551E2BEB82B6"/>
+								</target_bite>
+								<target_icon this="CA175810-732A-49DE-AF7C9D72D90F7B55"/>
+								<icon this="7A540AA9-1BC1-4617-96732885A74DEDAE"/>
+							</web_of_power_target>
+						</target_icons_holder>
+					</status_docker>
 					<dy_name this="D6BB91A2-E4B4-47A6-949C0F81F45EEFAB"/>
 					<dy_mp_player_name this="BB009B80-AA69-4278-8430267DE92E6F23"/>
 					<upgradable this="0F78A7F2-22C1-4F59-B22E188E2782096C"/>
@@ -38,6 +54,40 @@
 		</root>
 	</hierarchy>
 	<components>
+		<additional_criteria_info_icon
+			this="C3F25C05-F987-45E1-B91F91877211A34C"
+			id="additional_criteria_info_icon"
+			offset="25.00,-1.00"
+			visible="false"
+			docking="Center Right"
+			dock_offset="7.00,-10.00"
+			component_anchor_point="1.00,0.50"
+			tooltipslocalised="true"
+			uniqueguid="C3F25C05-F987-45E1-B91F91877211A34C"
+			currentstate="5D2F0CE9-38FB-4CA1-9D4AB53C45DDD768"
+			defaultstate="5D2F0CE9-38FB-4CA1-9D4AB53C45DDD768">
+			<componentimages>
+				<component_image
+					this="0EFE6956-F7F6-4340-ADA8D4F4D4C7F4D7"
+					uniqueguid="0EFE6956-F7F6-4340-ADA8D4F4D4C7F4D7"
+					imagepath="ui/skins/warhammer2/shadowy_dealings_target_skaven.png"/>
+			</componentimages>
+			<states>
+				<newstate
+					this="5D2F0CE9-38FB-4CA1-9D4AB53C45DDD768"
+					name="NewState"
+					uniqueguid="5D2F0CE9-38FB-4CA1-9D4AB53C45DDD768">
+					<imagemetrics>
+						<image
+							this="772D8C14-DE12-4095-860EFB93BBB2FC49"
+							uniqueguid="772D8C14-DE12-4095-860EFB93BBB2FC49"
+							componentimage="0EFE6956-F7F6-4340-ADA8D4F4D4C7F4D7"
+							canresizeheight="false"
+							canresizewidth="false"/>
+					</imagemetrics>
+				</newstate>
+			</states>
+		</additional_criteria_info_icon>
 		<agent_banner
 			this="B74B834C-C27A-43BD-982DDC2484EEC966"
 			id="agent_banner"
@@ -572,7 +622,7 @@
 		<dy_mp_player_name
 			this="BB009B80-AA69-4278-8430267DE92E6F23"
 			id="dy_mp_player_name"
-			offset="123.00,124.00"
+			offset="123.00,228.00"
 			allowverticalresize="false"
 			tooltipslocalised="true"
 			uniqueguid="BB009B80-AA69-4278-8430267DE92E6F23"
@@ -766,7 +816,7 @@
 		<dy_name
 			this="D6BB91A2-E4B4-47A6-949C0F81F45EEFAB"
 			id="dy_name"
-			offset="148.00,92.00"
+			offset="148.00,196.00"
 			allowverticalresize="false"
 			tooltipslocalised="true"
 			uniqueguid="D6BB91A2-E4B4-47A6-949C0F81F45EEFAB"
@@ -954,7 +1004,7 @@
 		<effects_list
 			this="2A5E613A-AAC0-47FC-90984C615A26C3D9"
 			id="effects_list"
-			offset="0.00,156.00"
+			offset="0.00,260.00"
 			tooltipslocalised="true"
 			uniqueguid="2A5E613A-AAC0-47FC-90984C615A26C3D9"
 			currentstate="41939BB7-E067-4134-BD5FBFA5BB798018"
@@ -975,7 +1025,7 @@
 		<faction
 			this="0E16CDAE-B6A2-44E0-9127CB2970E4888D"
 			id="faction"
-			offset="205.00,196.00"
+			offset="205.00,300.00"
 			allowhorizontalresize="false"
 			allowverticalresize="false"
 			tooltipslocalised="true"
@@ -1144,6 +1194,139 @@
 							transition_m_target_state="693823E1-CEC8-4D9B-9FB1881E0729E010"/>
 					</transitionmap>
 				</hover>
+			</states>
+		</icon>
+		<icon
+			this="7A540AA9-1BC1-4617-96732885A74DEDAE"
+			id="icon"
+			docking="Bottom Center"
+			component_anchor_point="0.50,1.00"
+			tooltipslocalised="true"
+			soundcategory="UI_CAM_HUD_DLC14_Snikch_Shadowy_Dealings_Targeting_Select"
+			uniqueguid="7A540AA9-1BC1-4617-96732885A74DEDAE"
+			currentstate="B2EC6B3D-1F75-4EA4-91F06CB965117518"
+			defaultstate="B2EC6B3D-1F75-4EA4-91F06CB965117518">
+			<callbackwithcontextlist>
+				<callback_with_context callback_id="CallbackRedirector">
+					<child_m_user_properties>
+						<property
+							name="ignore_disabled_checks"
+							value=""/>
+						<property
+							name="ignore_interactive_checks"
+							value=""/>
+						<property
+							name="parent_id"
+							value="CampaignCharacterIdAgent"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextTrashOnCondition"
+					context_object_id="CcoStaticObject"
+					context_function_id="CanUseUiFeature(&quot;WEB_OF_POWER&quot;) == false"/>
+			</callbackwithcontextlist>
+			<componentimages>
+				<component_image
+					this="F2D44A02-960C-4F56-B94B53E4F5231CE4"
+					uniqueguid="F2D44A02-960C-4F56-B94B53E4F5231CE4"
+					imagepath="ui/skins/default/dlc29_vmp_web_of_power/web_of_power_action_army_map_target.png"/>
+				<component_image
+					this="2B7F6D17-B07F-4C5A-B01CBB5BA0750091"
+					uniqueguid="2B7F6D17-B07F-4C5A-B01CBB5BA0750091"
+					imagepath="ui/skins/default/dlc29_vmp_web_of_power/web_of_power_action_settlement_map_target.png"/>
+				<component_image
+					this="E2AE224F-29EB-4185-BC17999DF1EC906B"
+					uniqueguid="E2AE224F-29EB-4185-BC17999DF1EC906B"
+					imagepath="ui/skins/default/button_round__medium_spike_frame.png"/>
+				<component_image
+					this="C15435FA-67DA-4822-AC7A168A6AF25EA6"
+					uniqueguid="C15435FA-67DA-4822-AC7A168A6AF25EA6"
+					imagepath="ui/skins/default/dlc29_vmp_web_of_power/web_of_power_action_agent_map_target.png"/>
+			</componentimages>
+			<states>
+				<agent
+					this="B2EC6B3D-1F75-4EA4-91F06CB965117518"
+					name="agent"
+					width="50"
+					height="50"
+					uniqueguid="B2EC6B3D-1F75-4EA4-91F06CB965117518">
+					<imagemetrics>
+						<image
+							this="61886AA0-4AC1-4CAC-9B302058E54F83F3"
+							uniqueguid="61886AA0-4AC1-4CAC-9B302058E54F83F3"
+							componentimage="E2AE224F-29EB-4185-BC17999DF1EC906B"
+							offset="5.00,5.00"
+							width="39"
+							height="39"
+							dockpoint="Center"
+							rotation_angle="0.785398185"
+							aspect_ratio_locked_behaviour="Smallest"/>
+						<image
+							this="1A122FCC-17DD-436F-80BBDBBEDA19DBDB"
+							uniqueguid="1A122FCC-17DD-436F-80BBDBBEDA19DBDB"
+							componentimage="C15435FA-67DA-4822-AC7A168A6AF25EA6"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</agent>
+				<army
+					this="941ADD2B-1229-4389-AC33528F349FDF5F"
+					name="army"
+					width="50"
+					height="50"
+					interactive="true"
+					uniqueguid="941ADD2B-1229-4389-AC33528F349FDF5F">
+					<imagemetrics>
+						<image
+							this="8BEF3CB8-1B62-4262-A838B118BC3DCF23"
+							uniqueguid="8BEF3CB8-1B62-4262-A838B118BC3DCF23"
+							componentimage="E2AE224F-29EB-4185-BC17999DF1EC906B"
+							offset="5.00,5.00"
+							width="39"
+							height="39"
+							dockpoint="Center"
+							rotation_angle="0.785398185"
+							aspect_ratio_locked_behaviour="Smallest"/>
+						<image
+							this="8CEBA0AC-2FE9-42C3-AC920225A1F62968"
+							uniqueguid="8CEBA0AC-2FE9-42C3-AC920225A1F62968"
+							componentimage="F2D44A02-960C-4F56-B94B53E4F5231CE4"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</army>
+				<faction
+					this="0EE9BF9F-1741-453A-8E81031E1E55DACB"
+					name="faction"
+					width="50"
+					height="50"
+					interactive="true"
+					uniqueguid="0EE9BF9F-1741-453A-8E81031E1E55DACB">
+					<imagemetrics>
+						<image
+							this="F5BA1A39-6BD9-4165-8B63A8B7D9414B4B"
+							uniqueguid="F5BA1A39-6BD9-4165-8B63A8B7D9414B4B"
+							componentimage="E2AE224F-29EB-4185-BC17999DF1EC906B"
+							offset="5.00,5.00"
+							width="39"
+							height="39"
+							dockpoint="Center"
+							rotation_angle="0.785398185"
+							aspect_ratio_locked_behaviour="Smallest"/>
+						<image
+							this="42FE9AF3-6BD3-4B96-B463004ADCEB383E"
+							uniqueguid="42FE9AF3-6BD3-4B96-B463004ADCEB383E"
+							componentimage="2B7F6D17-B07F-4C5A-B01CBB5BA0750091"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</faction>
 			</states>
 		</icon>
 		<icon_harmony
@@ -1369,10 +1552,65 @@
 				</default>
 			</states>
 		</icon_mark_of_nurgle>
+		<left_wing
+			this="AE61AC73-2EA1-4961-A19903B8C86B030D"
+			id="left_wing"
+			offset="2.00,34.00"
+			docking="Center Left"
+			dock_offset="2.00,0.00"
+			component_anchor_point="0.00,0.50"
+			tooltipslocalised="true"
+			uniqueguid="AE61AC73-2EA1-4961-A19903B8C86B030D"
+			currentstate="16E74655-CDB6-43EA-AD8EE4A5AD964854"
+			defaultstate="16E74655-CDB6-43EA-AD8EE4A5AD964854">
+			<componentimages>
+				<component_image
+					this="C8A028A6-AF5B-4C40-BCCF46D3A5286FBB"
+					uniqueguid="C8A028A6-AF5B-4C40-BCCF46D3A5286FBB"
+					imagepath="ui/skins/default/dlc29_vmp_web_of_power/target_wing_animation.png"/>
+			</componentimages>
+			<states>
+				<default
+					this="16E74655-CDB6-43EA-AD8EE4A5AD964854"
+					name="default"
+					uniqueguid="16E74655-CDB6-43EA-AD8EE4A5AD964854">
+					<imagemetrics>
+						<image
+							this="63D07D7B-23CB-458E-B41FBF9C72093B64"
+							uniqueguid="63D07D7B-23CB-458E-B41FBF9C72093B64"
+							componentimage="C8A028A6-AF5B-4C40-BCCF46D3A5286FBB"
+							offset="0.00,-3.00"
+							width="41"
+							height="40"
+							x_flipped="true"
+							dockpoint="Center Right"
+							dock_offset="9.00,1.00"
+							pivot_point="20.00,0.00"/>
+					</imagemetrics>
+				</default>
+			</states>
+			<animations>
+				<show
+					id="Show"
+					propagate="true"
+					totalloops="-1">
+					<frames>
+						<frame
+							interpolationpropertymask="16"
+							targetmetrics_m_rotation_angle="0.34906584"
+							easing_curve_type="Circular In &amp; Out"/>
+						<frame
+							interpolationpropertymask="16"
+							targetmetrics_m_rotation_angle="-0.34906584"
+							easing_curve_type="Circular In &amp; Out"/>
+					</frames>
+				</show>
+			</animations>
+		</left_wing>
 		<list_parent
 			this="ED9FEF08-7C61-4D77-87969B77D582445C"
 			id="list_parent"
-			offset="-216.00,-193.00"
+			offset="-216.00,-297.00"
 			docking="Bottom Center"
 			component_anchor_point="0.50,1.00"
 			tooltipslocalised="true"
@@ -1384,7 +1622,7 @@
 					this="B621CC7A-05F5-4792-AAA21EB43AE84775"
 					name="default"
 					width="457"
-					height="244"
+					height="348"
 					uniqueguid="B621CC7A-05F5-4792-AAA21EB43AE84775"/>
 			</states>
 			<LayoutEngine
@@ -1870,6 +2108,60 @@
 				</columnwidths>
 			</LayoutEngine>
 		</region_effect_list>
+		<right_wing
+			this="02A886BB-F6D4-4318-BFA6551E2BEB82B6"
+			id="right_wing"
+			offset="66.00,34.00"
+			docking="Center Right"
+			dock_offset="-2.00,0.00"
+			component_anchor_point="1.00,0.50"
+			tooltipslocalised="true"
+			uniqueguid="02A886BB-F6D4-4318-BFA6551E2BEB82B6"
+			currentstate="8B64341F-920F-405B-ABAA7E12AB70377A"
+			defaultstate="8B64341F-920F-405B-ABAA7E12AB70377A">
+			<componentimages>
+				<component_image
+					this="26D33383-356D-48F2-A62C74E41DB2AD08"
+					uniqueguid="26D33383-356D-48F2-A62C74E41DB2AD08"
+					imagepath="ui/skins/default/dlc29_vmp_web_of_power/target_wing_animation.png"/>
+			</componentimages>
+			<states>
+				<default
+					this="8B64341F-920F-405B-ABAA7E12AB70377A"
+					name="default"
+					uniqueguid="8B64341F-920F-405B-ABAA7E12AB70377A">
+					<imagemetrics>
+						<image
+							this="C51B00AE-9D1C-4B6A-B37C7FFA5323440D"
+							uniqueguid="C51B00AE-9D1C-4B6A-B37C7FFA5323440D"
+							componentimage="26D33383-356D-48F2-A62C74E41DB2AD08"
+							offset="-10.00,-3.00"
+							width="41"
+							height="40"
+							dockpoint="Center Left"
+							dock_offset="-10.00,1.00"
+							pivot_point="-20.00,0.00"/>
+					</imagemetrics>
+				</default>
+			</states>
+			<animations>
+				<show
+					id="Show"
+					propagate="true"
+					totalloops="-1">
+					<frames>
+						<frame
+							interpolationpropertymask="16"
+							targetmetrics_m_rotation_angle="-0.34906584"
+							easing_curve_type="Circular In &amp; Out"/>
+						<frame
+							interpolationpropertymask="16"
+							targetmetrics_m_rotation_angle="0.34906584"
+							easing_curve_type="Circular In &amp; Out"/>
+					</frames>
+				</show>
+			</animations>
+		</right_wing>
 		<root
 			this="EA276CC8-9DE7-4F1F-AEA4D2989C4A820E"
 			id="root"
@@ -1902,6 +2194,392 @@
 				</newstate>
 			</states>
 		</root>
+		<shadowy_dealings_target
+			this="64B8DCAD-F97D-46CD-84EDC5D9E5C16565"
+			id="shadowy_dealings_target"
+			offset="25.00,50.00"
+			visible="false"
+			docking="Bottom Center"
+			component_anchor_point="0.50,1.00"
+			tooltipslocalised="true"
+			soundcategory="UI_CAM_HUD_DLC14_Snikch_Shadowy_Dealings_Targeting_Select"
+			uniqueguid="64B8DCAD-F97D-46CD-84EDC5D9E5C16565"
+			currentstate="7A64B86E-9DC3-4459-95E9B7DC1EB3FDB0"
+			defaultstate="7A64B86E-9DC3-4459-95E9B7DC1EB3FDB0">
+			<callbackwithcontextlist>
+				<callback_with_context callback_id="CallbackRedirector">
+					<child_m_user_properties>
+						<property
+							name="ignore_disabled_checks"
+							value=""/>
+						<property
+							name="ignore_interactive_checks"
+							value=""/>
+						<property
+							name="parent_id"
+							value="CampaignCharacterIdAgent"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextTrashOnCondition"
+					context_object_id="CcoStaticObject"
+					context_function_id="CanUseUiFeature(&quot;SHADOWY_DEALINGS&quot;) == false"/>
+			</callbackwithcontextlist>
+			<componentimages>
+				<component_image
+					this="FDC92F31-B7EC-446F-BB5788961CCFD6FF"
+					uniqueguid="FDC92F31-B7EC-446F-BB5788961CCFD6FF"
+					imagepath="ui/skins/warhammer2/shadowy_dealings_scheme_army.png"/>
+				<component_image
+					this="455E36C6-230E-4C84-B71A5BCBCD207CE7"
+					uniqueguid="455E36C6-230E-4C84-B71A5BCBCD207CE7"
+					imagepath="ui/skins/warhammer2/shadowy_dealings_scheme_region.png"/>
+			</componentimages>
+			<states>
+				<agent
+					this="547E5472-C503-4AB0-B18C72C1021DBF24"
+					name="agent"
+					width="50"
+					height="50"
+					uniqueguid="547E5472-C503-4AB0-B18C72C1021DBF24">
+					<imagemetrics>
+						<image
+							this="9B81D45B-22BE-425E-8C74EC6D40C2AE41"
+							uniqueguid="9B81D45B-22BE-425E-8C74EC6D40C2AE41"
+							componentimage="FDC92F31-B7EC-446F-BB5788961CCFD6FF"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</agent>
+				<army
+					this="7A64B86E-9DC3-4459-95E9B7DC1EB3FDB0"
+					name="army"
+					width="50"
+					height="50"
+					interactive="true"
+					uniqueguid="7A64B86E-9DC3-4459-95E9B7DC1EB3FDB0">
+					<imagemetrics>
+						<image
+							this="2014AC21-584B-43B6-B405E99E4891C663"
+							uniqueguid="2014AC21-584B-43B6-B405E99E4891C663"
+							componentimage="FDC92F31-B7EC-446F-BB5788961CCFD6FF"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</army>
+				<faction
+					this="D9CD3CFE-BDD0-4340-9B6212BCD490291A"
+					name="faction"
+					width="50"
+					height="50"
+					interactive="true"
+					uniqueguid="D9CD3CFE-BDD0-4340-9B6212BCD490291A">
+					<imagemetrics>
+						<image
+							this="66434F47-4C55-44E3-89B41AF1AF2E56BF"
+							uniqueguid="66434F47-4C55-44E3-89B41AF1AF2E56BF"
+							componentimage="455E36C6-230E-4C84-B71A5BCBCD207CE7"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</faction>
+			</states>
+		</shadowy_dealings_target>
+		<status_docker
+			this="50C0AEE5-5AD9-439F-8ADF332AFFD4F0A9"
+			id="status_docker"
+			offset="171.00,92.00"
+			allowhorizontalresize="false"
+			tooltipslocalised="true"
+			uniqueguid="50C0AEE5-5AD9-439F-8ADF332AFFD4F0A9"
+			currentstate="AB47DF72-2320-4E61-AFBD40370CB4B27D"
+			defaultstate="AB47DF72-2320-4E61-AFBD40370CB4B27D">
+			<states>
+				<newstate
+					this="AB47DF72-2320-4E61-AFBD40370CB4B27D"
+					name="NewState"
+					width="116"
+					height="100"
+					uniqueguid="AB47DF72-2320-4E61-AFBD40370CB4B27D"/>
+			</states>
+			<LayoutEngine
+				type="List"
+				spacing="0.00,4.00"
+				sizetocontent="true"
+				horizontal_alignment="Center">
+				<columnwidths>
+					<column width="116"/>
+				</columnwidths>
+			</LayoutEngine>
+		</status_docker>
+		<target_bite
+			this="284EB428-EAE6-409B-884E04761CCFC544"
+			id="target_bite"
+			offset="-25.00,-25.00"
+			docking="Center"
+			component_anchor_point="0.50,0.50"
+			tooltipslocalised="true"
+			uniqueguid="284EB428-EAE6-409B-884E04761CCFC544"
+			currentstate="40EFB732-121C-4C16-92D41533E65F44AB"
+			defaultstate="40EFB732-121C-4C16-92D41533E65F44AB">
+			<states>
+				<newstate
+					this="40EFB732-121C-4C16-92D41533E65F44AB"
+					name="NewState"
+					width="100"
+					height="100"
+					uniqueguid="40EFB732-121C-4C16-92D41533E65F44AB"/>
+			</states>
+			<animations>
+				<oncreate
+					id="OnCreate"
+					propagate="true">
+					<frames>
+						<frame
+							interpolationtime="0"
+							interpolationpropertymask="64"
+							targetmetrics_m_colour="#FFFFFF00"
+							targetmetrics_m_height="100"
+							targetmetrics_m_width="100"
+							targetmetrics_m_rotation_angle="-6.28318548"/>
+						<frame
+							interpolationtime="0"
+							interpolationpropertymask="64"
+							targetmetrics_m_colour="#FFFFFF00"
+							targetmetrics_m_height="100"
+							targetmetrics_m_width="100"
+							targetmetrics_m_rotation_angle="-6.28318548"/>
+						<frame
+							interpolationtime="250"
+							interpolationpropertymask="64"
+							targetmetrics_m_height="100"
+							targetmetrics_m_width="100"
+							targetmetrics_m_rotation_angle="-6.28318548"
+							easing_curve_type="Cubic In">
+							<triggers>
+								<trigger
+									trigger_component="AE61AC73-2EA1-4961-A19903B8C86B030D"
+									trigger_animation="Show"/>
+								<trigger
+									trigger_component="02A886BB-F6D4-4318-BFA6551E2BEB82B6"
+									trigger_animation="Show"/>
+							</triggers>
+						</frame>
+					</frames>
+				</oncreate>
+			</animations>
+		</target_bite>
+		<target_icon
+			this="CA175810-732A-49DE-AF7C9D72D90F7B55"
+			id="target_icon"
+			docking="Bottom Center"
+			component_anchor_point="0.50,1.00"
+			tooltipslocalised="true"
+			soundcategory="UI_CAM_HUD_DLC14_Snikch_Shadowy_Dealings_Targeting_Select"
+			uniqueguid="CA175810-732A-49DE-AF7C9D72D90F7B55"
+			currentstate="ECB880D1-9EDE-4C6B-B57B938A5668F187"
+			defaultstate="ECB880D1-9EDE-4C6B-B57B938A5668F187">
+			<callbackwithcontextlist>
+				<callback_with_context callback_id="CallbackRedirector">
+					<child_m_user_properties>
+						<property
+							name="ignore_disabled_checks"
+							value=""/>
+						<property
+							name="ignore_interactive_checks"
+							value=""/>
+						<property
+							name="parent_id"
+							value="CampaignCharacterIdAgent"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextTrashOnCondition"
+					context_object_id="CcoStaticObject"
+					context_function_id="CanUseUiFeature(&quot;WEB_OF_POWER&quot;) == false"/>
+			</callbackwithcontextlist>
+			<componentimages>
+				<component_image
+					this="1B8BC741-02EB-4624-AEAA2DFD6D495C14"
+					uniqueguid="1B8BC741-02EB-4624-AEAA2DFD6D495C14"
+					imagepath="ui/skins/default/dlc29_vmp_web_of_power/web_of_power_action_army_map_target.png"/>
+				<component_image
+					this="20FF3A62-7175-4F95-AA4356CB1BB0144A"
+					uniqueguid="20FF3A62-7175-4F95-AA4356CB1BB0144A"
+					imagepath="ui/skins/default/dlc29_vmp_web_of_power/web_of_power_action_settlement_map_target.png"/>
+				<component_image
+					this="F8C45602-7021-47E3-AA2C9BF817B340AB"
+					uniqueguid="F8C45602-7021-47E3-AA2C9BF817B340AB"
+					imagepath="ui/skins/default/button_round__medium_spike_frame.png"/>
+			</componentimages>
+			<states>
+				<agent
+					this="EA018127-3781-4B4E-A2591E0AFE765A61"
+					name="agent"
+					width="50"
+					height="50"
+					uniqueguid="EA018127-3781-4B4E-A2591E0AFE765A61">
+					<imagemetrics>
+						<image
+							this="D6BC6DA6-5648-40F9-8B5FE8967FB1CF71"
+							uniqueguid="D6BC6DA6-5648-40F9-8B5FE8967FB1CF71"
+							componentimage="F8C45602-7021-47E3-AA2C9BF817B340AB"
+							offset="5.00,5.00"
+							width="39"
+							height="39"
+							dockpoint="Center"
+							rotation_angle="0.785398185"
+							aspect_ratio_locked_behaviour="Smallest"/>
+						<image
+							this="795FCF48-23DE-4029-88868F8EC5C5BC86"
+							uniqueguid="795FCF48-23DE-4029-88868F8EC5C5BC86"
+							componentimage="1B8BC741-02EB-4624-AEAA2DFD6D495C14"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</agent>
+				<army
+					this="ECB880D1-9EDE-4C6B-B57B938A5668F187"
+					name="army"
+					width="50"
+					height="50"
+					interactive="true"
+					uniqueguid="ECB880D1-9EDE-4C6B-B57B938A5668F187">
+					<imagemetrics>
+						<image
+							this="6209B65A-A54B-4272-B1D8E8EA75D4594E"
+							uniqueguid="6209B65A-A54B-4272-B1D8E8EA75D4594E"
+							componentimage="F8C45602-7021-47E3-AA2C9BF817B340AB"
+							offset="5.00,5.00"
+							width="39"
+							height="39"
+							dockpoint="Center"
+							rotation_angle="0.785398185"
+							aspect_ratio_locked_behaviour="Smallest"/>
+						<image
+							this="902AEBD2-ECBD-4794-AE7C112C2C8F2510"
+							uniqueguid="902AEBD2-ECBD-4794-AE7C112C2C8F2510"
+							componentimage="1B8BC741-02EB-4624-AEAA2DFD6D495C14"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</army>
+				<faction
+					this="7085913F-354F-4B59-A06EBD27B361483B"
+					name="faction"
+					width="50"
+					height="50"
+					interactive="true"
+					uniqueguid="7085913F-354F-4B59-A06EBD27B361483B">
+					<imagemetrics>
+						<image
+							this="FAAB93F1-AC55-4D89-9928E773986D2582"
+							uniqueguid="FAAB93F1-AC55-4D89-9928E773986D2582"
+							componentimage="F8C45602-7021-47E3-AA2C9BF817B340AB"
+							offset="5.00,5.00"
+							width="39"
+							height="39"
+							dockpoint="Center"
+							rotation_angle="0.785398185"
+							aspect_ratio_locked_behaviour="Smallest"/>
+						<image
+							this="0D6B4B22-9142-4704-9DDA0DC383F3216D"
+							uniqueguid="0D6B4B22-9142-4704-9DDA0DC383F3216D"
+							componentimage="20FF3A62-7175-4F95-AA4356CB1BB0144A"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</faction>
+			</states>
+		</target_icon>
+		<target_icons_holder
+			this="7726EF2D-96AD-48CB-81946BFC847A5E93"
+			id="target_icons_holder"
+			offset="8.00,0.00"
+			tooltipslocalised="true"
+			uniqueguid="7726EF2D-96AD-48CB-81946BFC847A5E93"
+			currentstate="3BD2651B-8652-4A6B-98DFE3338DD2728B"
+			defaultstate="3BD2651B-8652-4A6B-98DFE3338DD2728B">
+			<callbackwithcontextlist>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_function_id="self.ChildList.Any(IsVisible)">
+					<child_m_user_properties>
+						<property
+							name="update_constant"
+							value=""/>
+					</child_m_user_properties>
+				</callback_with_context>
+			</callbackwithcontextlist>
+			<states>
+				<newstate
+					this="3BD2651B-8652-4A6B-98DFE3338DD2728B"
+					name="NewState"
+					width="100"
+					height="100"
+					uniqueguid="3BD2651B-8652-4A6B-98DFE3338DD2728B"/>
+			</states>
+		</target_icons_holder>
+		<target_spinner
+			this="E0016C01-E424-4F2C-B2651CD5853F2173"
+			id="target_spinner"
+			offset="-25.00,-25.00"
+			docking="Center"
+			component_anchor_point="0.50,0.50"
+			tooltipslocalised="true"
+			uniqueguid="E0016C01-E424-4F2C-B2651CD5853F2173"
+			currentstate="86216E79-C5DB-4C6F-BA57BB43EA7F7632"
+			defaultstate="86216E79-C5DB-4C6F-BA57BB43EA7F7632">
+			<componentimages>
+				<component_image
+					this="FF869458-C6F4-4059-BAB8D6343EBBFAED"
+					uniqueguid="FF869458-C6F4-4059-BAB8D6343EBBFAED"
+					imagepath="ui/skins/warhammer2/shadowy_dealings_target_spinner.png"/>
+			</componentimages>
+			<states>
+				<newstate
+					this="86216E79-C5DB-4C6F-BA57BB43EA7F7632"
+					name="NewState"
+					width="100"
+					height="100"
+					uniqueguid="86216E79-C5DB-4C6F-BA57BB43EA7F7632">
+					<imagemetrics>
+						<image
+							this="3E0A4D85-CCD9-4C44-B03541455BB43619"
+							uniqueguid="3E0A4D85-CCD9-4C44-B03541455BB43619"
+							componentimage="FF869458-C6F4-4059-BAB8D6343EBBFAED"
+							width="100"
+							height="100"/>
+					</imagemetrics>
+				</newstate>
+			</states>
+			<animations>
+				<oncreate
+					id="OnCreate"
+					totalloops="-1">
+					<frames>
+						<frame
+							interpolationtime="20000"
+							interpolationpropertymask="16"
+							targetmetrics_m_height="100"
+							targetmetrics_m_width="100"
+							targetmetrics_m_rotation_angle="-6.28318548"/>
+					</frames>
+				</oncreate>
+			</animations>
+		</target_spinner>
 		<template_global_effect_icon
 			this="014A063A-259C-4A7D-AF3C210710C10451"
 			id="template_global_effect_icon"
@@ -2138,5 +2816,101 @@
 				</newstate>
 			</states>
 		</upgradable>
+		<web_of_power_target
+			this="17E1F764-F5A9-4EB0-83915A41D691F629"
+			id="web_of_power_target"
+			offset="25.00,50.00"
+			docking="Bottom Center"
+			component_anchor_point="0.50,1.00"
+			tooltipslocalised="true"
+			soundcategory="UI_CAM_HUD_DLC14_Snikch_Shadowy_Dealings_Targeting_Select"
+			uniqueguid="17E1F764-F5A9-4EB0-83915A41D691F629"
+			currentstate="32371C28-B546-4625-AF7E86844463D949"
+			defaultstate="32371C28-B546-4625-AF7E86844463D949">
+			<callbackwithcontextlist>
+				<callback_with_context callback_id="CallbackRedirector">
+					<child_m_user_properties>
+						<property
+							name="ignore_disabled_checks"
+							value=""/>
+						<property
+							name="ignore_interactive_checks"
+							value=""/>
+						<property
+							name="parent_id"
+							value="CampaignCharacterIdAgent"/>
+					</child_m_user_properties>
+				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextTrashOnCondition"
+					context_object_id="CcoStaticObject"
+					context_function_id="CanUseUiFeature(&quot;WEB_OF_POWER&quot;) == false"/>
+			</callbackwithcontextlist>
+			<componentimages>
+				<component_image
+					this="581B082E-EC24-42F5-B9847296537619F2"
+					uniqueguid="581B082E-EC24-42F5-B9847296537619F2"
+					imagepath="ui/skins/warhammer2/shadowy_dealings_scheme_army.png"/>
+				<component_image
+					this="D5D0C32B-1BE0-48C3-A61A6997F76A1830"
+					uniqueguid="D5D0C32B-1BE0-48C3-A61A6997F76A1830"
+					imagepath="ui/skins/warhammer2/shadowy_dealings_scheme_region.png"/>
+			</componentimages>
+			<states>
+				<agent
+					this="BBC859F0-101E-4925-AEF3F5F938E34D93"
+					name="agent"
+					width="50"
+					height="50"
+					uniqueguid="BBC859F0-101E-4925-AEF3F5F938E34D93">
+					<imagemetrics>
+						<image
+							this="C5AA55ED-CA8C-457A-986B0445ADB00436"
+							uniqueguid="C5AA55ED-CA8C-457A-986B0445ADB00436"
+							componentimage="581B082E-EC24-42F5-B9847296537619F2"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</agent>
+				<army
+					this="32371C28-B546-4625-AF7E86844463D949"
+					name="army"
+					width="50"
+					height="50"
+					interactive="true"
+					uniqueguid="32371C28-B546-4625-AF7E86844463D949">
+					<imagemetrics>
+						<image
+							this="D21E61D5-78E9-4B64-84CFA422CB7DA18C"
+							uniqueguid="D21E61D5-78E9-4B64-84CFA422CB7DA18C"
+							componentimage="581B082E-EC24-42F5-B9847296537619F2"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</army>
+				<faction
+					this="99A4CE4D-7718-4AC4-86F0EC9C5148F0DB"
+					name="faction"
+					width="50"
+					height="50"
+					interactive="true"
+					uniqueguid="99A4CE4D-7718-4AC4-86F0EC9C5148F0DB">
+					<imagemetrics>
+						<image
+							this="FC7A22BD-B021-4BF7-A329C7DD65C39A26"
+							uniqueguid="FC7A22BD-B021-4BF7-A329C7DD65C39A26"
+							componentimage="D5D0C32B-1BE0-48C3-A61A6997F76A1830"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</faction>
+			</states>
+		</web_of_power_target>
 	</components>
 </layout>

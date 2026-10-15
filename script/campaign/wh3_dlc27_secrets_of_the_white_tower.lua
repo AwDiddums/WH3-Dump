@@ -61,6 +61,7 @@ secrets_of_the_white_tower = {
 	ritual_shackles_of_war = {},
 	ritual_invocation_of_resilience = "wh3_dlc27_secrets_of_the_white_tower_being_ritual_1",
 	ritual_unseen_approach_bundle_key = "wh3_dlc27_hef_white_tower_ritual_darkness_agent_guaranteed_success",
+	victory_objectives_fixed_up = false,
 }
 
 function secrets_of_the_white_tower:initialise()
@@ -238,6 +239,8 @@ function secrets_of_the_white_tower:initialise()
 				end
 
 				cm:scroll_camera_from_current(false, 3, {196, 430, 8, 0, 16}) --camv2 196.830826 16.445755 422.161743 196.830826 2.480171 433.676239
+
+				secrets_of_the_white_tower:fixup_victory_conditions()
 			end
 		end,
 		false
@@ -400,6 +403,59 @@ function secrets_of_the_white_tower:check_hero_action_success(context)
 	end
 end
 
+function secrets_of_the_white_tower:fixup_victory_conditions()
+	local mission_key = "wh_main_short_victory"
+	local type = "short"
+	
+	if cm:get_scripted_mission_objective_completion_state(secrets_of_the_white_tower.faction_key, mission_key, "wh3_dlc29_hef_teclis_construct_landmark_short") then
+		-- landmark objective is already completed, no need to fix up victory conditions
+		return
+	end
+
+	secrets_of_the_white_tower.victory_objectives_fixed_up = true
+	
+	local seat_state = cm:get_scripted_mission_objective_completion_state(secrets_of_the_white_tower.faction_key, mission_key, "wh3_dlc29_hold_and_upgrade_any_patron_seat")
+	local perform_secrets_cc = cm:get_scripted_mission_objective_current_count(secrets_of_the_white_tower.faction_key, mission_key, "wh3_dlc29_perform_secrets_of_white_tower_actions_short")
+	local perform_secrets_tc = cm:get_scripted_mission_objective_total_count(secrets_of_the_white_tower.faction_key, mission_key, "wh3_dlc29_perform_secrets_of_white_tower_actions_short")
+	local recruit_mages_cc = cm:get_scripted_mission_objective_current_count(secrets_of_the_white_tower.faction_key, mission_key, "wh3_dlc29_recruit_mages_with_secrets_of_white_tower")
+	local recruit_mages_tc = cm:get_scripted_mission_objective_total_count(secrets_of_the_white_tower.faction_key, mission_key, "wh3_dlc29_recruit_mages_with_secrets_of_white_tower")
+	
+	local objectives = {
+		generate_DESTROY_FACTION_objective({"wh3_main_skv_clan_morbidus", "wh3_main_tze_oracles_of_tzeentch", "wh_main_grn_orcs_of_the_bloody_hand"}, true),
+		generate_SCRIPTED_MISSION_objective("wh3_dlc29_hold_and_upgrade_any_patron_seat",
+											"mission_text_text_wh3_dlc29_hold_and_upgrade_any_patron_seat"),
+		generate_SCRIPTED_MISSION_objective("wh3_dlc29_perform_secrets_of_white_tower_actions_short",
+											"mission_text_text_teclis_secrets_of_white_tower_short_victory",
+											perform_secrets_tc,
+											perform_secrets_cc,
+											true),
+		generate_SCRIPTED_MISSION_objective("wh3_dlc29_hef_teclis_construct_landmark_short_alt_ver", "mission_text_text_wh3_dlc29_hef_teclis_construct_landmark_short_alt_ver"),
+		generate_SCRIPTED_MISSION_objective("wh3_dlc29_recruit_mages_with_secrets_of_white_tower",
+											"mission_text_text_wh3_dlc29_recruit_mages_with_secrets_of_white_tower",
+											recruit_mages_tc,
+											recruit_mages_cc,
+											true),
+	}
+
+	cm:disable_event_feed_events(true, "", "", "faction_event_mission_aborted")
+	cm:complete_scripted_mission_objective(secrets_of_the_white_tower.faction_key, mission_key, "", false)
+	cm:callback(
+		function()
+			cm:disable_event_feed_events(false, "", "", "faction_event_mission_aborted")
+		end,
+		0.5
+	)
+
+	local mm = mission_manager:new(secrets_of_the_white_tower.faction_key, mission_key)
+	_victory_objectives_ie:add_objectives(mm, objectives)
+	_victory_objectives_ie:trigger_victory_mission(secrets_of_the_white_tower.faction_key, mm, type, secrets_of_the_white_tower.faction_key)
+	_victory_objectives_ie.listeners[secrets_of_the_white_tower.faction_key](secrets_of_the_white_tower.faction_key)
+
+	if seat_state then
+		cm:complete_scripted_mission_objective(secrets_of_the_white_tower.faction_key, mission_key, "wh3_dlc29_hold_and_upgrade_any_patron_seat", true)
+	end
+end
+
 ------------------------------
 ---------SAVING/LOADING-------
 ------------------------------
@@ -408,6 +464,7 @@ cm:add_saving_game_callback(
 	function(context)		
 		cm:save_named_value("secrets_of_the_white_tower.ritual_shackles_of_war", secrets_of_the_white_tower.ritual_shackles_of_war, context)
 		cm:save_named_value("secrets_of_the_white_tower.remove_trespass_immunity_turn", secrets_of_the_white_tower.remove_trespass_immunity_turn, context)
+		cm:save_named_value("secrets_of_the_white_tower.victory_objectives_fixed_up", secrets_of_the_white_tower.victory_objectives_fixed_up, context)
 	end
 )
 
@@ -416,6 +473,7 @@ cm:add_loading_game_callback(
 		if not cm:is_new_game() then
 			secrets_of_the_white_tower.ritual_shackles_of_war = cm:load_named_value("secrets_of_the_white_tower.ritual_shackles_of_war", secrets_of_the_white_tower.ritual_shackles_of_war, context)
 			secrets_of_the_white_tower.remove_trespass_immunity_turn = cm:load_named_value("secrets_of_the_white_tower.remove_trespass_immunity_turn", secrets_of_the_white_tower.remove_trespass_immunity_turn, context)
+			secrets_of_the_white_tower.victory_objectives_fixed_up = cm:load_named_value("secrets_of_the_white_tower.victory_objectives_fixed_up", secrets_of_the_white_tower.victory_objectives_fixed_up, context)
 		end
 	end
 )

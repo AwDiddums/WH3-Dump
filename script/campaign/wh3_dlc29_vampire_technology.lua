@@ -579,7 +579,10 @@ function vampire_technology:add_listeners()
 		"CharacterConvalescedOrKilled",
 		function(context)
 			local character = context:character();
-			return character:has_ancillary("wh_main_anc_follower_undead_possessed_mirror") or character:has_ancillary("wh_main_anc_follower_undead_black_cat");
+			return character:convalesence_cause() ~= 6 	-- CONVALESCENCE_CAUSE_RETIREMENT - character was disbanded
+				and character:convalesence_cause() ~= 7	-- CONVALESCENCE_CAUSE_STARTING_GENERAL_REPLACED
+				and (character:has_ancillary("wh_main_anc_follower_undead_possessed_mirror") 
+					or character:has_ancillary("wh_main_anc_follower_undead_black_cat"));
 		end,
 		function(context)
 			local character = context:character();
@@ -587,13 +590,32 @@ function vampire_technology:add_listeners()
 			local family_cqi = character:character_details():family_member():command_queue_index();
 
 			if character:has_ancillary("wh_main_anc_follower_undead_black_cat") then
-				cm:callback(
-					function()
-						local character_cqi = cm:get_character_by_fm_cqi(family_cqi):command_queue_index();
-						cm:stop_character_convalescing(character_cqi);
+				cm:force_remove_ancillary(character, "wh_main_anc_follower_undead_black_cat", false, true);
+				cm:disable_saving_game(true);
+				-- we have to wait for the replacement character to be created, and this takes some time - until CHARACTER_DIE_ACTION finishes at the end of the animation
+				core:add_listener(
+					"BlackCat_CharacterCreated",
+					"CharacterCreated",
+					function(context)
+						return context:character():character_details():family_member():command_queue_index() == family_cqi
 					end,
-					0.2
-				);
+					function(context)
+						-- we can't call stop_character_convalescing immediately, since CharacterCreated is called in the middle of the constructor and the character is not yet finished initializing
+						cm:callback(
+							function()
+								local new_character = cm:get_character_by_fm_cqi(family_cqi)
+								if is_character(new_character) then
+									local character_cqi = new_character:command_queue_index();
+									cm:stop_character_convalescing(character_cqi);
+								end
+								cm:disable_saving_game(false);
+							end,
+							0.1
+						);
+					end,
+					false
+				)
+
 				if self.mirrors_awaiting_death then
 					self.mirrors_awaiting_death[character_cqi] = nil;
 				end

@@ -597,24 +597,21 @@ function glottkin_gardens_of_nurgle:apply_settlement_tier_upgrade(settlement)
 		return
 	end
 
-	local current_region = settlement:region()
-	local slot = current_region:settlement():primary_slot()
-	local current_building_level = slot:building():building_level()
-	local next_building_level 
-
-	if settlement:settlement_type_key() == glottkin_gardens_of_nurgle_config.major_garden_key then 
-		if current_building_level > #glottkin_gardens_of_nurgle_config.major_garden_building_levels then 
-			next_building_level = glottkin_gardens_of_nurgle_config.major_garden_building_levels[#glottkin_gardens_of_nurgle_config.major_garden_building_levels]
-		else
-			next_building_level = glottkin_gardens_of_nurgle_config.major_garden_building_levels[current_building_level + 1]
-		end
-	else
-		if current_building_level > #glottkin_gardens_of_nurgle_config.minor_garden_building_levels then 
-			next_building_level = glottkin_gardens_of_nurgle_config.minor_garden_building_levels[#glottkin_gardens_of_nurgle_config.minor_garden_building_levels]
-		else
-			next_building_level = glottkin_gardens_of_nurgle_config.minor_garden_building_levels[current_building_level + 1]
-		end
+	local slot = settlement:region():settlement():primary_slot()
+	if not slot:has_building() then
+		return
 	end
+
+	local current_building_level = slot:building():building_level()
+	local building_levels = settlement:settlement_type_key() == glottkin_gardens_of_nurgle_config.major_garden_key and 
+		glottkin_gardens_of_nurgle_config.major_garden_building_levels or 
+		glottkin_gardens_of_nurgle_config.minor_garden_building_levels
+
+	if current_building_level >= #building_levels then
+		return
+	end
+
+	local next_building_level = building_levels[current_building_level + 1]
 
 	cm:region_slot_instantly_upgrade_building(slot, next_building_level)
 end

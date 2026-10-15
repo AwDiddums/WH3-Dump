@@ -1862,7 +1862,7 @@ core:add_listener(
 							generate_DESTROY_FACTION_objective({"wh2_dlc09_tmb_khemri", "wh3_main_emp_cult_of_sigmar"}, true),
 							generate_PERFORM_RITUAL_BY_CATEGORY_objective("NAGASH_MORTARCH_LORDS", 2, "mission_text_text_wh3_dlc29_nagash_unlock_mortarchs_short"),
 							generate_SCRIPTED_MISSION_objective("wh3_dlc29_nag_build_landmark_short", "mission_text_text_wh3_dlc29_nag_build_landmark_short"),
-							generate_SCRIPTED_MISSION_objective("wh3_dlc29_nag_black_pyramid_sigils_short", "mission_text_text_wh3_dlc29_nag_black_pyramid_sigils", 50, 0),
+							generate_SCRIPTED_MISSION_objective("wh3_dlc29_nag_black_pyramid_sigils_short", "mission_text_text_wh3_dlc29_nag_black_pyramid_sigils", 75, 0),
 						},
 						payloads = {
 							effect_bundle = "wh3_dlc29_bundle_ie_victory_objective_nag_short",
@@ -1875,7 +1875,7 @@ core:add_listener(
 							generate_SCRIPTED_MISSION_objective("wh3_dlc29_nag_build_nagashizzar_landmark_long", "mission_text_text_wh3_dlc29_nag_build_nagashizzar_landmark_long"),
 							generate_SCRIPTED_MISSION_objective("wh3_dlc29_nagash_collect_n_books", "mission_text_text_wh3_dlc29_nagash_collect_n_books", 6, 0, true),
 							generate_PERFORM_RITUAL_BY_CATEGORY_objective("NAGASH_MORTARCH_LORDS", 6, "mission_text_text_wh3_dlc29_nagash_unlock_mortarchs_long"),
-							generate_SCRIPTED_MISSION_objective("wh3_dlc29_nag_black_pyramid_sigils_long", "mission_text_text_wh3_dlc29_nag_black_pyramid_sigils", 150, 0),
+							generate_SCRIPTED_MISSION_objective("wh3_dlc29_nag_black_pyramid_sigils_long", "mission_text_text_wh3_dlc29_nag_black_pyramid_sigils", 200, 0),
 							generate_FIGHT_SET_PIECE_BATTLE_objective("wh3_dlc29_qb_nag_final_battle"),
 						},
 						payloads = {
@@ -4574,8 +4574,7 @@ core:add_listener(
 					short = {
 						objectives = {
 							generate_DESTROY_FACTION_objective({"wh2_dlc14_brt_chevaliers_de_lyonesse", "wh2_dlc09_tmb_khemri", "wh2_dlc09_tmb_lybaras"}, true),
-							generate_CONTROL_N_REGIONS_FROM_objective({"wh3_main_combi_region_black_tower_of_arkhan"}, 1, "mission_text_text_mis_activity_own_n_regions_1_of_1"),
-							generate_SCRIPTED_MISSION_objective("wh3_dlc29_tmb_arkhan_construct_landmark_short", "mission_text_text_wh3_dlc29_tmb_arkhan_construct_landmark_short"),
+							generate_CONTROL_N_REGIONS_FROM_objective({"wh3_main_combi_region_black_tower_of_arkhan"}, 1),
 							generate_SCRIPTED_MISSION_objective("wh3_dlc29_tmb_arkhan_get_books_of_nagash_short", "mission_text_text_wh3_dlc29_arkhan_nagash_collect_n_books", 4, 1, true),
 						},
 						payloads = {
@@ -5721,15 +5720,29 @@ _victory_objectives_ie.listeners = {
 	-- Teclis
 	["wh2_main_hef_order_of_loremasters"] = function(faction_key)
 
-		-- Teclis: Construct landmark: Great Waystone at Fortress of Dawn for short victory
-		victory_objectives_scripted_listeners.add_listener_SCRIPTED_CONSTRUCT_BUILDINGS_IN_REGION(
-			"IEVictoryConditionHefTeclisConstructLandmarkShort",
-			"wh_main_short_victory",
-			"wh3_dlc29_hef_teclis_construct_landmark_short",
-			faction_key,
-			"wh3_main_combi_region_fortress_of_dawn",
-			{"wh3_dlc27_hef_special_colony_fortress_of_dawn"}
-		)
+		if secrets_of_the_white_tower.victory_objectives_fixed_up then
+			victory_objectives_scripted_listeners.add_listener_SCRIPTED_CONSTRUCT_BUILDINGS_IN_MULTIPLE_REGIONS(
+				"IEVictoryConditionHefTeclisConstructLandmarkShortAlt",
+				"wh_main_short_victory",
+				"wh3_dlc29_hef_teclis_construct_landmark_short_alt_ver",
+				faction_key,
+				{
+					wh3_main_combi_region_fortress_of_dawn = "wh3_dlc27_hef_special_colony_fortress_of_dawn",
+					wh3_main_combi_region_white_tower_of_hoeth = "wh2_main_special_tower_of_hoeth_1",
+				},
+				1
+			)
+		else
+			-- Teclis: Construct landmark: Great Waystone at Fortress of Dawn for short victory
+			victory_objectives_scripted_listeners.add_listener_SCRIPTED_CONSTRUCT_BUILDINGS_IN_REGION(
+				"IEVictoryConditionHefTeclisConstructLandmarkShort",
+				"wh_main_short_victory",
+				"wh3_dlc29_hef_teclis_construct_landmark_short",
+				faction_key,
+				"wh3_main_combi_region_fortress_of_dawn",
+				{"wh3_dlc27_hef_special_colony_fortress_of_dawn"}
+			)
+		end
 
 		local teclis_ritual_categories = {
 			"SWT_BEING",
@@ -5881,16 +5894,19 @@ _victory_objectives_ie.listeners = {
 
 		-- Alarielle: Own two Wood Elf settlements through ownership or alliance
 		local wood_elf_subculture = "wh_dlc05_sc_wef_wood_elves"
+		local wood_elf_region_group = "wh3_wood_elf_forests"
 
 		-- When region changes faction
 		core:add_listener(
 			"IEVictoryConditionOwnWoodElfSettlements",
 			"RegionFactionChangeEvent",
 			function(context)
+				local region = context:region()
 				local alarielle_owned_wood_elf_regions = cm:get_saved_value("alarielle_owned_wood_elf_regions") or {}
-				return wood_elf_subculture == context:previous_faction():subculture()
-						and faction_key == context:region():owning_faction():name()
-						and not table.contains(alarielle_owned_wood_elf_regions, context:region():name())
+				return (wood_elf_subculture == context:previous_faction():subculture()
+						or region:is_contained_in_region_group(wood_elf_region_group))
+						and faction_key == region:owning_faction():name()
+						and not table.contains(alarielle_owned_wood_elf_regions, region:name())
 			end,
 			function(context)
 				local alarielle_owned_wood_elf_regions = cm:get_saved_value("alarielle_owned_wood_elf_regions") or {}
@@ -7147,8 +7163,8 @@ _victory_objectives_ie.listeners = {
 	["wh3_dlc29_nag_host_of_nagash"] = function(faction_key)
 
 		-- Nagash: Empower sigils for victory
-		local nagash_sigils_short = 50
-		local nagash_sigils_long = 150
+		local nagash_sigils_short = 75
+		local nagash_sigils_long = 200
 
 		core:add_listener(
 			"IEVictoryConditionNagashEmpoweredSigils",
@@ -7771,10 +7787,10 @@ _victory_objectives_ie.listeners = {
 
 		core:add_listener(
 			"IEVictoryConditionDechalaConstructPleasurePalaces",
-			"RegionFactionChangeEvent",
+			"SettlementTypeConvertedEvent",
 			function(context)
-				local region = context:region()
-				return region:owning_faction():name() == faction_key and region:settlement():settlement_type_key() == "wh3_dlc27_dechala_pleasure_palace"
+				local settlement = context:settlement()
+				return settlement:faction():name() == faction_key and settlement:settlement_type_key() == "wh3_dlc27_dechala_pleasure_palace"
 			end,
 			function()
 				cm:increase_scripted_mission_count("wh_main_long_victory", "wh3_dlc29_sla_build_4_pleasure_palaces_long", 1)
@@ -8567,15 +8583,26 @@ _victory_objectives_ie.listeners = {
 	-- Mother Ostankya
 	["wh3_dlc24_ksl_daughters_of_the_forest"] = function(faction_key)
 
-		-- Mother Ostankya: Construct special landmark Ostankya's Hut for short victory
-		victory_objectives_scripted_listeners.add_listener_SCRIPTED_CONSTRUCT_BUILDINGS_IN_REGION(
-			"IEVictoryConditionKslBuildLandmarkOstankyaShort",
-			"wh_main_short_victory",
-			"wh3_dlc29_ksl_ostankya_construct_landmark_short",
-			faction_key,
-			"wh3_main_combi_region_bleak_hold_fortress",
-			{"wh3_dlc24_special_ostankyas_hut"}
-		)
+		if mother_ostankya_features.dilemma_teleport_chosen then
+			victory_objectives_scripted_listeners.add_listener_SCRIPTED_CONSTRUCT_BUILDINGS_IN_REGION(
+				"IEVictoryConditionKslBuildLandmarkOstankyaShort",
+				"wh_main_short_victory",
+				"wh3_dlc29_ksl_ostankya_construct_landmark_short",
+				faction_key,
+				"wh3_main_combi_region_volksgrad",
+				{"wh3_dlc24_special_ostankyas_hut"}
+			)
+		else
+			-- Mother Ostankya: Construct special landmark Ostankya's Hut for short victory
+			victory_objectives_scripted_listeners.add_listener_SCRIPTED_CONSTRUCT_BUILDINGS_IN_REGION(
+				"IEVictoryConditionKslBuildLandmarkOstankyaShort",
+				"wh_main_short_victory",
+				"wh3_dlc29_ksl_ostankya_construct_landmark_short",
+				faction_key,
+				"wh3_main_combi_region_bleak_hold_fortress",
+				{"wh3_dlc24_special_ostankyas_hut"}
+			)
+		end
 
 		-- Mother Ostankya: Obtain 3/5 Forbidden Hexes for short/long victory
 		local ostankya_hex_mission_key_1 = "wh3_dlc24_ie_ksl_mother_ostankya_hex_"
@@ -8814,13 +8841,21 @@ _victory_objectives_ie.listeners = {
 
 		-- Archaon: SUB-OBJECTIVE Prepare a warband worthy of the End Times: Have 80 units for short victory
 		local required_unit_count = 80
-		local function update_military_forces_objective(faction_military_force_list)
+		local function update_military_forces_objective()
 			cm:callback(
 				function()
+					local faction = cm:get_faction(faction_key)
+					if not faction or faction:is_null_interface() then
+						return
+					end
+
+					-- Re-fetch the force list inside the callback so we don't use stale wrappers
+					-- from merge/confederation
+					local faction_military_force_list = faction:military_force_list()
 					local units = 0
 					for i = 0, faction_military_force_list:num_items() - 1 do
 						local mf = faction_military_force_list:item_at(i)
-						if mf:is_army() and not mf:is_armed_citizenry() and mf:has_general() then
+						if mf and not mf:is_null_interface() and mf:is_army() and not mf:is_armed_citizenry() and mf:has_general() then
 							units = units + mf:unit_list():num_items()
 						end
 					end
@@ -8839,8 +8874,7 @@ _victory_objectives_ie.listeners = {
 				return context:unit():faction():name() == faction_key
 			end,
 			function(context)
-				local faction_military_force_list = context:unit():faction():military_force_list()
-				update_military_forces_objective(faction_military_force_list)
+				update_military_forces_objective()
 			end,
 			true
 		)
@@ -8852,8 +8886,7 @@ _victory_objectives_ie.listeners = {
 				return context:character():faction():name() == faction_key
 			end,
 			function(context)
-				local faction_military_force_list = context:character():faction():military_force_list()
-				update_military_forces_objective(faction_military_force_list)
+				update_military_forces_objective()
 			end,
 			true
 		)
@@ -8865,8 +8898,7 @@ _victory_objectives_ie.listeners = {
 				return context:confederation():name() == faction_key
 			end,
 			function(context)
-				local faction_military_force_list = context:confederation():military_force_list()
-				update_military_forces_objective(faction_military_force_list)
+				update_military_forces_objective()
 			end,
 			true
 		)
@@ -9850,7 +9882,7 @@ _victory_objectives_ie.listeners = {
 			"wh3_dlc25_college_of_magic_jade_heal",
 		}
 
-		local gelt_single_use_riutals = {
+		local gelt_single_use_rituals = {
 			"wh3_dlc25_college_of_magic_amber_costs",
 			"wh3_dlc25_college_of_magic_amber_item",
 			"wh3_dlc25_college_of_magic_amethyst_costs",
@@ -9871,15 +9903,27 @@ _victory_objectives_ie.listeners = {
 			"wh3_dlc25_college_of_magic_metal_weapon",
 		}
 
-		-- Balthazar Gelt: Build landmark Temple of Elemental Winds for short victory
-		victory_objectives_scripted_listeners.add_listener_SCRIPTED_CONSTRUCT_BUILDINGS_IN_REGION(
-			"IEVictoryConditionEmpGeltBuildLandmarkShort",
-			"wh_main_short_victory",
-			"wh3_dlc29_emp_gelt_build_landmark_short",
-			faction_key,
-			"wh3_main_combi_region_temple_of_elemental_winds",
-			{"wh3_dlc25_special_gelt_elemental_temple"}
-		)
+		if gelt_dilemmas.choice_3 == 2 then 
+			-- Balthazar Gelt: Build landmark Altdorf for short victory
+			victory_objectives_scripted_listeners.add_listener_SCRIPTED_CONSTRUCT_BUILDINGS_IN_REGION(
+				"IEVictoryConditionEmpGeltBuildLandmarkShort",
+				"wh_main_short_victory",
+				"wh3_dlc29_emp_gelt_build_landmark_short_empire_var",
+				faction_key,
+				"wh3_main_combi_region_altdorf",
+				{"wh_main_special_conclave_of_magic"}
+			)
+		else
+			-- Balthazar Gelt: Build landmark Temple of Elemental Winds for short victory
+			victory_objectives_scripted_listeners.add_listener_SCRIPTED_CONSTRUCT_BUILDINGS_IN_REGION(
+				"IEVictoryConditionEmpGeltBuildLandmarkShort",
+				"wh_main_short_victory",
+				"wh3_dlc29_emp_gelt_build_landmark_short",
+				faction_key,
+				"wh3_main_combi_region_temple_of_elemental_winds",
+				{"wh3_dlc25_special_gelt_elemental_temple"}
+			)
+		end
 
 		-- Balthazar Gelt: Recruit and rank up 2 Battle Wizards to rank 10 for short victory
 		victory_objectives_scripted_listeners.add_listener_SCRIPTED_RANK_UP_AGENTS(
@@ -9928,7 +9972,7 @@ _victory_objectives_ie.listeners = {
 			"IEVictoryConditionEmpGeltPerformCollegeActions",
 			"RitualCompletedEvent",
 			function(context)
-				return context:performing_faction():name() == faction_key and table.contains(gelt_single_use_riutals, context:ritual():ritual_key())
+				return context:performing_faction():name() == faction_key and table.contains(gelt_single_use_rituals, context:ritual():ritual_key())
 			end,
 			function(context)
 				cm:complete_scripted_mission_objective(faction_key, "wh_main_short_victory", "wh3_dlc29_emp_gelt_complete_com_single_actions_short", true)
@@ -11564,16 +11608,6 @@ _victory_objectives_ie.listeners = {
 
 	-- Arkhan the Black
 	["wh2_dlc09_tmb_followers_of_nagash"] = function(faction_key)
-
-		-- Arkhan the Black: Build Landmark: Black Tower of Arkhan for short victory
-		victory_objectives_scripted_listeners.add_listener_SCRIPTED_CONSTRUCT_BUILDINGS_IN_REGION(
-			"IEVictoryConditionTmbArkhanBuildLandmark_Short",
-			"wh_main_short_victory",
-			"wh3_dlc29_tmb_arkhan_construct_landmark_short",
-			faction_key,
-			"wh3_main_combi_region_black_tower_of_arkhan",
-			{"wh2_dlc09_special_black_tower_of_arkhan"}
-		)
 
 		-- Arkhan the Black: You or Nagash Maintain Control of 3 Books of Nagash for short victory
 		-- Arkhan the Black: You or Nagash Maintain Control of 9 Books of Nagash for long victory

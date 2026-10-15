@@ -306,6 +306,24 @@ function campaign_traits:give_trait(character, trait, _points, _chance, _show_ev
 	if cm:model():random_percent(chance) == false then
 		return false;
 	end
+
+	if not character:is_alive() then
+		return false
+	end
+
+	-- Convalescing characters share persistent details with a replacement CHARACTER whose map links are not safe for force_add_trait.
+	if character:is_wounded() then
+		local character_details = character:character_details()
+		if character_details == nil or character_details:is_null_interface() == true then
+			out("TRAIT ERROR: Tried to give trait to a wounded/dead character that had no valid details!")
+			return false
+		end
+
+		for i = 1, points do
+			cm:force_add_trait_to_character_details(character_details, trait)
+		end
+		return true
+	end
 	
 	cm:force_add_trait("character_cqi:"..character:cqi(), trait, show_event, points);
 	return true;
@@ -1198,7 +1216,7 @@ events.CharacterTurnStart[#events.CharacterTurnStart+1] =
 function (context)
 	local character = context:character();
 	
-	if character:is_wounded() == false and character:has_trait("wh3_main_trait_wounded") == true then
+	if character:is_alive() and not character:is_wounded() and character:has_trait("wh3_main_trait_wounded") then
 		local wounded_timer = campaign_traits:get_lord_record(character, "wh3_main_trait_wounded") or 1;
 		wounded_timer = wounded_timer - 1;
 

@@ -952,6 +952,21 @@ function mother_ostankya_features:teleport_to_kislev(human)
 	local rx_pos, ry_pos = cm:find_valid_spawn_location_for_character_from_settlement(nearby_kislev_faction, nearby_kislev_region, false, true, 5);
 	local nearby_faction_leader = cm:get_faction(nearby_kislev_faction):faction_leader();
 	cm:teleport_to(cm:char_lookup_str(nearby_faction_leader), rx_pos, ry_pos);
+
+	-- Fixup long victory condtions
+
+	-- Cancel existing Long Victory mission
+	cm:disable_event_feed_events(true, "", "", "faction_event_mission_aborted")
+	cm:complete_scripted_mission_objective(self.ostankya_faction, "wh_main_short_victory", "", false)
+	cm:callback(
+		function()
+			cm:disable_event_feed_events(false, "", "", "faction_event_mission_aborted")
+		end,
+		0.5
+	)
+
+	_victory_objectives_ie:create_victory_mission(self.ostankya_faction, "short")
+	_victory_objectives_ie.listeners[self.ostankya_faction](self.ostankya_faction)
 end
 
 function mother_ostankya_features:unlock_ingredient(ingredient, hide_incident)

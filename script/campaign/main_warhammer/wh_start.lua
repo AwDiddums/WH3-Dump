@@ -625,7 +625,7 @@ function add_great_desert_sandstorm_listener()
 		"FactionRoundStart",
 		function(context)
 			local region = cm:get_region("wh3_main_combi_region_great_desert_of_araby")
-			if region:has_active_storm() == false then
+			if is_region(region) and region:has_active_storm() == false then
 				return true
 			end
 			return false

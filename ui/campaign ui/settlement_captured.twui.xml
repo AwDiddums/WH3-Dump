@@ -148,6 +148,7 @@
 									<cost_icon this="9E427CBE-E485-4A15-BC3F4792DF8D40F7"/>
 								</template_cost>
 							</duration_cost_holder>
+							<warning_holder this="426B65C8-F6CD-4649-B0FB43C3FC75855B"/>
 						</option_button>
 					</template_button_occupy>
 					<template_button_occupy_small this="44A07DCB-AF29-4039-AD64269F223CC0C8">
@@ -3872,9 +3873,9 @@
 		<duration_cost_holder
 			this="1FEC9158-FBE0-49C5-93BCA814502E3BCB"
 			id="duration_cost_holder"
-			offset="230.00,40.00"
+			offset="242.00,23.00"
 			docking="Center Right External"
-			dock_offset="-35.00,15.00"
+			dock_offset="-23.00,-2.00"
 			component_anchor_point="-0.00,0.50"
 			tooltipslocalised="true"
 			uniqueguid="1FEC9158-FBE0-49C5-93BCA814502E3BCB"
@@ -14505,6 +14506,62 @@
 				</newstate>
 			</states>
 		</tx_title>
+		<warning_holder
+			this="426B65C8-F6CD-4649-B0FB43C3FC75855B"
+			id="warning_holder"
+			offset="8.00,7.00"
+			docking="Top Left"
+			dock_offset="8.00,7.00"
+			uniqueguid="426B65C8-F6CD-4649-B0FB43C3FC75855B"
+			currentstate="E556E68D-EE81-4F50-812E14753A3AAD5A"
+			defaultstate="E556E68D-EE81-4F50-812E14753A3AAD5A">
+			<callbackwithcontextlist>
+				<callback_with_context
+					callback_id="ContextVisibilitySetter"
+					context_function_id="(button_id = self.ParentContext.ParentContext.Id) =&gt; {&#10;(button_id == &quot;1725529921&quot; || button_id == &quot;1899057904&quot; || button_id == &quot;11456557&quot; || button_id == &quot;2022957282&quot; || button_id == &quot;2018305932&quot; || button_id == &quot;599554704&quot; || button_id == &quot;1504154231&quot; || button_id == &quot;1552596857&quot; || button_id == &quot;1597555180&quot;)  &amp;&amp; (PlayersFaction.PooledResourceContext(&quot;wh3_dlc29_nag_necropolises_count&quot;).Total &gt;= PlayersFaction.PooledResourceContext(&quot;wh3_dlc29_nag_necropolises_soft_cap&quot;).Total) }"/>
+				<callback_with_context
+					callback_id="ContextTrashOnCondition"
+					context_object_id="CcoStaticObject"
+					context_function_id="CanUseUiFeature(&quot;BLACK_PYRAMID&quot;) == false">
+					<child_m_user_properties>
+						<property
+							name="faction_key"
+							value=""/>
+					</child_m_user_properties>
+				</callback_with_context>
+			</callbackwithcontextlist>
+			<userproperties>
+				<property
+					name="dynamic_child"
+					value="1"/>
+			</userproperties>
+			<componentimages>
+				<component_image
+					this="C55C1174-CD91-4E8D-8BEDF80C89FD80D8"
+					uniqueguid="C55C1174-CD91-4E8D-8BEDF80C89FD80D8"
+					imagepath="ui/skins/default/dlc29_nag_necrotic_power/icon_necropolis_warning.png"/>
+			</componentimages>
+			<states>
+				<necropolis_cap_exceeded
+					this="E556E68D-EE81-4F50-812E14753A3AAD5A"
+					name="necropolis_cap_exceeded"
+					tooltip="{{tr:campaign_localised_strings_string_wh3_dlc29_nagash_necropolis_occupation_capacity_exceeded_tooltip_warning}}"
+					tooltiplabel="StateTooltip_a8b22032"
+					interactive="true"
+					disabled="true"
+					uniqueguid="E556E68D-EE81-4F50-812E14753A3AAD5A">
+					<imagemetrics>
+						<image
+							this="C8F58FF5-D55C-48C9-95C14E88B0B4B4F9"
+							uniqueguid="C8F58FF5-D55C-48C9-95C14E88B0B4B4F9"
+							componentimage="C55C1174-CD91-4E8D-8BEDF80C89FD80D8"
+							dockpoint="Center"
+							shadertechnique_vars="0.00,0.20,1.50,0.00"
+							shader_name="red_pulse_t0"/>
+					</imagemetrics>
+				</necropolis_cap_exceeded>
+			</states>
+		</warning_holder>
 		<wh2_dlc11_cst_vampire_coast
 			this="EDAE8C1A-1409-4A77-A74476FC47007692"
 			id="wh2_dlc11_cst_vampire_coast"
@@ -14601,9 +14658,8 @@
 			defaultstate="36DC2371-C08E-44A1-999552C2A54A7E54">
 			<callbackwithcontextlist>
 				<callback_with_context
-					callback_id="#ContextVisibilitySetter"
-					context_object_id="CcoCampaignProvince"
-					context_function_id="StoredContextFromParent(&quot;CcoCampaignSettlement&quot;).IsProvinceCapital &amp;&amp; StoredContextFromParent(&quot;CcoCampaignSettlement&quot;).FindPooledResourceFromSettlementRegionGroups(&quot;wh3_dlc29_nag_necromantic_energy&quot;) &amp;&amp; (self.ParentContext.ParentContext.Id == &quot;11456557&quot; || self.ParentContext.ParentContext.Id == &quot;1725529921&quot; || self.ParentContext.ParentContext.Id == &quot;2022957282&quot; || self.ParentContext.ParentContext.Id == &quot;1899057904&quot; || self.ParentContext.ParentContext.Id == &quot;2018305932&quot; || self.ParentContext.ParentContext.Id == &quot;599554704&quot; || self.ParentContext.ParentContext.Id == &quot;1504154231&quot; || self.ParentContext.ParentContext.Id == &quot;1552596857&quot; || self.ParentContext.ParentContext.Id == &quot;1597555180&quot;)"/>
+					callback_id="ContextTrashOnCondition"
+					context_function_id="true"/>
 			</callbackwithcontextlist>
 			<states>
 				<newstate

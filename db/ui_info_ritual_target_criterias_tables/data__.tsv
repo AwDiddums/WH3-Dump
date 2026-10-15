@@ -55,6 +55,7 @@ region_own
 region_own_tier_3_major	
 region_own_undamaged	settlement
 skv_under_empire	UI\skins\default\icon_under_empire.png
+web_of_power_character_excluding_self	agent
 web_of_power_faction_excluding_self	faction
 web_of_power_force_any_but_self	force
 web_of_power_force_any_but_self_land	force

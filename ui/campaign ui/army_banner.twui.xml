@@ -3540,7 +3540,13 @@
 				<callback_with_context
 					callback_id="ContextImageSetter"
 					context_object_id="CcoCampaignCharacter"
-					context_function_id="FactionFlagMedium"/>
+					context_function_id="FactionFlagMedium">
+					<child_m_user_properties>
+						<property
+							name="event0"
+							value="MilitaryForceFactionChangeAny"/>
+					</child_m_user_properties>
+				</callback_with_context>
 				<callback_with_context
 					callback_id="ContextTrashOnCondition"
 					context_object_id="CcoStaticObject"
@@ -4592,6 +4598,10 @@
 							value="CharacterMoveEnd"/>
 					</child_m_user_properties>
 				</callback_with_context>
+				<callback_with_context
+					callback_id="ContextTextLabel"
+					context_object_id="CcoCampaignCharacter"
+					context_function_id="GetIf(IsContextValid(MilitaryForceContext), Format(&quot;%d&quot; , ((MilitaryForceContext.CharacterList.Filter(IsEffectPresent(&quot;wh3_main_effect_causes_concealment_loss_dummy&quot;)).Size() * 3) - 1) * (-1)))"/>
 			</callbackwithcontextlist>
 			<componentimages>
 				<component_image
@@ -7629,6 +7639,33 @@
 					imagepath="ui/skins/default/button_round__medium_spike_frame.png"/>
 			</componentimages>
 			<states>
+				<agent
+					this="74055AFB-68D8-4E31-A876AFF8CB89680C"
+					name="agent"
+					width="50"
+					height="50"
+					uniqueguid="74055AFB-68D8-4E31-A876AFF8CB89680C">
+					<imagemetrics>
+						<image
+							this="CDC4C993-36A4-464C-B818564028EC45DC"
+							uniqueguid="CDC4C993-36A4-464C-B818564028EC45DC"
+							componentimage="17FBE081-F1C7-49D5-B420DC104E28C8F1"
+							offset="5.00,5.00"
+							width="39"
+							height="39"
+							dockpoint="Center"
+							rotation_angle="0.785398185"
+							aspect_ratio_locked_behaviour="Smallest"/>
+						<image
+							this="7C902175-8E7B-4C6E-A04B0622858CC2E6"
+							uniqueguid="7C902175-8E7B-4C6E-A04B0622858CC2E6"
+							componentimage="E09CEC85-599F-4D4F-8226EFB61C3E0F41"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</agent>
 				<army
 					this="5980CFF4-D466-485C-8E37289EE109301F"
 					name="army"
@@ -11962,7 +11999,7 @@
 			tooltipslocalised="true"
 			soundcategory="UI_CAM_HUD_DLC14_Snikch_Shadowy_Dealings_Targeting_Select"
 			uniqueguid="B1EF331A-E39C-44C5-B402C18BC1D13564"
-			currentstate="2A9DAB7B-E62D-4747-AE6B1EA80BAA5AB1"
+			currentstate="34C67728-CF71-4AC4-B4D14EFC03BE19F8"
 			defaultstate="2A9DAB7B-E62D-4747-AE6B1EA80BAA5AB1">
 			<callbackwithcontextlist>
 				<callback_with_context callback_id="CallbackRedirector">
@@ -11994,6 +12031,23 @@
 					imagepath="ui/skins/warhammer2/shadowy_dealings_scheme_region.png"/>
 			</componentimages>
 			<states>
+				<agent
+					this="34C67728-CF71-4AC4-B4D14EFC03BE19F8"
+					name="agent"
+					width="50"
+					height="50"
+					uniqueguid="34C67728-CF71-4AC4-B4D14EFC03BE19F8">
+					<imagemetrics>
+						<image
+							this="844A3AC0-0466-4CD2-863F60B70D53EF18"
+							uniqueguid="844A3AC0-0466-4CD2-863F60B70D53EF18"
+							componentimage="43CFB9F3-8882-4DCD-B7F2EE47E9013F09"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</agent>
 				<army
 					this="2A9DAB7B-E62D-4747-AE6B1EA80BAA5AB1"
 					name="army"
@@ -13392,6 +13446,23 @@
 					imagepath="ui/skins/warhammer2/shadowy_dealings_scheme_region.png"/>
 			</componentimages>
 			<states>
+				<agent
+					this="FE07FECB-C212-4ECA-AE8F4E2E8B09C026"
+					name="agent"
+					width="50"
+					height="50"
+					uniqueguid="FE07FECB-C212-4ECA-AE8F4E2E8B09C026">
+					<imagemetrics>
+						<image
+							this="B898CFFF-4E6E-4B2B-86667AB0D0C1BD6E"
+							uniqueguid="B898CFFF-4E6E-4B2B-86667AB0D0C1BD6E"
+							componentimage="4B773FF5-32BD-421E-8902810BB969C097"
+							offset="8.00,8.00"
+							width="33"
+							height="33"
+							dockpoint="Center"/>
+					</imagemetrics>
+				</agent>
 				<army
 					this="FA36B2CB-B159-4AC6-89B16E07F356256C"
 					name="army"

@@ -548,9 +548,13 @@ function fervour:rivalry_to_fervour()
 						local faction = mf:faction()
 
 						if faction:is_rebel() == false then
-							local value = mf:pooled_resource_manager():resource(self.resources.rivalry_army):value() or loser.rivalry
-							rivalry = rivalry + value
-							self:assign_rivalry(mf, self.factors.settled, -value, false) --clear rivalry from losers
+							local loser_rivalry_value = loser.rivalry
+							local loser_rivalry_resource = mf:pooled_resource_manager():resource(self.resources.rivalry_army)
+							if loser_rivalry_resource then
+								loser_rivalry_value = loser_rivalry_resource:value()
+							end
+							rivalry = rivalry + loser_rivalry_value
+							self:assign_rivalry(mf, self.factors.settled, -loser_rivalry_value, false) --clear rivalry from losers
 						end
 					else
 						-- mf was wiped out, just cache the pending battle saved rivalry

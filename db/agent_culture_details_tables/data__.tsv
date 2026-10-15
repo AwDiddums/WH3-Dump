@@ -7,7 +7,7 @@ key	agent	culture	associated_unit	season	level	agent_recruited_movie	gender	icon
 1072757616	champion	wh2_main_def_dark_elves	wh2_dlc14_def_cha_master_0		0		m		ui/campaign ui/agents/wh2_main_hef_champion.png	true
 1080045947	champion	wh2_main_skv_skaven	wh2_dlc16_skv_cha_chieftain_0		0		m		ui/campaign ui/agents/wh2_dlc16_skv_champion.png	true
 1110564092	engineer	wh_main_emp_empire	wh3_dlc25_emp_cha_engineer		0		m		ui/campaign ui/agents/wh3_dlc25_emp_master_engineer.png	true
-1122969389	dignitary	wh2_dlc11_cst_vampire_coast	wh2_dlc11_cst_cha_vampire_fleet_captain_0		0		f		ui/campaign ui/agents/paladin.png	true
+1122969389	dignitary	wh2_dlc11_cst_vampire_coast	wh2_dlc11_cst_cha_vampire_fleet_captain_0		0		f		ui/campaign ui/agents/wh_main_wizard.png	true
 1126275823	general	wh_dlc08_nor_norsca	wh_main_chs_cha_chaos_lord_0		0			UI/units/icons/wh_main_chs_lord.png	ui/campaign ui/agents/wh_main_emp_champion.png	true
 114291892	minister	wh2_main_rogue			0				ui/campaign ui/agents/wh_main_emp_champion.png	true
 1159840472	general	wh2_dlc11_cst_vampire_coast	wh2_dlc11_cst_cha_vampire_fleet_admiral_0		0				ui/campaign ui/agents/paladin.png	true
@@ -199,7 +199,7 @@ key	agent	culture	associated_unit	season	level	agent_recruited_movie	gender	icon
 809838807	dignitary	wh3_main_kho_khorne	wh3_main_kho_cha_bloodreaper_0		0		m		ui/campaign ui/agents/wh3_main_kho_bloodreaper.png	true
 817037795	dignitary	wh3_main_tze_tzeentch	wh3_main_tze_cha_cultist_0		0		m		ui/campaign ui/agents/wh3_main_tze_cultist.png	true
 830189124	champion	wh3_dlc29_nag_undead_legions	wh_main_vmp_cha_wight_king_0		0		m	UI/units/icons/wh_main_vmp_wight_king.png	ui/campaign ui/agents/wh_main_vmp_champion.png	true
-835586769	runesmith	wh_main_chs_chaos	wh3_dlc29_chs_cha_gutrot_spume		0		m		ui/campaign ui/agents/paladin.png	true
+835586769	runesmith	wh_main_chs_chaos	wh3_dlc29_chs_cha_gutrot_spume		0		m		ui/campaign ui/agents/paladin.png	false
 865400248	spy	wh2_main_rogue	wh_main_emp_cha_witch_hunter		0		m	UI/units/icons/wh_main_emp_witch_hunter.png	ui/campaign ui/agents/wh_main_emp_spy.png	true
 898165434	general	wh2_dlc09_tmb_tomb_kings	wh2_dlc09_tmb_cha_tomb_king_0		0		m		ui/campaign ui/agents/paladin.png	true
 915814301	spy	wh_main_vmp_vampire_counts	wh_main_vmp_cha_banshee		0		f		ui/campaign ui/agents/wh_main_vmp_spy.png	true

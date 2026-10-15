@@ -910,15 +910,17 @@
 							targetmetrics_m_colour="#00000000"
 							targetmetrics_m_height="60"
 							targetmetrics_m_width="310"
-							easing_curve_type="Quadratic Out"/>
+							easing_curve_type="Quadratic Out"
+							is_movement_absolute="true"/>
 						<frame
 							interpolationtime="300"
 							interpolationpropertymask="2"
 							targetmetrics_m_colour="#00000000"
 							targetmetrics_m_height="60"
 							targetmetrics_m_width="310"
-							targetmetrics_m_offset="0.00,72.00"
-							easing_curve_type="Quadratic Out"/>
+							targetmetrics_m_offset="0.00,70.00"
+							easing_curve_type="Quadratic Out"
+							is_movement_absolute="true"/>
 					</frames>
 				</hide>
 			</animations>
@@ -2920,13 +2922,32 @@
 				<callback_with_context
 					callback_id="ContextCommandLeftClick"
 					context_function_id="Component(&quot;tree_container&quot;).ToggleEditMode"/>
-				<callback_with_context
-					callback_id="ContextStateSetter"
-					context_function_id="GetIfElse(Component(&quot;tree_container&quot;).IsCurrentlyInEditMode, &quot;selected&quot;, &quot;active&quot;)">
+				<callback_with_context callback_id="ContextStateSetterConditional">
 					<child_m_user_properties>
+						<property
+							name="1.no_sigils_allocated"
+							value="Component(&quot;tree_container&quot;).GetAllocatedNodesCount &lt;= 1"/>
+						<property
+							name="2.selected"
+							value="Component(&quot;tree_container&quot;).IsCurrentlyInEditMode"/>
 						<property
 							name="event0"
 							value="UiGraphManager_deallocating_state_toggle"/>
+						<property
+							name="event1"
+							value="UiGraphManagerCallback_selection_changed"/>
+						<property
+							name="event2"
+							value="UiGraphManagerCallback_selection_cleared"/>
+						<property
+							name="event3"
+							value="black_pyramid_links_refreshed"/>
+						<property
+							name="fallback_state"
+							value="active"/>
+						<property
+							name="ordered_states"
+							value=""/>
 					</child_m_user_properties>
 				</callback_with_context>
 			</callbackwithcontextlist>
@@ -3426,6 +3447,52 @@
 						font_m_leading="3"
 						fontcat_name="body_12"/>
 				</inactive>
+				<no_sigils_allocated
+					this="9358A778-FA92-4266-8658276EFCC728C1"
+					name="no_sigils_allocated"
+					width="56"
+					height="56"
+					tooltip="{{tr:ui_text_replacements_localised_text_wh3_dlc29_nag_black_pyramid_inactive_disempower_sigils_button_tooltip}}"
+					tooltiplabel="StateTooltip_3d04603e"
+					soundcategory="UI_CAM_Button_DLC29_NAG_Black_Pyramid_Disempower_Open"
+					interactive="true"
+					disabled="true"
+					uniqueguid="9358A778-FA92-4266-8658276EFCC728C1">
+					<imagemetrics>
+						<image
+							this="9587F27E-EAE1-40AA-A7D384D2DC448EFE"
+							uniqueguid="9587F27E-EAE1-40AA-A7D384D2DC448EFE"
+							componentimage="55747949-C54C-4435-85ADE134BBB7BB79"
+							width="56"
+							height="56"
+							dockpoint="Center"/>
+						<image
+							this="8ADBC51E-66AB-4690-86A3BFF78C9343BB"
+							uniqueguid="8ADBC51E-66AB-4690-86A3BFF78C9343BB"
+							componentimage="EF26979F-734D-453A-BD1C3A3D33877C92"
+							width="56"
+							height="56"/>
+						<image
+							this="523F849A-73C9-475A-A34F6455822B8B98"
+							uniqueguid="523F849A-73C9-475A-A34F6455822B8B98"
+							componentimage="EB1D5486-E842-4395-B2B7DD33FFE7EF5F"
+							width="56"
+							height="56"/>
+						<image
+							this="F5E5F3A7-E625-4324-9268644F9DEBB4C6"
+							uniqueguid="F5E5F3A7-E625-4324-9268644F9DEBB4C6"
+							componentimage="EE04925D-C6B1-48AD-B561171EB8334C0C"
+							width="56"
+							height="56"
+							colour="#FFFFFF46"
+							dockpoint="Center"/>
+					</imagemetrics>
+					<component_text
+						font_m_size="12"
+						font_m_colour="#FFF8D7FF"
+						font_m_leading="3"
+						fontcat_name="body_12"/>
+				</no_sigils_allocated>
 				<selected
 					this="EC00A174-8236-4534-BAE024096E10EE59"
 					name="selected"
@@ -5969,6 +6036,9 @@
 			<callbackwithcontextlist>
 				<callback_with_context callback_id="FullScreenPanel">
 					<child_m_user_properties>
+						<property
+							name="dont_scale_child_animations"
+							value=""/>
 						<property
 							name="max_height"
 							value="1440"/>
@@ -13865,7 +13935,7 @@
 							targetmetrics_m_colour="#00000000"
 							targetmetrics_m_height="60"
 							targetmetrics_m_width="310"
-							targetmetrics_m_offset="0.00,86.00"
+							targetmetrics_m_offset="0.00,70.00"
 							easing_curve_type="Quadratic Out"
 							is_movement_absolute="true"/>
 						<frame
@@ -17034,7 +17104,7 @@
 			tooltiplabel="ComponentTooltip_c714714c"
 			uniqueguid="143A55CE-683F-46D1-B7F1C45A306C5AC8"
 			updatewhennotvisible="true"
-			currentstate="1601A2DA-0322-4735-9C1688756A0CC75B"
+			currentstate="8351CD99-1A3F-4579-BC2FBA0EDDB6956E"
 			defaultstate="8351CD99-1A3F-4579-BC2FBA0EDDB6956E">
 			<callbackwithcontextlist>
 				<callback_with_context
@@ -18180,6 +18250,12 @@
 						<property
 							name="nodes_holder"
 							value="tree_nodes_holder"/>
+						<property
+							name="pan_margin_x"
+							value="350"/>
+						<property
+							name="pan_margin_y"
+							value="50"/>
 						<property
 							name="zoom_increment"
 							value="0.25"/>
