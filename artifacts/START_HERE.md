@@ -1,50 +1,49 @@
-# Dwarf fixes without the Thunderer reload merge
+# Restore original Thunderer reload setup
 
-[Download DWARF_FIXES_NO_THUNDERER_MERGE.pack](DWARF_FIXES_NO_THUNDERER_MERGE.pack)
+[Download THUNDERER_REVERT.pack](THUNDERER_REVERT.pack)
 
-This is an import pack for your existing compatibility pack. It restores the
-supplied original dwf_axe_shield_fix.animpack byte-for-byte. This is the ONLY
-file in the pack. It contains animation database fragments, with no loose clips
-or metadata assets. The other nine animation sets stay exactly as supplied. The original, unmerged rifle set is preserved
-because an existing mercenary unit also uses its name; no failed Thunderer
-reload merge is retained.
+This reverses our basic-Thunderer edits. It does not merge charge attacks into
+Thunderers. No animation clips, metadata assets, skeletons or models are included;
+your existing enabled mods supply them.
 
-There are no DB files, no @marthreload.animpack, no animation or ramrod assets, and
-no unit assignment edits in this import. Keep your working assignments for the
-other units. Original Reloading Animations and texture/model fixes stay enabled.
+## Import
 
-## Import and remove the previous Thunderer patch
+Back up your compatibility pack. Import ALL SIX files from THUNDERER_REVERT.pack
+into that same pack, allowing all matching files to be replaced. Save it.
+Keep Reloading Animations and the original texture/model fixes enabled.
+Keep old diagnostic packs disabled as separate launcher mods.
 
-1. Back up your compatibility pack, then import ALL contents of this pack into
-   it and allow replacement of dwf_axe_shield_fix.animpack. Keep that newly
-   restored file; do not delete it after importing.
-2. If the previous Thunderer patch has not already been removed, delete ONLY
-   these four files from your compatibility pack (never from the original mods):
+The import performs the rollback directly; no manual row deletion or assignment
+editing is needed for the known files from your supplied export.
 
-   ```text
-   animations/database/battle/bin/@marthreload.animpack
-   db/battle_animations_table_tables/!!!!awd_thunderer_reload_registration
-   db/culture_to_battle_animation_tables_tables/!!!!awd_thunderer_reload_registration
-   db/land_units_tables/!!!!!!!awd_thunderer_reload_charge
-   ```
+## Exact changes
 
-3. Keep the standard Thunderer row wh_main_dwf_inf_thunderers_0 assigned to
-   hu3_dwarf_axe_shield_rifle in BOTH existing land_units_tables files:
-   !!!!!laf_dwarfs_vanilla_units and !!!awd_vanilla_plus_expanded.
-   Leave all other rows, stats and animation assignments as they are.
-4. Save. Keep the two original mods enabled and any earlier diagnostic packs
-   disabled as separate launcher mods.
+- Restore animations/database/battle/bin/@marthreload.animpack byte-for-byte
+  from your original marthreload.pack. This restores all five original fragments;
+  the native Thunderer fragment has no inserted jumping attacks.
+- In db/land_units_tables/!!!!!laf_dwarfs_vanilla_units and
+  db/land_units_tables/!!!awd_vanilla_plus_expanded, change only
+  wh_main_dwf_inf_thunderers_0 -> man_animation = hu3_dwarf_axe_shield_rifle.
+- Replace our previous extra land-unit override and two registration tables with
+  valid empty tables at their same paths, clearing the rows left by our patches:
+  db/land_units_tables/!!!!!!!awd_thunderer_reload_charge
+  db/battle_animations_table_tables/!!!!awd_thunderer_reload_registration
+  db/culture_to_battle_animation_tables_tables/!!!!awd_thunderer_reload_registration
 
-If you already completed the rollback, only step 1 is needed.
-Importing files cannot delete stale files, which is why step 2 is separate.
-Older loose reload/ramrod copies from the imports match the original reload
-mod's assets and do not contain the failed animation-table merge.
+Every other unit row and stat is preserved byte-for-byte from the supplied
+export. The melee-fix container is not included or changed, so the restored melee
+sets for other units remain as they are. The three empty files contain no active
+rows; leaving them empty is sufficient to clear their earlier contents.
 
-The source animation database container is preserved byte-for-byte. All clips,
-metadata, skeletons and models are supplied by your existing enabled mods.
-This package restores the working non-Thunderer setup reported by you; the
-assistant has not tested playback in Warhammer III.
+The earlier DWARF_FIXES_NO_THUNDERER_MERGE.pack restored only the original melee
+container. It contained no unit-table rollback. The earlier native-name test also
+inserted five charge attacks; this rollback leaves the original reload container
+completely unchanged.
 
-SHA-256: eb46db6207ae1e1d07639eac4a30892859ab5657d57f09e98b2add609c9837d3
+Checks compare actual binary contents, source data and all other unit rows.
+Game playback has not been verified by the assistant; this restores the original
+source setup rather than claiming a verified fix for an unknown runtime conflict.
 
-Previous Thunderer patch files are historical failed attempts; use the import linked above.
+SHA-256: 8d13bf2b0d3631fdb3d610709426a4831bc8a83d4630222563d7f65bee840d5d
+
+The separate melee restore import remains DWARF_FIXES_NO_THUNDERER_MERGE.pack.

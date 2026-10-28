@@ -1,0 +1,41 @@
+{
+  "purpose": "revert basic Thunderers to the original unmodified reload source; not a reload-and-charge merge",
+  "file": "THUNDERER_REVERT.pack",
+  "sha256": "8d13bf2b0d3631fdb3d610709426a4831bc8a83d4630222563d7f65bee840d5d",
+  "bytes": 554894,
+  "files": [
+    "animations/database/battle/bin/@marthreload.animpack",
+    "db/land_units_tables/!!!!!laf_dwarfs_vanilla_units",
+    "db/land_units_tables/!!!awd_vanilla_plus_expanded",
+    "db/battle_animations_table_tables/!!!!awd_thunderer_reload_registration",
+    "db/culture_to_battle_animation_tables_tables/!!!!awd_thunderer_reload_registration",
+    "db/land_units_tables/!!!!!!!awd_thunderer_reload_charge"
+  ],
+  "original_reload_container_byte_identical": true,
+  "original_reload_fragment_count": 5,
+  "land_unit_changes": [
+    {
+      "file": "db/land_units_tables/!!!!!laf_dwarfs_vanilla_units",
+      "unit": "wh_main_dwf_inf_thunderers_0",
+      "only_changed_field": "man_animation",
+      "from": "dwf_axe_shield_rifle_fix",
+      "to": "hu3_dwarf_axe_shield_rifle"
+    },
+    {
+      "file": "db/land_units_tables/!!!awd_vanilla_plus_expanded",
+      "unit": "wh_main_dwf_inf_thunderers_0",
+      "only_changed_field": "man_animation",
+      "from": "dwf_axe_shield_rifle_fix",
+      "to": "hu3_dwarf_axe_shield_rifle"
+    }
+  ],
+  "cleared_previous_patch_tables": [
+    "db/battle_animations_table_tables/!!!!awd_thunderer_reload_registration",
+    "db/culture_to_battle_animation_tables_tables/!!!!awd_thunderer_reload_registration",
+    "db/land_units_tables/!!!!!!!awd_thunderer_reload_charge"
+  ],
+  "other_unit_rows_and_values_preserved": true,
+  "loose_animation_assets_included": false,
+  "melee_fix_container_changed": false,
+  "gameplay_verified_by_assistant": false
+}
