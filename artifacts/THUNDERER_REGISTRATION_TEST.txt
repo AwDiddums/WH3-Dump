@@ -1,0 +1,24 @@
+Thunderer registration test
+
+The uploaded compatibility export was checked:
+- Both vanilla Thunderer definitions point to dwf_axe_shield_rifle_fix.
+- Those two Thunderer definitions are identical.
+- Its merged animpack exactly matches the generated merge.
+- It contains no battle_animations_table or culture_to_battle_animation_tables entries.
+- Reloading Animations was confirmed enabled by the user.
+
+This test pack adds ONLY these two rows:
+battle_animations_table_tables: dwf_axe_shield_rifle_fix -> humanoid03
+culture_to_battle_animation_tables_tables: dwf_axe_shield_rifle_fix -> wh_main_dwf_dwarfs
+
+Import both db folders into a backup of your FULL compatibility pack and save.
+Keep your current merged animpack and original Reloading Animations mod enabled.
+Do not replace the full compatibility pack with this small test pack or the
+uploaded diagnostic export. No land_units rows or animation files are changed.
+
+Another enabled mod may already supply these registrations. Their absence from
+the export does not prove their absence from the complete running mod setup.
+This is a targeted integration test, not a confirmed explanation or a game-tested fix.
+Test standard Thunderers standing still and firing several volleys at a target.
+If this makes no difference, the next isolation check is whether Reloading
+Animations works with the vanilla Thunderer animation set in a separate test.
