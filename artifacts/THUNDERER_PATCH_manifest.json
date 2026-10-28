@@ -1,0 +1,18 @@
+{
+  "files": [
+    "animations/database/battle/bin/dwf_axe_shield_fix.animpack",
+    "db/battle_animations_table_tables/!!!!awd_thunderer_reload_registration",
+    "db/culture_to_battle_animation_tables_tables/!!!!awd_thunderer_reload_registration",
+    "db/land_units_tables/!!!!!!!awd_thunderer_reload_charge"
+  ],
+  "file_count": 4,
+  "requires_enabled_mods": [
+    "Reloading Animations (marthreload.pack)",
+    "Warhammer 1 Update Project Model Fixes"
+  ],
+  "all_retained_contents_byte_identical_to_clean_rebuild": true,
+  "animation_data_changed_by_trimming": false,
+  "game_tested": false,
+  "sha256": "f26432e55a1e8ff669e46342357e9938e00cb2494d494af7d1fc72c703af11fc",
+  "size_bytes": 1022020
+}

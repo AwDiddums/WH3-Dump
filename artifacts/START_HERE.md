@@ -1,39 +1,42 @@
-# Use only THUNDERER_PATCH.pack
+# THUNDERER_PATCH.pack: minimal import
 
 [Download THUNDERER_PATCH.pack](THUNDERER_PATCH.pack)
 
-This is the consolidated Thunderer rebuild under one simple filename. Its
-contents are byte-identical to the previous CLEAN_REBUILD import, not a newly
-verified solution. Game playback is still unverified. Earlier versions failed
-in the user's tests; they must not be represented as confirmed fixes.
+This import contains exactly FOUR files. Reloading Animations and the original
+texture/model fixes must both remain enabled to provide the existing assets.
+No loose animation, skeleton or model assets are duplicated here.
 
 ## Install
 
 1. Back up your FULL compatibility pack.
-2. In RPFM, import ALL contents of THUNDERER_PATCH.pack into that pack and allow
-   matching files to be replaced. Save your full pack.
-3. Keep Reloading Animations, the original texture/model fixes, and your patched
-   compatibility pack enabled. Disable any older diagnostic/import packs if
-   enabled separately in the launcher. They are historical versions only.
+2. In RPFM import ALL FOUR files from THUNDERER_PATCH.pack into that pack and
+   replace matching files. Save your full pack.
+3. If you imported a modified `@marthreload.animpack` from an earlier diagnostic,
+   remove `animations/database/battle/bin/@marthreload.animpack` ONLY from your
+   compatibility pack. Leave the original Reloading Animations mod untouched.
+   Omitting this file from a new import does not delete an older copy.
+4. Keep the two original mods and your patched compatibility pack enabled.
+   Earlier diagnostic/import packs must not be enabled separately.
 
-Do not replace your whole compatibility .pack file with this small import pack.
-No manual Man Animation edits are required. The included one-row table selects
-`dwf_axe_shield_rifle_fix` for standard Thunderers, retaining their exported stats.
-All other unit table files and assignments remain untouched.
+The four files are:
 
-The package restores original `@marthreload.animpack` bytes to reset diagnostic
-copies, installs the combined custom rifle set, includes reload/charge assets,
-and adds the rifle registration/culture link. Other custom fragments are
-preserved. It does not add crossbow reload animations.
+```
+animations/database/battle/bin/dwf_axe_shield_fix.animpack
+db/battle_animations_table_tables/!!!!awd_thunderer_reload_registration
+db/culture_to_battle_animation_tables_tables/!!!!awd_thunderer_reload_registration
+db/land_units_tables/!!!!!!!awd_thunderer_reload_charge
+```
 
-Only basic Thunderers are the intended repair target: reload plus melee charge
-attacks. The runtime cause has not been conclusively identified; an in-game
-check of this consolidated state is still needed.
+The animpack retains all ten fragments. Its combined rifle set uses
+`dwf_axe_shield_rifle_fix`. The single unit row restores this assignment for
+standard Thunderers using the stats from the supplied export. No other unit
+table files or assignments are replaced.
 
-## Historical files
+All retained file contents are byte-identical to the CLEAN_REBUILD package.
+This trim changes packaging and dependencies only; it is not a new animation
+revision or an in-game-verified fix. The original playback problem remains
+unconfirmed. Earlier failed versions are historical records, not additional
+installation steps. Do not delete whole folders from your full compatibility
+pack, since they may contain unrelated assets.
 
-All other import/test pack names in this directory are superseded. Use none of
-them in addition to this package. They are retained as records, not additional
-installation steps.
-
-SHA-256: `165551af4daab719e8b9846bb6e93e7f25cc8bec9f8be7ea9de8eec3b207a139`
+SHA-256: `f26432e55a1e8ff669e46342357e9938e00cb2494d494af7d1fc72c703af11fc`
