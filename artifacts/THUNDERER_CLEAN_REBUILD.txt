@@ -1,0 +1,37 @@
+Thunderer clean rebuild
+
+This consolidates the intended combined set and restores the original source
+file that earlier diagnostic imports could leave modified. It is NOT a claim
+of verified game playback; the original runtime cause remains unconfirmed.
+
+WHAT IS INCLUDED
+- Original marthreload @marthreload.animpack, BYTE-FOR-BYTE unchanged. This
+  replaces any modified diagnostic copy at the same virtual path.
+- dwf_axe_shield_fix.animpack with a combined custom dwf_axe_shield_rifle_fix:
+  the working source rifle entries plus the five supplied melee-charge fixes.
+  The other nine custom fragments are unchanged from the texture-fix source.
+- Actual Dwarf reload/ramrod and uploaded charge assets.
+- Rifle skeleton registration and Dwarf culture link.
+- One new land_units table containing ONLY standard Thunderers. Its row is
+  copied BYTE-FOR-BYTE from the supplied export, selecting dwf_axe_shield_rifle_fix.
+  No existing unit table is replaced and no other unit assignments are changed.
+
+INSTALLATION
+1. Back up your FULL compatibility pack.
+2. Import ALL contents of awd_thunderer_reload_charge_CLEAN_REBUILD_IMPORT.pack
+   into that same pack and allow replacement. This replaces the earlier
+   no-charge control and resets the modified source @marthreload.animpack.
+3. The new one-row land_units table restores standard Thunderers' custom
+   assignment and stats from your uploaded export. Leave its man_animation as
+   dwf_axe_shield_rifle_fix. Your existing unit table files stay untouched.
+4. Keep Reloading Animations and the original texture/model fixes enabled.
+   Do not enable old diagnostic/import packs as separate launcher mods; their
+   files are only sources for importing into the one compatibility pack.
+5. Test basic Thunderers shooting and charging. This build is not game verified.
+
+The RPFM tree should contain both @marthreload.animpack (the exact original)
+and dwf_axe_shield_fix.animpack (the combined custom set) at:
+animations/database/battle/bin/
+
+No crossbow reload animations are added. Blunderbusses, Grudge-Rakers and
+Malakai are not changed by this rifle rebuild.

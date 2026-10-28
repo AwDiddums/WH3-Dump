@@ -1,0 +1,27 @@
+{
+  "purpose": "consolidated cleanup and combined candidate, not game verified",
+  "source_marth_animpack_restored_byte_for_byte": true,
+  "marth_animpack_sha256": "03eb2c2a6f61d4d80772a47b96ab917db08627a823b3cce7dd54538f6dfe97ce",
+  "custom_animation_set": "dwf_axe_shield_rifle_fix",
+  "source_reload_slots_preserved": [
+    1564,
+    1566,
+    1567,
+    1568
+  ],
+  "charge_slots_present": [
+    489,
+    490,
+    491,
+    492,
+    493
+  ],
+  "restored_unit_row_byte_identical_to_export": "wh_main_dwf_inf_thunderers_0",
+  "new_one_row_override": "db/land_units_tables/!!!!!!!awd_thunderer_reload_charge",
+  "existing_unit_table_files_replaced": false,
+  "other_user_stats_changed": false,
+  "file_count": 35,
+  "pack_sha256": "165551af4daab719e8b9846bb6e93e7f25cc8bec9f8be7ea9de8eec3b207a139",
+  "bytes": 1810413,
+  "game_tested": false
+}
