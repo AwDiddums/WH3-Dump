@@ -3,13 +3,13 @@
 [Download DWARF_FIXES_NO_THUNDERER_MERGE.pack](DWARF_FIXES_NO_THUNDERER_MERGE.pack)
 
 This is an import pack for your existing compatibility pack. It restores the
-supplied original dwf_axe_shield_fix.animpack byte-for-byte and includes all 17
-shared jumping-attack animation and metadata files. The other nine animation
-sets stay exactly as supplied. The original, unmerged rifle set is preserved
+supplied original dwf_axe_shield_fix.animpack byte-for-byte. This is the ONLY
+file in the pack. It contains animation database fragments, with no loose clips
+or metadata assets. The other nine animation sets stay exactly as supplied. The original, unmerged rifle set is preserved
 because an existing mercenary unit also uses its name; no failed Thunderer
 reload merge is retained.
 
-There are no DB files, no @marthreload.animpack, no reload or ramrod assets, and
+There are no DB files, no @marthreload.animpack, no animation or ramrod assets, and
 no unit assignment edits in this import. Keep your working assignments for the
 other units. Original Reloading Animations and texture/model fixes stay enabled.
 
@@ -40,8 +40,9 @@ Importing files cannot delete stale files, which is why step 2 is separate.
 Older loose reload/ramrod copies from the imports match the original reload
 mod's assets and do not contain the failed animation-table merge.
 
-The source container and all included shared assets are preserved byte-for-byte.
+The source animation database container is preserved byte-for-byte. All clips,
+metadata, skeletons and models are supplied by your existing enabled mods.
 This package restores the working non-Thunderer setup reported by you; the
 assistant has not tested playback in Warhammer III.
 
-SHA-256: b7eb32e3a5e45a563913bfd154885961bd899b6eab4a09d15191be9b3fc77951
+SHA-256: eb46db6207ae1e1d07639eac4a30892859ab5657d57f09e98b2add609c9837d3
