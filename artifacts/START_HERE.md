@@ -1,49 +1,49 @@
-# THUNDERER_PATCH.pack — direct merge into the reload animpack
+# Dwarf fixes without the Thunderer reload merge
 
-[Download THUNDERER_PATCH.pack](THUNDERER_PATCH.pack)
+[Download DWARF_FIXES_NO_THUNDERER_MERGE.pack](DWARF_FIXES_NO_THUNDERER_MERGE.pack)
 
-This package now merges the custom Thunderer rifle set INTO @marthreload.animpack.
-It preserves all five original reload-mod fragments unchanged, adds the custom
-rifle set with the supplied five melee fixes, and co-locates the supplied reload
-and charge assets. The duplicate custom rifle is removed from the texture-fix
-container; its nine other fragments stay byte-identical.
+This is an import pack for your existing compatibility pack. It restores the
+supplied original dwf_axe_shield_fix.animpack byte-for-byte and includes all 17
+shared jumping-attack animation and metadata files. The other nine animation
+sets stay exactly as supplied. The original, unmerged rifle set is preserved
+because an existing mercenary unit also uses its name; no failed Thunderer
+reload merge is retained.
 
-This is a structural change from the earlier fragments-only imports. It is NOT
-an in-game-verified fix or proof that the earlier container layout caused the
-failure. The screenshot suggested the co-located asset layout; the earlier
-source upload had assets outside its animpack. No runtime claim is made.
+There are no DB files, no @marthreload.animpack, no reload or ramrod assets, and
+no unit assignment edits in this import. Keep your working assignments for the
+other units. Original Reloading Animations and texture/model fixes stay enabled.
 
-## Install
+## Import and remove the previous Thunderer patch
 
-1. Back up your full compatibility pack.
-2. Import ALL FIVE files from THUNDERER_PATCH.pack into that pack, replacing
-   matching files. Save your full pack. Do not replace the full pack itself.
-3. KEEP BOTH included animation containers:
-   - animations/database/battle/bin/@marthreload.animpack
-   - animations/database/battle/bin/dwf_axe_shield_fix.animpack
-   The earlier advice to remove a diagnostic @marthreload.animpack does not
-   apply to this new merged container. This one contains the combined set.
-4. Keep Reloading Animations and the original texture/model fixes enabled.
-   Do not enable previous diagnostic/import packs separately.
+1. Back up your compatibility pack, then import ALL contents of this pack into
+   it and allow replacement of dwf_axe_shield_fix.animpack. Keep that newly
+   restored file; do not delete it after importing.
+2. If the previous Thunderer patch has not already been removed, delete ONLY
+   these four files from your compatibility pack (never from the original mods):
 
-The existing man_animation assignment stays dwf_axe_shield_rifle_fix.
-The three small DB files are unchanged from the previous minimal package:
-rifle registration, culture link, and the one standard-Thunderer unit row.
-No existing unit table files are replaced. Other unit assignments and exported
-stats remain unchanged. No loose asset folders need importing: the supplied
-animation assets are inside the merged reload animpack. Original mods still
-supply the ramrod model, vanilla audio and the other existing assets.
+   ```text
+   animations/database/battle/bin/@marthreload.animpack
+   db/battle_animations_table_tables/!!!!awd_thunderer_reload_registration
+   db/culture_to_battle_animation_tables_tables/!!!!awd_thunderer_reload_registration
+   db/land_units_tables/!!!!!!!awd_thunderer_reload_charge
+   ```
 
-## Checks performed
+3. Keep the standard Thunderer row wh_main_dwf_inf_thunderers_0 assigned to
+   hu3_dwarf_axe_shield_rifle in BOTH existing land_units_tables files:
+   !!!!!laf_dwarfs_vanilla_units and !!!awd_vanilla_plus_expanded.
+   Leave all other rows, stats and animation assignments as they are.
+4. Save. Keep the two original mods enabled and any earlier diagnostic packs
+   disabled as separate launcher mods.
 
-- Decoded all377 pasted RPFM rows; five melee records match supplied fix exactly.
-- All four reload entries match original source bytes.
-- All five original reload fragments and all nine remaining fix fragments match.
-- Exactly one custom rifle definition exists across the two delivered containers.
-- All supplied reload and relevant charge clips/metadata are in the reload container.
-- Wrapper indices, counts, DB records and round-trip reads pass.
+If you already completed the rollback, only step 1 is needed.
+Importing files cannot delete stale files, which is why step 2 is separate.
+Older loose reload/ramrod copies from the imports match the original reload
+mod's assets and do not contain the failed animation-table merge.
 
-Game playback remains unverified. Earlier packages remain historical records;
-use this current file only.
+The source container and all included shared assets are preserved byte-for-byte.
+This package restores the working non-Thunderer setup reported by you; the
+assistant has not tested playback in Warhammer III.
 
-SHA-256: `698787aa3da88096a67d199dbb95d171a7b78e16c6ea8567ac01c3b7df7c744c`
+SHA-256: b7eb32e3a5e45a563913bfd154885961bd899b6eab4a09d15191be9b3fc77951
+
+Previous Thunderer patch files are historical failed attempts; use the import linked above.
