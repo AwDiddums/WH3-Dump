@@ -1,0 +1,23 @@
+Five-slot controlled Thunderer test
+
+THIS IS A TEMPORARY DIAGNOSTIC, NOT THE REQUESTED COMBINED FIX.
+It deliberately blanks the five charge entries, keeping the reload entries.
+Its purpose is to test those entries in the user's existing combined setup.
+
+1. Back up the current compatibility pack.
+2. Import the ONE animpack from awd_thunderer_FIVE_SLOT_CONTROL_IMPORT.pack into
+   that pack, replacing animations/database/battle/bin/dwf_axe_shield_fix.animpack.
+3. Keep the current dwf_axe_shield_rifle_fix assignments, assets, registration
+   tables, original mods and load order unchanged. No other imports are needed.
+4. Test basic Thunderers firing stationary. Report whether the reload plays.
+5. Restore the backup after this test to recover the charge attacks.
+
+The control differs from the latest KEEP_ASSIGNMENTS candidate only in five
+rifle animation entries (489-493), which become empty as in original marthreload.
+All remaining 372 rifle entries and all nine other fragments are byte-identical.
+No land_units or registration tables are included; assignments and stats stay put.
+
+If reloads return, this supports an interaction with the restored charge entries.
+If reloads still fail, blanking those entries alone is insufficient in this setup;
+an active override, selection or another integration issue remains to investigate.
+The original marthreload-only test by itself could not distinguish these cases.

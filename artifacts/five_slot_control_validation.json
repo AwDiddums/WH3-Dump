@@ -1,0 +1,16 @@
+{
+  "purpose": "controlled test, deliberately removes the five charge attacks temporarily",
+  "differs_from_latest_candidate_only_in_rifle_slots": [
+    489,
+    490,
+    491,
+    492,
+    493
+  ],
+  "all_remaining_372_slots_identical": true,
+  "all_9_other_fragments_identical": true,
+  "rifle_table_name_unchanged": "dwf_axe_shield_rifle_fix",
+  "land_units_or_registration_tables_included": false,
+  "sha256": "13cf6cf3d080a9b3ba49cd98a2f38444033a31e5c5e38bc07d29665028994966",
+  "bytes": 1019479
+}
