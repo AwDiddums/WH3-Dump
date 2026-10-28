@@ -1,0 +1,24 @@
+{
+  "type": "combined Thunderer reload and melee-charge pack; game playback unverified",
+  "man_animation": "dwf_axe_shield_rifle_fix",
+  "land_units_tables_included": false,
+  "uses_original_working_marthreload_rifle_as_baseline": true,
+  "source_slots_preserved_byte_for_byte": 372,
+  "melee_charge_slots_from_texture_fix": [
+    489,
+    490,
+    491,
+    492,
+    493
+  ],
+  "original_reload_slots_preserved": [
+    1564,
+    1566,
+    1567,
+    1568
+  ],
+  "other_texture_fix_fragments_preserved": 9,
+  "files": 33,
+  "sha256": "dd0a51720814587ec583263cf4c84a412c0cdfdb65f60837ec2d9f20ccb9fcbf",
+  "game_tested": false
+}

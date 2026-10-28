@@ -1,0 +1,37 @@
+Thunderer reload + charge merge: keep existing assignments
+
+Required Thunderer man_animation: dwf_axe_shield_rifle_fix
+This import pack contains NO land_units tables and makes no unit assignments
+or stat changes. All other existing Man Animation assignments stay as they are.
+
+The custom rifle fragment is rebuilt from the original marthreload rifle set.
+All source entries, including the four reload entries, are preserved unchanged
+except the five empty jumping-attack entries (489-493). Those are replaced with
+the corresponding texture-fix charge attacks. The original texture-fix custom
+name and header are retained. The other nine texture-fix fragments are unchanged.
+Reload/ramrod assets, the supplied melee assets and rifle registration rows are
+included. File structure and byte comparisons passed; in-game playback is unverified.
+
+Installation:
+1. Back up your full compatibility pack.
+2. Import ALL contents of awd_thunderer_reload_charge_KEEP_ASSIGNMENTS_IMPORT.pack
+   into it, replacing animations/database/battle/bin/dwf_axe_shield_fix.animpack.
+3. Keep your EXISTING dwf_axe_shield_rifle_fix assignment for standard Thunderers.
+   Keep all other custom assignments you already made.
+4. Keep Reloading Animations and the original texture/model fixes enabled.
+5. Test standard Thunderers firing repeatedly while stationary and charging in melee.
+
+If you already imported the earlier original-set diagnostic (the one that
+included land_units tables), restore ONLY wh_main_dwf_inf_thunderers_0 to
+man_animation = dwf_axe_shield_rifle_fix in its two definitions:
+- db/land_units_tables/!!!!!laf_dwarfs_vanilla_units
+- db/land_units_tables/!!!awd_vanilla_plus_expanded
+No other unit assignments need undoing. The present pack does not include or
+replace @marthreload.animpack. Any prior imported original-set diagnostic copy
+can be removed from your compatibility pack if no longer needed; leave the
+original Reloading Animations mod intact.
+
+This replaces the rifle contents from the first merge and supersedes the
+original-set diagnostic for users keeping the custom name. The cause of the
+first merge's absent reload playback has not been confirmed. This build uses
+the user-confirmed working source as its baseline without changing assignments.
