@@ -1,18 +1,36 @@
 {
+  "purpose": "direct merge of supplied melee fixes into the reload animation container",
+  "file_count": 5,
   "files": [
+    "animations/database/battle/bin/@marthreload.animpack",
     "animations/database/battle/bin/dwf_axe_shield_fix.animpack",
     "db/battle_animations_table_tables/!!!!awd_thunderer_reload_registration",
     "db/culture_to_battle_animation_tables_tables/!!!!awd_thunderer_reload_registration",
     "db/land_units_tables/!!!!!!!awd_thunderer_reload_charge"
   ],
-  "file_count": 4,
-  "requires_enabled_mods": [
-    "Reloading Animations (marthreload.pack)",
-    "Warhammer 1 Update Project Model Fixes"
+  "custom_rifle_definition_location": "animations/database/battle/bin/@marthreload.animpack",
+  "duplicate_custom_rifle_definitions": 0,
+  "original_reload_fragments_preserved_byte_for_byte": 5,
+  "other_melee_fix_fragments_preserved_byte_for_byte": 9,
+  "source_animation_assets_preserved_byte_for_byte": 63,
+  "supplied_charge_assets_added": 10,
+  "reload_entries_preserved": [
+    1564,
+    1566,
+    1567,
+    1568
   ],
-  "all_retained_contents_byte_identical_to_clean_rebuild": true,
-  "animation_data_changed_by_trimming": false,
+  "melee_entries_from_paste": [
+    489,
+    490,
+    491,
+    492,
+    493
+  ],
+  "assignment": "dwf_axe_shield_rifle_fix",
+  "existing_unit_tables_replaced": false,
+  "table_file_changes_from_previous_minimal_patch": false,
   "game_tested": false,
-  "sha256": "f26432e55a1e8ff669e46342357e9938e00cb2494d494af7d1fc72c703af11fc",
-  "size_bytes": 1022020
+  "sha256": "698787aa3da88096a67d199dbb95d171a7b78e16c6ea8567ac01c3b7df7c744c",
+  "bytes": 3042799
 }
