@@ -1,0 +1,30 @@
+{
+  "purpose": "diagnostic build using marthreload original animation-set name; not game verified",
+  "base_fragment": "animations/database/battle/bin/hu3_dwarf_axe_shield_rifle.bin",
+  "melee_charge_slots_replaced": [
+    489,
+    490,
+    491,
+    492,
+    493
+  ],
+  "reload_slots_unchanged": [
+    1564,
+    1566,
+    1567,
+    1568
+  ],
+  "all_other_original_marth_fragment_slots_preserved": 372,
+  "other_marth_fragments_unchanged": 4,
+  "land_unit_key": "wh_main_dwf_inf_thunderers_0",
+  "man_animation": "hu3_dwarf_axe_shield_rifle",
+  "changed_table_files": [
+    "db/land_units_tables/!!!!!laf_dwarfs_vanilla_units",
+    "db/land_units_tables/!!!awd_vanilla_plus_expanded"
+  ],
+  "other_unit_fields_changed": 0,
+  "files": 26,
+  "sha256": "c1e97ee2342ee8d30dac66f41cb797e27c408c7a4f730de12da66ca908f9003d",
+  "bytes": 784663,
+  "game_tested": false
+}

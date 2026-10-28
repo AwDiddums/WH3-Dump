@@ -1,0 +1,39 @@
+Thunderer original-animation-set test
+
+This is a DIAGNOSTIC build, not an in-game-verified fix.
+The previous merge contained the intended reload entries. The uploaded user
+export also had both Thunderer rows assigned correctly. A specific runtime
+cause for the absent reload has not been established.
+
+This test takes the original marthreload animation container as its baseline.
+It preserves all four reload entries and every other source slot, except five
+empty jumping-attack entries (489-493) replaced by the texture-fix melee attacks.
+The other four non-Dwarf fragments in @marthreload.animpack are byte-identical.
+It changes standard Thunderers back to the vanilla hu3_dwarf_axe_shield_rifle
+name in BOTH land_units table files found in the uploaded export. All other
+row values, unit stats and units are preserved exactly from that export.
+Actual Dwarf reload/ramrod and the five melee attack assets are included.
+
+Installation:
+1. Back up your FULL compatibility pack, including its current land_units tables.
+2. In RPFM import ALL contents of awd_thunderer_original_set_test_IMPORT.pack
+   into that full pack, allowing the two matching land_units files to replace
+   their existing copies. These files are based on the supplied diagnostic export;
+   preserve any newer edits before importing if you changed them since that export.
+3. Keep the original Reloading Animations and texture/model fixes enabled.
+4. Test standard Thunderers standing still and firing several volleys. Also test
+   their melee charge/jumping attacks. Their man_animation should now be
+   hu3_dwarf_axe_shield_rifle in this diagnostic setup.
+
+Do not replace your full mod with this small import pack. Other rifle unit rows
+are unchanged. Your custom dwf_axe_shield_fix.animpack is also unchanged and
+continues to serve the other unit mappings. Registration-test rows can remain;
+the standard Thunderer row in this test no longer selects their custom name.
+
+No crossbow reload clips exist in either supplied source pack, so no crossbow
+reload animation is added. Grudge-Rakers and Malakai already use reload clips
+present in the texture-fix animation sets and are unchanged by this test.
+
+To undo, restore your backup, or restore the two land_units files and remove the
+imported @marthreload.animpack from your compatibility pack. Leave the original
+Reloading Animations pack intact.
